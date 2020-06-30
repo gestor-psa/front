@@ -8,6 +8,7 @@ import Logo from 'components/common/Logo';
 import Drawer from 'components/header/Drawer';
 import DesktopTabs from 'components/header/DesktopTabs';
 import {Hidden} from '@material-ui/core';
+import Title from "components/header/Title";
 
 
 const useStyles = makeStyles(theme => ({
@@ -27,10 +28,18 @@ const useStyles = makeStyles(theme => ({
     logo: {
         width: 50,
         margin: theme.spacing(2, 0)
+    },
+    title: {
+        display: 'flex',
+        alignItems: 'center',
+        position: 'absolute',
+        left: '51%',
+        transform: 'translateX(-50%)',
+        height: '100%',
     }
 }));
 
-export default function ButtonAppBar() {
+export default () => {
     const classes = useStyles();
 
     const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -47,6 +56,9 @@ export default function ButtonAppBar() {
                         <DesktopTabs/>
                     </Hidden>
                     <Hidden mdUp>
+                        <div className={classes.title}>
+                            <Title/>
+                        </div>
                         <IconButton
                             className={classes.menuButton}
                             onClick={openDrawer}
