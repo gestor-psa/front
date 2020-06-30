@@ -5,7 +5,9 @@ import MobileTabs from 'components/header/MobileTabs';
 
 const useStyles = makeStyles(theme => ({
   drawerPaper: {
-    background: theme.palette.primary.main
+    background: theme.palette.primary.main,
+    minWidth: 200,
+    paddingTop: theme.spacing(4)
   }
 }));
 
