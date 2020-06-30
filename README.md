@@ -1,6 +1,6 @@
 # Frontend Gestor PSA
 
-[![Build Status](https://travis-ci.com/seblaz/seblaz.github.io.svg?branch=develop)](https://travis-ci.com/seblaz/seblaz.github.io)
+[![Build Status](https://travis-ci.com/gestor-psa/front.svg?token=ztzmYxxiK9M4zZcGZZzZ&branch=master)](https://travis-ci.com/gestor-psa/front)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
