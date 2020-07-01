@@ -7,6 +7,7 @@ import Header from 'sections/Header';
 import Footer from 'sections/Footer';
 import Content from 'sections/Content';
 import Router from "app/Router";
+import 'app/extensions'
 
 
 export default () => {

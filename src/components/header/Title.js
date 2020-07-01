@@ -8,14 +8,14 @@ import React from "react";
 const useStyles = makeStyles(theme => ({
     title: {
         color: theme.palette.secondary.contrastText,
-        fontWeight: 600,
+        fontWeight: 500,
         fontSize: 28
     }
 }));
 
 export default () => {
-    let location = useLocation();
     const classes = useStyles();
+    const location = useLocation();
     const title = content.find(section =>
         location.pathname === section.route ||
         location.pathname.startsWith(section.route + '/'));
