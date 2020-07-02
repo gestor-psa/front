@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
 export default () => {
     const classes = useStyles();
     const location = useLocation();
+    console.log(location);
     const title = content.find(section =>
         location.pathname === section.route ||
         location.pathname.startsWith(section.route + '/'));

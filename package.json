@@ -16,7 +16,7 @@
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-helmet": "^5.2.1",
+    "react-helmet": "^6.1.0",
     "react-moment": "^0.9.7",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -27,7 +27,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "react-snap",
     "test": "react-scripts test",
     "update-msw": "npx msw init public",
     "eject": "react-scripts eject"
@@ -49,16 +48,9 @@
   },
   "homepage": "https://gestor-psa.github.io",
   "devDependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "msw": "^0.19.5",
-    "react-snap": "^1.23.0"
-  },
-  "reactSnap": {
-    "viewport": {
-      "width": 1920,
-      "height": 1080
-    }
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.3",
+    "@testing-library/user-event": "^12.0.11",
+    "msw": "^0.19.5"
   }
 }
