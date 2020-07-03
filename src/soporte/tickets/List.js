@@ -9,17 +9,19 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import {useHistory, useRouteMatch} from "react-router";
+import SkeletonList from "soporte/common/SkeletonList";
+import Loading from "soporte/common/Loading";
 
 
 const useStyles = makeStyles({
-    table: {
-        minWidth: 650,
-    },
+    root: {
+        position: 'relative'
+    }
 });
 
-export default function SimpleTable() {
-    const classes = useStyles();
-    const [tickets, setTickets] = useState([]);
+export default () => {
+    const [tickets, setTickets] = useState();
+    const classes = useStyles({tickets});
     const {url} = useRouteMatch();
     const history = useHistory();
 
@@ -46,31 +48,33 @@ export default function SimpleTable() {
     }
 
     return (
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>Nombre</TableCell>
-                        <TableCell>Descripción</TableCell>
-                        <TableCell>Responsable</TableCell>
-                        <TableCell>Tipo</TableCell>
-                        <TableCell>Severidad</TableCell>
-                        <TableCell>Estado</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {tickets.map(ticket => (
-                        <TableRow key={ticket.id} onClick={() => handleRowClick(ticket.id)}>
-                            <TableCell>{ticket.nombre}</TableCell>
-                            <TableCell>{truncate(ticket.descripcion, 45)}</TableCell>
-                            <TableCell>{ticket.responsable}</TableCell>
-                            <TableCell>{ticket.tipo.capitalize()}</TableCell>
-                            <TableCell>{ticket.severidad.capitalize()}</TableCell>
-                            <TableCell>{ticket.estado.capitalize()}</TableCell>
+        <Loading show={!tickets} esqueleto={<SkeletonList rows={6} columns={6}/>}>
+            <TableContainer component={Paper}>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Nombre</TableCell>
+                            <TableCell>Descripción</TableCell>
+                            <TableCell>Responsable</TableCell>
+                            <TableCell>Tipo</TableCell>
+                            <TableCell>Severidad</TableCell>
+                            <TableCell>Estado</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {tickets && tickets.map(ticket => (
+                            <TableRow key={ticket.id} onClick={() => handleRowClick(ticket.id)}>
+                                <TableCell>{ticket.nombre}</TableCell>
+                                <TableCell>{truncate(ticket.descripcion, 45)}</TableCell>
+                                <TableCell>{ticket.responsable}</TableCell>
+                                <TableCell>{ticket.tipo.capitalize()}</TableCell>
+                                <TableCell>{ticket.severidad.capitalize()}</TableCell>
+                                <TableCell>{ticket.estado.capitalize()}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </Loading>
     );
 }

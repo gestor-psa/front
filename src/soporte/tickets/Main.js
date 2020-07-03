@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Switch, useRouteMatch} from "react-router";
 import List from 'soporte/tickets/List'
-import ViewTicket from "soporte/tickets/ViewTicket";
+import VerTicket from "soporte/tickets/VerTicket";
 
 // /tickets
 export default () => {
@@ -13,7 +13,7 @@ export default () => {
                 <List/>
             </Route>
             <Route path={`${path}/:id`}>
-                <ViewTicket/>
+                <VerTicket/>
             </Route>
         </Switch>
     )

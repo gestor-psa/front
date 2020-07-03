@@ -6,7 +6,7 @@ import Projects from 'views/Projects';
 import Soporte from 'views/Soporte';
 import Recursos from 'views/Recursos';
 import NotFound from 'views/NotFound';
-import {useLocation} from "react-router";
+import {Redirect, useLocation} from "react-router";
 import Animation from "app/Animation";
 
 
@@ -25,11 +25,16 @@ const content = [{
 }];
 
 export default () => {
-    let location = useLocation();
+    const location = useLocation();
 
     return (
         <Animation location={location}>
             <Switch location={location}>
+                {/* Solución automágica para lidiar con las trailing slashes
+                (https://github.com/ReactTraining/react-router/issues/4841) */}
+                <Route exact strict path="(.*//+.*)" render={({location}) =>
+                    <Redirect to={location.pathname.replace(/\/\/+/g, '/')}/>}
+                />
                 <Route exact path='/'>
                     <Home/>
                 </Route>

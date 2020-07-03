@@ -4,6 +4,7 @@ export default [
     rest.get(process.env.REACT_APP_URL_SOPORTE + '/tickets',
         (req, res, ctx) => {
             return res(
+                ctx.delay(1600),
                 ctx.status(200),
                 ctx.json([
                     {
@@ -53,6 +54,7 @@ export default [
     rest.get(process.env.REACT_APP_URL_SOPORTE + '/tickets/1',
         (req, res, ctx) => {
             return res(
+                ctx.delay(1000),
                 ctx.status(200),
                 ctx.json({
                     "nombre": "Tiempos de espera",
