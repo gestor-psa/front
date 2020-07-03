@@ -1,8 +1,10 @@
 import Moment from "react-moment";
-import React from "react";
+import React, {Fragment} from "react";
 
 export default ({fecha}) => {
     return (
-        <Moment date={fecha} local format="DD/MM/YYYY HH:mm"/>
+        <Fragment>
+            {fecha ? <Moment date={fecha} local format="DD/MM/YYYY HH:mm"/> : ''}
+        </Fragment>
     )
 }

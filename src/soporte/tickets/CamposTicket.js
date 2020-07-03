@@ -5,51 +5,51 @@ import EsqueletoMultilinea from "soporte/common/EsqueletoMultilinea";
 
 
 export default ({
-                    nombre, descripcion, responsable, tipo, severidad,
-                    estado, fechaDeCreacion, fechaDeActualizacion
+                    mostrar, nombre, descripcion, responsable, tipo,
+                    severidad, estado, fechaDeCreacion, fechaDeActualizacion
                 }) => {
 
     return (
         <Fragment>
             <EsqueletoTexto
                 etiqueta='Nombre'
-                mostrar={!nombre}
+                mostrar={mostrar}
                 valor={nombre}
             />
             <EsqueletoMultilinea
                 filas={3}
                 etiqueta='Descripción'
-                mostrar={!descripcion}
+                mostrar={mostrar}
                 valor={descripcion}
             />
             <EsqueletoTexto
                 etiqueta='Responsable'
-                mostrar={!responsable}
+                mostrar={mostrar}
                 valor={responsable}
             />
             <EsqueletoTexto
                 etiqueta='Tipo'
-                mostrar={!tipo}
+                mostrar={mostrar}
                 valor={tipo && tipo.capitalize()}
             />
             <EsqueletoTexto
                 etiqueta='Severidad'
-                mostrar={!severidad}
+                mostrar={mostrar}
                 valor={severidad && severidad.capitalize()}
             />
             <EsqueletoTexto
                 etiqueta='Estado'
-                mostrar={!estado}
+                mostrar={mostrar}
                 valor={estado && estado.capitalize()}
             />
             <EsqueletoTexto
                 etiqueta='Fecha de creación'
-                mostrar={!fechaDeCreacion}
+                mostrar={mostrar}
                 valor={<Fecha fecha={fechaDeCreacion}/>}
             />
             <EsqueletoTexto
                 etiqueta='Fecha de actualización'
-                mostrar={!fechaDeActualizacion}
+                mostrar={mostrar}
                 valor={<Fecha fecha={fechaDeActualizacion}/>}
             />
         </Fragment>

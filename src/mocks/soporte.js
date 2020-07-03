@@ -64,7 +64,7 @@ export default [
                     "responsable": "Agustín Ramirez",
                     "estado": "iniciado",
                     "fechaDeCreacion": "2020-06-04T18:19:29.472Z",
-                    "fechaDeActualizacion": "2020-06-04T10:14:38.472Z",
+                    "fechaDeActualizacion": null,
                     "id": 1
                 }),
             )

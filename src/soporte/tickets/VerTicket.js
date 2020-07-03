@@ -42,7 +42,7 @@ export default () => {
                     </Grid>
                     <Grid item container spacing={6} xs={12}>
                         <Grid item xs={6}>
-                            <CamposTicket {...ticket}/>
+                            <CamposTicket mostrar={ticket == null} {...ticket}/>
                         </Grid>
                         <Grid item xs={6}>
                             <AgregarComentario/>
