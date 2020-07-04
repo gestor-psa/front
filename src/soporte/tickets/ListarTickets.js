@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +11,7 @@ import axios from 'axios';
 import {useHistory, useRouteMatch} from "react-router";
 import EsqueletoTabla from "soporte/common/EsqueletoTabla";
 import Loading from "soporte/common/Loading";
+import {useMediaQuery} from "@material-ui/core";
 
 
 const useStyles = makeStyles({
@@ -24,6 +25,7 @@ export default () => {
     const classes = useStyles({tickets});
     const {url} = useRouteMatch();
     const history = useHistory();
+    const isMdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
 
     useEffect(() => {
         axios.get(process.env.REACT_APP_URL_SOPORTE + '/tickets')
@@ -48,28 +50,36 @@ export default () => {
     }
 
     return (
-        <Loading mostrar={tickets} esqueleto={<EsqueletoTabla rows={6} columns={6}/>}>
+        <Loading mostrar={tickets} esqueleto={<EsqueletoTabla rows={6} columns={isMdUp ? 6 : 3}/>}>
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
                             <TableCell>Nombre</TableCell>
-                            <TableCell>Descripción</TableCell>
-                            <TableCell>Responsable</TableCell>
+                            {isMdUp && (
+                                <Fragment>
+                                    <TableCell>Descripción</TableCell>
+                                    <TableCell>Responsable</TableCell>
+                                </Fragment>
+                            )}
                             <TableCell>Tipo</TableCell>
                             <TableCell>Severidad</TableCell>
-                            <TableCell>Estado</TableCell>
+                            {isMdUp && <TableCell>Estado</TableCell>}
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {tickets && tickets.map(ticket => (
                             <TableRow key={ticket.id} onClick={() => handleRowClick(ticket.id)}>
                                 <TableCell>{ticket.nombre}</TableCell>
-                                <TableCell>{truncate(ticket.descripcion, 45)}</TableCell>
-                                <TableCell>{ticket.responsable}</TableCell>
+                                {isMdUp && (
+                                    <Fragment>
+                                        <TableCell>{truncate(ticket.descripcion, 45)}</TableCell>
+                                        <TableCell>{ticket.responsable}</TableCell>
+                                    </Fragment>
+                                )}
                                 <TableCell>{ticket.tipo.capitalize()}</TableCell>
                                 <TableCell>{ticket.severidad.capitalize()}</TableCell>
-                                <TableCell>{ticket.estado.capitalize()}</TableCell>
+                                {isMdUp && <TableCell>{ticket.estado.capitalize()}</TableCell>}
                             </TableRow>
                         ))}
                     </TableBody>

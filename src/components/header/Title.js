@@ -24,7 +24,8 @@ export default () => {
     return (
         <Hidden mdUp>
             <Typography variant="h5" className={classes.title}>
-                {(title && title.label) || 'Not found'}
+                {location.pathname === '/' ? 'Home' :
+                    (title && title.label) || '404'}
             </Typography>
         </Hidden>
     )

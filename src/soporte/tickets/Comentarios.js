@@ -15,7 +15,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        height: 430
+        minHeight: 430
     },
     comentarios: {
         margin: 0,

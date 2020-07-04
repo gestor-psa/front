@@ -31,9 +31,6 @@ export default () => {
             .then(res => {
                 setTicket(res.data);
             })
-            .catch(error => {
-                // TODO.
-            })
     }, [id]);
 
     return (
@@ -54,7 +51,7 @@ export default () => {
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                        <Acciones/>
+                        <Acciones mostrar={Boolean(ticket)}/>
                     </Grid>
                 </Grid>
             </Paper>

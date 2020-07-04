@@ -8,6 +8,7 @@ import Footer from 'sections/Footer';
 import Content from 'sections/Content';
 import Router from "app/Router";
 import 'app/extensions'
+import AxiosErrorHandler from "app/AxiosErrorHandler";
 
 
 export default () => {
@@ -15,6 +16,7 @@ export default () => {
         <Theme>
             <Router>
                 <Background>
+                    <AxiosErrorHandler/>
                     <ScrollToTop/>
                     <Header/>
                     <Content/>

@@ -68,5 +68,15 @@ export default [
                     "id": 1
                 }),
             )
+        }),
+    rest.get(process.env.REACT_APP_URL_SOPORTE + '/tickets/0',
+        (req, res, ctx) => {
+            return res(
+                ctx.delay(200),
+                ctx.status(400),
+                ctx.json({
+                    "nombre": "El nombre es requerido",
+                }),
+            )
         })
 ]

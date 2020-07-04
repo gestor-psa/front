@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         justifyContent: 'flex-end',
         marginTop: theme.spacing(1),
-        position: 'relative'
     },
     acciones: {
         margin: theme.spacing(0, 2)
@@ -35,13 +34,10 @@ const useStyles = makeStyles(theme => ({
         }
     },
 
-    masAccionesWrapper: {
-        height: 60
-    },
     masAcciones: {
-        position: 'absolute',
-        bottom: 0,
-        right: 0
+        position: 'fixed',
+        bottom: theme.spacing(3),
+        right: theme.spacing(3)
     },
     eliminarSm: {
         color: theme.palette.error.main
@@ -54,56 +50,63 @@ const useStyles = makeStyles(theme => ({
     },
     backdrop: {
         zIndex: 1000,
-        color: '#fff',
+        backgroundColor: 'rgba(0,0,0,0.34)',
     }
 }));
 
-export default () => {
+export default ({mostrar}) => {
     const classes = useStyles();
-    const isMdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
+    const isMdUp = useMediaQuery(theme => theme.breakpoints.up('sm'));
 
     const [open, setOpen] = React.useState(false);
 
     const actions = [
         {icon: <Edit className={classes.modificarSm}/>, name: <span className={classes.modificarSm}>Modificar</span>},
-        {icon: <Assignment className={classes.crearTareaSm}/>, name: <span className={classes.crearTareaSm}>Crear&nbsp;Tarea</span>},
+        {
+            icon: <Assignment className={classes.crearTareaSm}/>,
+            name: <span className={classes.crearTareaSm}>Crear&nbsp;Tarea</span>
+        },
         {icon: <Delete className={classes.eliminarSm}/>, name: <span className={classes.eliminarSm}>Eliminar</span>},
     ];
 
     return (
-        <div className={classes.root}>
+        <Fragment>
             {isMdUp ? (
-                <Fragment>
+                <div className={classes.root}>
                     <Button
+                        disabled={!mostrar}
                         variant="outlined"
                         className={`${classes.acciones} ${classes.eliminar}`}
                     >
                         Eliminar
                     </Button>
                     <Button
+                        disabled={!mostrar}
                         variant="outlined"
                         className={`${classes.acciones} ${classes.tarea}`}
                     >
                         Crear tarea
                     </Button>
                     <Button
+                        disabled={!mostrar}
                         color="secondary"
                         variant="contained"
                         className={classes.acciones}
                     >
                         Modificar
                     </Button>
-                </Fragment>
+                </div>
             ) : (
-                <div className={classes.masAccionesWrapper}>
+                <div>
                     <Backdrop open={open} className={classes.backdrop}/>
                     <SpeedDial
+                        disabled={!mostrar}
                         className={classes.masAcciones}
                         icon={<SpeedDialIcon/>}
                         onClose={() => setOpen(false)}
                         onOpen={() => setOpen(true)}
                         open={open}
-                        FabProps={{color: "secondary"}}
+                        FabProps={{color: "secondary", disabled: !mostrar}}
                         ariaLabel="acciones"
                     >
                         {actions.map((action, key) => (
@@ -117,6 +120,6 @@ export default () => {
                     </SpeedDial>
                 </div>
             )}
-        </div>
+        </Fragment>
     )
 }
