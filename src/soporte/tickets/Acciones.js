@@ -13,17 +13,17 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(0, 2)
     },
     eliminar: {
-        background: theme.palette.error.main,
-        color: theme.palette.error.contrastText,
+        borderColor: theme.palette.error.main,
+        color: theme.palette.error.main, //theme.palette.error.contrastText,
         '&:hover': {
-            backgroundColor: theme.palette.error.dark
+            backgroundColor: '#f443361c'
         }
     },
-    escalar: {
-        background: theme.palette.warning.main,
-        color: theme.palette.warning.contrastText,
+    tarea: {
+        borderColor: theme.palette.warning.dark,
+        color: theme.palette.warning.dark,
         '&:hover': {
-            backgroundColor: theme.palette.warning.dark
+            backgroundColor: '#f57c001c'
         }
     }
 }));
@@ -34,17 +34,16 @@ export default () => {
     return (
         <div className={classes.root}>
             <Button
-                variant="contained"
+                variant="outlined"
                 className={`${classes.acciones} ${classes.eliminar}`}
             >
                 Eliminar
             </Button>
             <Button
-                color="secondary"
-                variant="contained"
-                className={`${classes.acciones} ${classes.escalar}`}
+                variant="outlined"
+                className={`${classes.acciones} ${classes.tarea}`}
             >
-                Escalar a desarrollo
+                Crear tarea
             </Button>
             <Button
                 color="secondary"

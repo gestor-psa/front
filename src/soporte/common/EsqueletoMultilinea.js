@@ -32,7 +32,7 @@ export default ({etiqueta, mostrar, valor, filas}) => {
                     {etiqueta}:&nbsp;
                 </Typography>
             </Grid>
-            <Loading show={mostrar}
+            <Loading mostrar={mostrar}
                      className={classes.esqueletoDescripcion}
                      esqueleto={
                          <Fragment>

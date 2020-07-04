@@ -4,7 +4,7 @@ export default [
     rest.get(process.env.REACT_APP_URL_SOPORTE + '/tickets',
         (req, res, ctx) => {
             return res(
-                ctx.delay(1600),
+                ctx.delay(300),
                 ctx.status(200),
                 ctx.json([
                     {

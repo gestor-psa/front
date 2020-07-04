@@ -26,7 +26,7 @@ export default ({etiqueta, mostrar, valor}) => {
             <Typography className={classes.descriptor}>
                 {etiqueta}:&nbsp;
             </Typography>
-            <Loading show={mostrar}
+            <Loading mostrar={mostrar}
                      className={classes.esqueleto}
                      esqueleto={<Typography><Skeleton/></Typography>}
             >

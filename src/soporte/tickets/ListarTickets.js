@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import {useHistory, useRouteMatch} from "react-router";
-import SkeletonList from "soporte/common/SkeletonList";
+import EsqueletoTabla from "soporte/common/EsqueletoTabla";
 import Loading from "soporte/common/Loading";
 
 
@@ -48,7 +48,7 @@ export default () => {
     }
 
     return (
-        <Loading show={!tickets} esqueleto={<SkeletonList rows={6} columns={6}/>}>
+        <Loading show={tickets} esqueleto={<EsqueletoTabla rows={6} columns={6}/>}>
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
                     <TableHead>

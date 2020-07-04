@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {makeStyles} from "@material-ui/core/styles";
 import Fade from "@material-ui/core/Fade";
 
@@ -8,24 +8,24 @@ const useStyles = makeStyles({
         position: 'relative'
     },
     esqueleto: {
-        position: ({show}) => show ? 'initial' : 'absolute',
+        position: ({mostrar}) => mostrar ? 'absolute' : 'initial',
         top: 0,
         left: 0,
         width: '100%'
     }
 });
 
-export default ({children, esqueleto, show, timeout = 500, className='', clases = {esqueleto: ''}}) => {
-    const classes = useStyles({show});
+export default ({children, esqueleto, mostrar, timeout = 500, className='', clases = {esqueleto: ''}}) => {
+    const classes = useStyles({mostrar});
 
     return (
         <div className={`${classes.root} ${className}`}>
-            {!show && (
+            {mostrar && (
                 <Fade in={true} timeout={timeout}>
-                    {children}
+                    <div>{children}</div>
                 </Fade>
             )}
-            <Fade in={show} timeout={timeout} unmountOnExit>
+            <Fade in={!mostrar} timeout={timeout} unmountOnExit>
                 <div className={`${classes.esqueleto} ${clases.esqueleto}`}>
                     {esqueleto}
                 </div>

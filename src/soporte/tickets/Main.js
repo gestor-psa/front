@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Switch, useRouteMatch} from "react-router";
-import List from 'soporte/tickets/List'
+import ListarTickets from 'soporte/tickets/ListarTickets'
 import VerTicket from "soporte/tickets/VerTicket";
 
 // /tickets
@@ -10,7 +10,7 @@ export default () => {
     return (
         <Switch>
             <Route exact path={path}>
-                <List/>
+                <ListarTickets/>
             </Route>
             <Route path={`${path}/:id`}>
                 <VerTicket/>
