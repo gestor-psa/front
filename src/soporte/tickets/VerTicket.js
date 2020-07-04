@@ -8,11 +8,15 @@ import {makeStyles} from "@material-ui/core/styles";
 import CamposTicket from "soporte/tickets/CamposTicket";
 import Comentarios from "soporte/tickets/Comentarios";
 import Acciones from "soporte/tickets/Acciones";
+import {useMediaQuery} from "@material-ui/core";
 
 
 const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(4, 6),
+        [theme.breakpoints.down('xs')]: {
+            padding: theme.spacing(2, 2)
+        }
     }
 }));
 
@@ -20,6 +24,7 @@ export default () => {
     const {id} = useParams();
     const [ticket, setTicket] = useState();
     const classes = useStyles();
+    const isMd = useMediaQuery(theme => theme.breakpoints.up('md'));
 
     useEffect(() => {
         axios.get(process.env.REACT_APP_URL_SOPORTE + '/tickets/' + id)
@@ -40,11 +45,11 @@ export default () => {
                             Ver ticket
                         </Typography>
                     </Grid>
-                    <Grid item container spacing={6} xs={12}>
-                        <Grid item xs={6}>
+                    <Grid item container spacing={isMd ? 6 : 2} xs={12}>
+                        <Grid item xs={12} md={6}>
                             <CamposTicket mostrar={Boolean(ticket)} {...ticket}/>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={12} md={6}>
                             <Comentarios mostrar={Boolean(ticket)}/>
                         </Grid>
                     </Grid>

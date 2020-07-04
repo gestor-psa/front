@@ -48,7 +48,7 @@ export default () => {
     }
 
     return (
-        <Loading show={tickets} esqueleto={<EsqueletoTabla rows={6} columns={6}/>}>
+        <Loading mostrar={tickets} esqueleto={<EsqueletoTabla rows={6} columns={6}/>}>
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
                     <TableHead>

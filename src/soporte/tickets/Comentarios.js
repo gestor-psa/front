@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme => ({
         maxHeight: 300,
         overflow: 'auto'
     },
+    item: {
+        minHeight: 'auto'
+    },
     itemOpuesto: {
         '&:before': {
             flex: 0,
@@ -45,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 export default ({mostrar}) => {
     const classes = useStyles();
-    const comentarios = Array(3).fill("Este es un comentario bastante más largo aunque no tanto más puesto que solo es un comentario.");
+    const comentarios = Array(8).fill("Este es un comentario bastante más largo aunque no tanto más puesto que solo es un comentario.Este es un comentario bastante más largo aunque no tanto más puesto que solo es un comentario.");
 
     return (
         <div className={classes.root}>
@@ -55,7 +58,7 @@ export default ({mostrar}) => {
             <Loading mostrar={mostrar} esqueleto={<Skeleton variant="rect" height={400}/>}>
                 <Timeline className={classes.comentarios}>
                     {comentarios.map((comentario, key) =>
-                        <TimelineItem key={key} classes={{missingOppositeContent: classes.itemOpuesto}}>
+                        <TimelineItem key={key} classes={{root: classes.item, missingOppositeContent: classes.itemOpuesto}}>
                             <TimelineSeparator>
                                 <TimelineDot className={classes.conector}/>
                                 {comentarios.length - 1 !== key &&
