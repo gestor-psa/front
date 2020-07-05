@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
     const classes = useStyles();
-    const {url} = useRouteMatch();
+    const {url} = useRouteMatch() || {};
 
     return (
         <Fragment>

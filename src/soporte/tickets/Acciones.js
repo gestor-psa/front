@@ -57,7 +57,7 @@ const useStyles = makeStyles(theme => ({
 
 export default ({mostrar}) => {
     const classes = useStyles();
-    const {url} = useRouteMatch();
+    const {url} = useRouteMatch() || {};
     const history = useHistory();
     const isMdUp = useMediaQuery(theme => theme.breakpoints.up('sm'));
 

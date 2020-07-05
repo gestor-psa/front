@@ -19,34 +19,7 @@ export default () => {
     return (
         <ContentWrapper>
             <Paper className={classes.paper}>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
-                <p>Home</p><br/>
+                <p>Home</p>
             </Paper>
         </ContentWrapper>
     );

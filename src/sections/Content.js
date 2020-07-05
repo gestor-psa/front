@@ -1,13 +1,13 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 
 import Home from 'views/Home';
 import Projects from 'views/Projects';
 import Soporte from 'views/Soporte';
 import Recursos from 'views/Recursos';
-import NotFound from 'views/NotFound';
-import {Redirect, useLocation} from "react-router";
-import Animation from "app/Animation";
+import {Redirect} from "react-router";
+import AnimatedSwitch from "components/common/AnimatedSwitch";
+import AnimatedRoute from "components/common/AnimatedRoute";
 
 
 const content = [{
@@ -25,29 +25,26 @@ const content = [{
 }];
 
 export default () => {
-    const location = useLocation();
 
     return (
-        <Animation location={location}>
-            <Switch location={location}>
-                {/* Solución automágica para lidiar con las trailing slashes
+        <>
+            {/* Solución automágica para lidiar con las trailing slashes
                 (https://github.com/ReactTraining/react-router/issues/4841) */}
-                <Route exact strict path="(.*//+.*)" render={({location}) =>
-                    <Redirect to={location.pathname.replace(/\/\/+/g, '/')}/>}
-                />
-                <Route exact path='/'>
+            <Route exact strict path="(.*//+.*)" render={({location}) =>
+                <Redirect to={location.pathname.replace(/\/\/+/g, '/')}/>}
+            />
+
+            <AnimatedSwitch>
+                <AnimatedRoute exact path='/'>
                     <Home/>
-                </Route>
+                </AnimatedRoute>
                 {content.map(({label, route, Component}, key) =>
-                    <Route path={route} key={key}>
+                    <AnimatedRoute path={route} key={key}>
                         <Component/>
-                    </Route>
+                    </AnimatedRoute>
                 )}
-                <Route>
-                    <NotFound/>
-                </Route>
-            </Switch>
-        </Animation>
+            </AnimatedSwitch>
+        </>
     )
 }
 

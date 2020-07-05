@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 export default () => {
     const [tickets, setTickets] = useState();
     const classes = useStyles({tickets});
-    const {url} = useRouteMatch();
+    const {url} = useRouteMatch() || {};
     const history = useHistory();
     const isMdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
 

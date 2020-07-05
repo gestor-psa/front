@@ -1,25 +1,26 @@
 import React from 'react';
-import {Route, useRouteMatch} from "react-router";
+import {useRouteMatch} from "react-router";
 import Ticket from "soporte/tickets/Ticket";
-import NotFoundSwitch from "components/common/NotFoundSwitch";
 import CrearTicket from "soporte/tickets/crear/CrearTicket";
 import MenuTickets from "soporte/tickets/MenuTickets";
+import AnimatedSwitch from "components/common/AnimatedSwitch";
+import AnimatedRoute from "components/common/AnimatedRoute";
 
 // /tickets
 export default () => {
-    const {path} = useRouteMatch();
+    const {path} = useRouteMatch() || {};
 
     return (
-        <NotFoundSwitch>
-            <Route exact path={path}>
+        <AnimatedSwitch>
+            <AnimatedRoute exact path={path}>
                 <MenuTickets/>
-            </Route>
-            <Route path={`${path}/creacion`}>
+            </AnimatedRoute>
+            <AnimatedRoute path={`${path}/creacion`}>
                 <CrearTicket/>
-            </Route>
-            <Route path={`${path}/:id(\\d+)`}>
+            </AnimatedRoute>
+            <AnimatedRoute path={`${path}/:id(\\d+)`}>
                 <Ticket/>
-            </Route>
-        </NotFoundSwitch>
+            </AnimatedRoute>
+        </AnimatedSwitch>
     )
 }
