@@ -1,9 +1,9 @@
 import React from 'react';
 import {Route, useRouteMatch} from "react-router";
-import ListarTickets from 'soporte/tickets/ListarTickets'
 import Ticket from "soporte/tickets/Ticket";
 import NotFoundSwitch from "components/common/NotFoundSwitch";
 import CrearTicket from "soporte/tickets/crear/CrearTicket";
+import MenuTickets from "soporte/tickets/MenuTickets";
 
 // /tickets
 export default () => {
@@ -12,7 +12,7 @@ export default () => {
     return (
         <NotFoundSwitch>
             <Route exact path={path}>
-                <ListarTickets/>
+                <MenuTickets/>
             </Route>
             <Route path={`${path}/creacion`}>
                 <CrearTicket/>

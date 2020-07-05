@@ -8,6 +8,7 @@ import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 
 import {Assignment, Delete, Edit} from "@material-ui/icons";
 import Backdrop from "@material-ui/core/Backdrop";
+import {useHistory, useRouteMatch} from "react-router";
 
 
 const useStyles = makeStyles(theme => ({
@@ -56,17 +57,25 @@ const useStyles = makeStyles(theme => ({
 
 export default ({mostrar}) => {
     const classes = useStyles();
+    const {url} = useRouteMatch();
+    const history = useHistory();
     const isMdUp = useMediaQuery(theme => theme.breakpoints.up('sm'));
 
     const [open, setOpen] = React.useState(false);
 
+    const onModificar = () => history.push(`${url}/modificacion`)
+
     const actions = [
-        {icon: <Edit className={classes.modificarSm}/>, name: <span className={classes.modificarSm}>Modificar</span>},
         {
+            icon: <Edit className={classes.modificarSm} onClick={onModificar}/>,
+            name: <span className={classes.modificarSm} onClick={onModificar}>Modificar</span>
+        }, {
             icon: <Assignment className={classes.crearTareaSm}/>,
             name: <span className={classes.crearTareaSm}>Crear&nbsp;Tarea</span>
+        }, {
+            icon: <Delete className={classes.eliminarSm}/>,
+            name: <span className={classes.eliminarSm}>Eliminar</span>
         },
-        {icon: <Delete className={classes.eliminarSm}/>, name: <span className={classes.eliminarSm}>Eliminar</span>},
     ];
 
     return (
@@ -92,6 +101,7 @@ export default ({mostrar}) => {
                         color="secondary"
                         variant="contained"
                         className={classes.acciones}
+                        onClick={onModificar}
                     >
                         Modificar
                     </Button>
