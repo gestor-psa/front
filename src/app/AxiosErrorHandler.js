@@ -31,6 +31,7 @@ export default () => {
                 return new Promise(() => {
                 });
             }
+            return Promise.reject(err);
         });
     }, [])
 

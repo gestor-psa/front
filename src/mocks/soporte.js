@@ -69,13 +69,21 @@ export default [
                 }),
             )
         }),
-    rest.get(process.env.REACT_APP_URL_SOPORTE + '/tickets/0',
+    rest.post(process.env.REACT_APP_URL_SOPORTE + '/tickets',
         (req, res, ctx) => {
             return res(
-                ctx.delay(200),
-                ctx.status(400),
+                ctx.delay(1000),
+                ctx.status(201),
                 ctx.json({
-                    "nombre": "El nombre es requerido",
+                    "nombre": "Tiempos de espera",
+                    "descripcion": "Se desea optimizar los tiempos de espera al confirmar la compra, de forma tal que tarde aproximadamente la mitad de lo que tarda hoy en día.",
+                    "tipo": "mejora",
+                    "severidad": "media",
+                    "responsable": "Agustín Ramirez",
+                    "estado": "iniciado",
+                    "fechaDeCreacion": "2020-06-04T18:19:29.472Z",
+                    "fechaDeActualizacion": null,
+                    "id": 1
                 }),
             )
         })

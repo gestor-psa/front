@@ -1,20 +1,25 @@
 import React from 'react';
-import {Route, Switch, useRouteMatch} from "react-router";
+import {Route, useRouteMatch} from "react-router";
 import ListarTickets from 'soporte/tickets/ListarTickets'
-import VerTicket from "soporte/tickets/VerTicket";
+import Ticket from "soporte/tickets/Ticket";
+import NotFoundSwitch from "components/common/NotFoundSwitch";
+import CrearTicket from "soporte/tickets/crear/CrearTicket";
 
 // /tickets
 export default () => {
     const {path} = useRouteMatch();
 
     return (
-        <Switch>
+        <NotFoundSwitch>
             <Route exact path={path}>
                 <ListarTickets/>
             </Route>
-            <Route path={`${path}/:id`}>
-                <VerTicket/>
+            <Route path={`${path}/creacion`}>
+                <CrearTicket/>
             </Route>
-        </Switch>
+            <Route path={`${path}/:id(\\d+)`}>
+                <Ticket/>
+            </Route>
+        </NotFoundSwitch>
     )
 }
