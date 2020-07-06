@@ -25,7 +25,7 @@ export default () => {
                 <VerTicket ticket={ticket}/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
-                <ModificarTicket/>
+                <ModificarTicket ticket={ticket} onTicketChange={t => setTicket(t)}/>
             </AnimatedRoute>
         </AnimatedSwitch>
     )

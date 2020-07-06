@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({onDataChange}) => {
+export default ({onDataChange, ticket = {}, conEstado = false}) => {
     const classes = useStyles();
 
     const tipos = [
@@ -39,6 +39,18 @@ export default ({onDataChange}) => {
             valor: 'alta'
         }];
 
+    const estados = [
+        {
+            etiqueta: 'Pendiente',
+            valor: 'pendiente'
+        }, {
+            etiqueta: 'Iniciado',
+            valor: 'iniciado'
+        }, {
+            etiqueta: 'Cerrado',
+            valor: 'cerrado'
+        }];
+
     return (
         <div>
             <Typography className={classes.etiquetaSeleccionDeGrupo}>
@@ -46,6 +58,8 @@ export default ({onDataChange}) => {
             </Typography>
             <SeleccionDeGrupo
                 opciones={tipos}
+                key={ticket.tipo}
+                seleccionPorDefecto={ticket.tipo}
                 onChange={({valor}) => onDataChange({tipo: valor})}
             />
             <Typography className={classes.etiquetaSeleccionDeGrupo}>
@@ -53,8 +67,21 @@ export default ({onDataChange}) => {
             </Typography>
             <SeleccionDeGrupo
                 opciones={severidades}
+                key={ticket.severidad}
+                seleccionPorDefecto={ticket.severidad}
                 onChange={({valor}) => onDataChange({severidad: valor})}
             />
+            {conEstado && (<>
+                <Typography className={classes.etiquetaSeleccionDeGrupo}>
+                    Estado *
+                </Typography>
+                <SeleccionDeGrupo
+                    opciones={estados}
+                    key={ticket.estado}
+                    seleccionPorDefecto={ticket.estado}
+                    onChange={({valor}) => onDataChange({estado: valor})}
+                />
+            </>)}
         </div>
     )
 }

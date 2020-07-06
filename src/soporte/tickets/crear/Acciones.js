@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({onCrear, esperando}) => {
+export default ({onConfirmar, textoConfirmar, esperando}) => {
     const classes = useStyles();
     const history = useHistory();
 
@@ -28,14 +28,14 @@ export default ({onCrear, esperando}) => {
             <ColoredButton
                 color='info'
                 className={classes.accion}
-                onClick={onCrear}
+                onClick={onConfirmar}
             >
                 {esperando && <CircularProgress
                     size={20}
                     color='inherit'
                     className={classes.progreso}
                 />}
-                Crear
+                {textoConfirmar}
             </ColoredButton>
             <ColoredButton
                 color='error'

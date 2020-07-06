@@ -10,15 +10,12 @@ import {useHistory} from "react-router";
 
 export default () => {
     const {register, errors, handleSubmit} = useForm();
-    const [data, setData] = useState({
-        tipo: 'consulta',
-        severidad: 'baja'
-    });
+    const [data, setData] = useState({tipo: 'consulta', severidad: 'baja'});
     const [esperando, setEsperando] = useState(false);
     const onDataChange = (e) => setData({...data, ...e});
     const history = useHistory();
 
-    const onCrear = () => {
+    const onConfirmar = () => {
         setEsperando(true);
         axios.post(process.env.REACT_APP_URL_SOPORTE + '/tickets', data)
             .then((result) => {
@@ -39,10 +36,17 @@ export default () => {
                     errors={errors}
                     register={register}
                     onDataChange={onDataChange}
-                />
-            }
-            ladoDerecho={<CamposDeSeleccion onDataChange={onDataChange}/>}
-            fin={<Acciones onCrear={handleSubmit(onCrear)} esperando={esperando}/>}
+                />}
+            ladoDerecho={
+                <CamposDeSeleccion
+                    onDataChange={onDataChange}
+                />}
+            fin={
+                <Acciones
+                    onConfirmar={handleSubmit(onConfirmar)}
+                    esperando={esperando}
+                    textoConfirmar='Crear'
+                />}
         />
     )
 }

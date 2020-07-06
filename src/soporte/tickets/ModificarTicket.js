@@ -1,47 +1,61 @@
-import React from "react";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import {makeStyles} from "@material-ui/core/styles";
-import CamposTicket from "soporte/tickets/CamposTicket";
-import Comentarios from "soporte/tickets/Comentarios";
-import Acciones from "soporte/tickets/Acciones";
-import {useMediaQuery} from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import Layout from "soporte/tickets/Layout";
+import axios from "axios";
+import {useForm} from "react-hook-form";
+import CamposDeTexto from "soporte/tickets/crear/CamposDeTexto";
+import CamposDeSeleccion from "soporte/tickets/crear/CamposDeSeleccion";
+import Acciones from "soporte/tickets/crear/Acciones";
+import {useHistory, useParams} from "react-router";
 
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        padding: theme.spacing(4, 6),
-        [theme.breakpoints.down('xs')]: {
-            padding: theme.spacing(2, 2)
-        }
+export default ({ticket, onTicketChange}) => {
+    const {register, errors, handleSubmit} = useForm();
+    const [data, setData] = useState(ticket);
+    const [esperando, setEsperando] = useState(false);
+    const onDataChange = (e) => setData({...data, ...e});
+    const history = useHistory();
+    const {id} = useParams();
+
+    useEffect(() => {
+        setData(ticket);
+    }, [ticket])
+
+    const onConfirmar = () => {
+        setEsperando(true);
+        axios.put(process.env.REACT_APP_URL_SOPORTE + '/tickets/' + id, data)
+            .then((result) => {
+                onTicketChange(result.data);
+                history.push(`/soporte/tickets/${result.data.id}`)
+                console.log(result);
+            })
+            .catch(error => {
+                // TODO.
+                console.log(error.response);
+            });
     }
-}));
-
-export default ({ticket = {}}) => {
-    const classes = useStyles();
-    const isMd = useMediaQuery(theme => theme.breakpoints.up('md'));
 
     return (
-        <Paper className={classes.root}>
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <Typography variant='h4'>
-                        Ver ticket
-                    </Typography>
-                </Grid>
-                <Grid item container spacing={isMd ? 6 : 2} xs={12}>
-                    <Grid item xs={12} md={6}>
-                        <CamposTicket mostrar={Boolean(ticket)} {...ticket}/>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <Comentarios mostrar={Boolean(ticket)}/>
-                    </Grid>
-                </Grid>
-                <Grid item xs={12}>
-                    <Acciones mostrar={Boolean(ticket)}/>
-                </Grid>
-            </Grid>
-        </Paper>
+        <Layout
+            titulo='Modificar Ticket'
+            ladoIzquierdo={
+                <CamposDeTexto
+                    ticket={ticket}
+                    errors={errors}
+                    register={register}
+                    onDataChange={onDataChange}
+                />}
+            ladoDerecho={
+                <CamposDeSeleccion
+                    conEstado={true}
+                    ticket={ticket}
+                    onDataChange={onDataChange}
+                />}
+            fin={
+                <Acciones
+                    esperando={esperando}
+                    textoConfirmar='Modificar'
+                    onConfirmar={handleSubmit(onConfirmar)}
+                />}
+        />
     )
 }

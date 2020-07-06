@@ -68,20 +68,22 @@ export default () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {tickets && tickets.map(ticket => (
-                            <TableRow key={ticket.id} onClick={() => handleRowClick(ticket.id)}>
-                                <TableCell>{ticket.nombre}</TableCell>
-                                {isMdUp && (
-                                    <Fragment>
-                                        <TableCell>{truncate(ticket.descripcion, 45)}</TableCell>
-                                        <TableCell>{ticket.responsable}</TableCell>
-                                    </Fragment>
-                                )}
-                                <TableCell>{ticket.tipo.capitalize()}</TableCell>
-                                <TableCell>{ticket.severidad.capitalize()}</TableCell>
-                                {isMdUp && <TableCell>{ticket.estado.capitalize()}</TableCell>}
-                            </TableRow>
-                        ))}
+                        {tickets && tickets
+                            .filter(ticket => ticket.estado !== 'cerrado')
+                            .map(ticket => (
+                                <TableRow key={ticket.id} onClick={() => handleRowClick(ticket.id)}>
+                                    <TableCell>{ticket.nombre}</TableCell>
+                                    {isMdUp && (
+                                        <Fragment>
+                                            <TableCell>{truncate(ticket.descripcion, 45)}</TableCell>
+                                            <TableCell>{ticket.responsable}</TableCell>
+                                        </Fragment>
+                                    )}
+                                    <TableCell>{ticket.tipo.capitalize()}</TableCell>
+                                    <TableCell>{ticket.severidad.capitalize()}</TableCell>
+                                    {isMdUp && <TableCell>{ticket.estado.capitalize()}</TableCell>}
+                                </TableRow>
+                            ))}
                     </TableBody>
                 </Table>
             </TableContainer>
