@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-// import axios from 'axios';
+import axios from 'axios';
 import {useHistory, useRouteMatch} from "react-router";
 import {useMediaQuery} from "@material-ui/core";
 
@@ -26,14 +26,15 @@ export default () => {
     const isMdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
 
     useEffect(() => {
-        // axios.get(process.env.REACT_APP_URL_RECURSOS + '/empleados')
-        //     .then(res => {
-        //         setEmpleados(res.data);
-        //     })
-        //     .catch(error => {
-        //         // TODO.
-        //     })
-        setEmpleados([{"dni":41204123,"nombre":"Ignacio Nitz","legajo":100710,"puesto":"Jefe"},{"dni":41204543,"nombre":"Lucas Rial","legajo":100230,"puesto":"Gerente"}])
+        axios.get(process.env.REACT_APP_URL_RECURSOS + '/employees')
+            .then(res => {
+                console.log(res)
+                setEmpleados(res.data);
+            })
+            .catch(error => {
+                // TODO.
+            })
+        // setEmpleados([{"dni":41204123,"nombre":"Ignacio Nitz","legajo":100710,"puesto":"Jefe"},{"dni":41204543,"nombre":"Lucas Rial","legajo":100230,"puesto":"Gerente"}])
     }, []);
 
     // const truncate = (str, length) => {
@@ -71,9 +72,9 @@ export default () => {
                                 <TableCell>{empleado.dni}</TableCell>
                                 {isMdUp && (
                                     <Fragment>
-                                        <TableCell>{empleado.nombre}</TableCell>
-                                        <TableCell>{empleado.legajo}</TableCell>
-                                        <TableCell>{empleado.puesto}</TableCell>
+                                        <TableCell>{empleado.name+ " "+ empleado.surname}</TableCell>
+                                        <TableCell>{empleado.organization_id}</TableCell>
+                                        <TableCell>{empleado.pos}</TableCell>
                                     </Fragment>
                                 )}
                                 

@@ -4,7 +4,7 @@ import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 
 export default ({
                     mostrar, name, surname, dni, date_birth, organization_id,
-                    pos, date_hired
+                    pos, date_hire
                 }) => {
 
     return (
@@ -32,7 +32,7 @@ export default ({
             <EsqueletoTexto
                 etiqueta='Fecha de contratación'
                 mostrar={mostrar}
-                valor={date_hired}
+                valor={date_hire}
             />
             <EsqueletoTexto
                 etiqueta='Puesto'
