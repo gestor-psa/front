@@ -17,6 +17,7 @@ export default () => {
 
     const onConfirmar = () => {
         setEsperando(true);
+        console.log(data);
         axios.post(process.env.REACT_APP_URL_SOPORTE + '/tickets', data)
             .then((result) => {
                 history.push(`/soporte/tickets/${result.data.id}`)

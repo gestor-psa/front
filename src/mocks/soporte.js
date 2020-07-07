@@ -86,5 +86,24 @@ export default [
                     "id": 1
                 }),
             )
-        })
+        }),
+    // rest.get(process.env.REACT_APP_URL_RECURSOS + '/empleados',
+    //     (req, res, ctx) => {
+    //         return res(
+    //             ctx.delay(1000),
+    //             ctx.status(200),
+    //             ctx.json([
+    //                 {
+    //                     "nombre": "Juan Perez",
+    //                     "id": 45357946
+    //                 }, {
+    //                     "nombre": "Sebastián Blázquez",
+    //                     "id": 39917487
+    //                 }, {
+    //                     "nombre": "Carolina Martínez",
+    //                     "id": 87542369
+    //                 }
+    //             ]),
+    //         )
+    //     }),
 ]

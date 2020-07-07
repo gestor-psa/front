@@ -1,6 +1,7 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import SearchSelect from "soporte/common/SearchSelect";
 
 
 const useStyles = makeStyles(theme => ({
@@ -10,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({onDataChange, register, errors, ticket = {}}) => {
+export default ({onDataChange, register, errors, ticket = {}, responsables = []}) => {
     const classes = useStyles();
 
     return (
@@ -29,8 +30,8 @@ export default ({onDataChange, register, errors, ticket = {}}) => {
                 helperText={errors.nombre && 'El nombre es requerido'}
             />
             <TextField
-                rows={2}
-                rowsMax={5}
+                rows={8}
+                rowsMax={16}
                 multiline
                 label='Descripción'
                 className={classes.campo}
@@ -44,12 +45,25 @@ export default ({onDataChange, register, errors, ticket = {}}) => {
                 inputRef={register({required: true})}
                 helperText={errors.descripcion && 'La descripcion es requerida'}
             />
-            <TextField
-                label='Responsable'
-                className={classes.campo}
-                key={ticket.responsable}
-                defaultValue={ticket.responsable}
-                onChange={(e) => onDataChange({responsable: e.target.value})}
+            <SearchSelect
+                // url={process.env.REACT_APP_URL_RECURSOS + '/empleados'}
+                opciones={[
+                    {
+                        "nombre": "Juan Perez",
+                        "id": 45357946
+                    }, {
+                        "nombre": "Sebastián Blázquez",
+                        "id": 39917487
+                    }, {
+                        "nombre": "Carolina Martínez",
+                        "id": 87542369
+                    }
+                ]}
+                autocompleteProps={{
+                    getOptionLabel: empleado => empleado.nombre,
+                    onChange: (e, v) => onDataChange({responsable: v.nombre})
+                }}
+                textFieldProps={{label: 'Responsable'}}
             />
         </div>
     )
