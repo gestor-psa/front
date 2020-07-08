@@ -18,8 +18,8 @@ const useStyles = makeStyles(theme => ({
 export default ({children}) => {
     const classes = useStyles();
 
-    const [mostrar, setMostrar] = useState(true);
-    const [mensaje, setMensaje] = useState('Ticket eliminado');
+    const [mostrar, setMostrar] = useState(false);
+    const [mensaje, setMensaje] = useState('');
 
     const confirmacionContextValue = {
         setMostrar: valor => setMostrar(valor),
