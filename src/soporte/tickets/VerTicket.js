@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import CamposTicket from "soporte/tickets/CamposTicket";
 import Comentarios from "soporte/tickets/Comentarios";
-import Acciones from "soporte/tickets/Acciones";
+import Acciones from "soporte/tickets/acciones/Acciones";
 import {useMediaQuery} from "@material-ui/core";
 
 

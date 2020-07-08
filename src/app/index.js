@@ -9,6 +9,7 @@ import Content from 'sections/Content';
 import Router from "app/Router";
 import 'app/extensions'
 import AxiosErrorHandler from "app/AxiosErrorHandler";
+import MensajedeConfirmacion from "app/MensajedeConfirmacion";
 
 
 export default () => {
@@ -18,9 +19,11 @@ export default () => {
                 <Background>
                     <AxiosErrorHandler/>
                     <ScrollToTop/>
-                    <Header/>
-                    <Content/>
-                    <Footer/>
+                    <MensajedeConfirmacion>
+                        <Header/>
+                        <Content/>
+                        <Footer/>
+                    </MensajedeConfirmacion>
                 </Background>
             </Router>
         </Theme>

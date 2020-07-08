@@ -87,6 +87,13 @@ export default [
                 }),
             )
         }),
+    rest.delete(process.env.REACT_APP_URL_SOPORTE + '/tickets/1',
+        (req, res, ctx) => {
+            return res(
+                ctx.delay(1000),
+                ctx.status(200)
+            )
+        }),
     // rest.get(process.env.REACT_APP_URL_RECURSOS + '/empleados',
     //     (req, res, ctx) => {
     //         return res(

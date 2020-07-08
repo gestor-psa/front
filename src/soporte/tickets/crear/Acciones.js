@@ -1,8 +1,8 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import ColoredButton from "soporte/common/ColoredButton";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import {useHistory} from "react-router";
+import ProgressButton from "soporte/common/ProgressButton";
 
 
 const useStyles = makeStyles(theme => ({
@@ -25,20 +25,17 @@ export default ({onConfirmar, textoConfirmar, esperando}) => {
 
     return (
         <div className={classes.acciones}>
-            <ColoredButton
+            <ProgressButton
                 color='info'
-                className={classes.accion}
+                variant='outlined'
                 onClick={onConfirmar}
+                inProgress={esperando}
             >
-                {esperando && <CircularProgress
-                    size={20}
-                    color='inherit'
-                    className={classes.progreso}
-                />}
                 {textoConfirmar}
-            </ColoredButton>
+            </ProgressButton>
             <ColoredButton
                 color='error'
+                variant='outlined'
                 onClick={() => history.goBack()}
             >
                 Cancelar
