@@ -71,7 +71,11 @@ export default () => {
                         {tickets && tickets
                             .filter(ticket => ticket.estado !== 'cerrado')
                             .map(ticket => (
-                                <TableRow key={ticket.id} onClick={() => handleRowClick(ticket.id)}>
+                                <TableRow
+                                    hover
+                                    key={ticket.id}
+                                    onClick={() => handleRowClick(ticket.id)}
+                                >
                                     <TableCell>{ticket.nombre}</TableCell>
                                     {isMdUp && (
                                         <Fragment>
