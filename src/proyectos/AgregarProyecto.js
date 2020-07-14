@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import Paper from '@material-ui/core/Paper';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {useRouteMatch} from "react-router";
+import { useRouteMatch } from 'react-router';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
