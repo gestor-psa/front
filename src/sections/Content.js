@@ -2,7 +2,7 @@ import React from 'react';
 import {Route} from 'react-router-dom';
 
 import Home from 'views/Home';
-import Projects from 'views/Projects';
+import Proyectos from 'views/Proyectos';
 import Soporte from 'views/Soporte';
 import Recursos from 'views/Recursos';
 import {Redirect} from "react-router";
@@ -13,7 +13,7 @@ import AnimatedRoute from "components/common/AnimatedRoute";
 const content = [{
     label: 'Proyectos',
     route: '/proyectos',
-    Component: Projects
+    Component: Proyectos
 }, {
     label: 'Soporte',
     route: '/soporte',
