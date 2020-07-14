@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({onDataChange, register, errors, ticket = {}, responsables = []}) => {
+export default ({onDataChange, register, errors, ticket = {}}) => {
     const classes = useStyles();
 
     return (
@@ -47,6 +47,7 @@ export default ({onDataChange, register, errors, ticket = {}, responsables = []}
             />
             <SearchSelect
                 // url={process.env.REACT_APP_URL_RECURSOS + '/empleados'}
+                defaultValue={{nombre: ticket.responsable}}
                 opciones={[
                     {
                         "nombre": "Juan Perez",
@@ -60,8 +61,9 @@ export default ({onDataChange, register, errors, ticket = {}, responsables = []}
                     }
                 ]}
                 autocompleteProps={{
-                    getOptionLabel: empleado => empleado.nombre,
-                    onChange: (e, v) => onDataChange({responsable: v.nombre})
+                    getOptionLabel: empleado => empleado.nombre || '',
+                    getOptionSelected: (e1, e2) => e1.nombre === e2.nombre,
+                    onChange: (e, v) => onDataChange({responsable: v && v.nombre})
                 }}
                 textFieldProps={{label: 'Responsable'}}
             />
