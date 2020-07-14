@@ -1,7 +1,7 @@
 import React, {Fragment, useContext, useState} from "react";
 import {useHistory, useParams, useRouteMatch} from "react-router";
-import AccionesDesktop from "soporte/tickets/acciones/AccionesDesktop";
-import AccionesMobile from "soporte/tickets/acciones/AccionesMobile";
+import AccionesDesktop from "soporte/tickets/ver/acciones/AccionesDesktop";
+import AccionesMobile from "soporte/tickets/ver/acciones/AccionesMobile";
 import Hidden from "@material-ui/core/Hidden";
 import axios from "axios";
 import ConfirmacionContext from "contexts/ConfirmacionContext";

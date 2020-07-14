@@ -113,4 +113,53 @@ export default [
     //             ]),
     //         )
     //     }),
+    rest.get(process.env.REACT_APP_URL_SOPORTE + '/clientes',
+        (req, res, ctx) => {
+            return res(
+                ctx.delay(1000),
+                ctx.status(200),
+                ctx.json([
+                        {
+                            "nombre": "IBM",
+                            "razonSocial": "IBM Argentina SRL",
+                            "cuit": "30503961268",
+                            "estado": "activo",
+                            "fechaDesdeQueEsCliente": "14/07/2020",
+                            "id": 0
+                        }, {
+                            "nombre": "YPF",
+                            "razonSocial": "YPF Sociedad Anonima",
+                            "cuit": "30546689979",
+                            "estado": "activo",
+                            "fechaDesdeQueEsCliente": "04/08/2014",
+                            "id": 1
+                        }, {
+                            "nombre": "Arcor",
+                            "razonSocial": "Grupo Arcor Sociedad Anonima",
+                            "cuit": "30707006397",
+                            "estado": "inactivo",
+                            "fechaDesdeQueEsCliente": "04/08/2014",
+                            "id": 2
+                        }
+                    ]
+                ),
+            )
+        }),
+    rest.get(process.env.REACT_APP_URL_SOPORTE + '/clientes/1',
+        (req, res, ctx) => {
+            return res(
+                ctx.delay(1000),
+                ctx.status(200),
+                ctx.json({
+                        "nombre": "YPF",
+                        "razonSocial": "YPF Sociedad Anonima",
+                        "cuit": "30546689979",
+                        "estado": "activo",
+                        "fechaDesdeQueEsCliente": "04/08/2014",
+                        "id": 1
+                    }
+                ),
+            )
+        }),
+
 ]

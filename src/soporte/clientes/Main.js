@@ -1,25 +1,25 @@
 import React from 'react';
 import {useRouteMatch} from "react-router";
-import Ticket from "soporte/tickets/Ticket";
-import CrearTicket from "soporte/tickets/crear/CrearTicket";
-import Tickets from "soporte/tickets/listar/Tickets";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
+import Clientes from "soporte/clientes/listar/Clientes";
+import CrearCliente from "soporte/clientes/crear/CrearCliente";
+import Cliente from "soporte/clientes/Cliente";
 
-// /tickets
+
 export default () => {
     const {path} = useRouteMatch() || {};
 
     return (
         <AnimatedSwitch>
             <AnimatedRoute exact path={path}>
-                <Tickets/>
+                <Clientes/>
             </AnimatedRoute>
             <AnimatedRoute path={`${path}/creacion`}>
-                <CrearTicket/>
+                <CrearCliente/>
             </AnimatedRoute>
             <AnimatedRoute path={`${path}/:id(\\d+)`}>
-                <Ticket/>
+                <Cliente/>
             </AnimatedRoute>
         </AnimatedSwitch>
     )

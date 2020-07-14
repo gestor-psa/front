@@ -5,7 +5,7 @@ import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import {Assignment, Delete, Edit} from "@material-ui/icons";
 import Backdrop from "@material-ui/core/Backdrop";
-import ConfirmarEliminar from "soporte/tickets/acciones/ConfirmarEliminar";
+import ConfirmarEliminar from "soporte/tickets/ver/acciones/ConfirmarEliminar";
 
 
 const useStyles = makeStyles(theme => ({

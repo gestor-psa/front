@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import Layout from "soporte/tickets/Layout";
+import Layout from "soporte/common/Layout";
 import axios from "axios";
 import {useForm} from "react-hook-form";
 import CamposDeTexto from "soporte/tickets/crear/CamposDeTexto";
 import CamposDeSeleccion from "soporte/tickets/crear/CamposDeSeleccion";
-import Acciones from "soporte/tickets/crear/Acciones";
+import Acciones from "soporte/common/Acciones";
 import {useHistory, useParams} from "react-router";
 
 

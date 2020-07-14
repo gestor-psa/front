@@ -1,7 +1,7 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import ConfirmarEliminar from "soporte/tickets/acciones/ConfirmarEliminar";
+import ConfirmarEliminar from "soporte/tickets/ver/acciones/ConfirmarEliminar";
 import ColoredButton from "soporte/common/ColoredButton";
 
 

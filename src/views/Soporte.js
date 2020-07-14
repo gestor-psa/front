@@ -7,6 +7,8 @@ import {useRouteMatch} from "react-router";
 import TicketsMain from "soporte/tickets/Main";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
+import ClientesMain from "soporte/clientes/Main";
+
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -39,7 +41,7 @@ export default () => {
                     <TicketsMain/>
                 </AnimatedRoute>
                 <AnimatedRoute path={`${path}/clientes`}>
-                    <div>Clientes</div>
+                    <ClientesMain/>
                 </AnimatedRoute>
             </AnimatedSwitch>
         </ContentWrapper>
