@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useParams, useRouteMatch } from "react-router";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
+import axios from "axios";
 
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +25,14 @@ export default () => {
     const [proyecto, setProyecto] = useState();
 
     useEffect(() => {
-        setProyecto({"name":"cloud erp"});
+        axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/'+ id)
+            .then(res => {
+                console.log(res);
+                setProyecto(res.data);
+            })
+            .catch(error => {
+                // TODO.
+            })
     }, [id]);
 
     return (
@@ -35,7 +43,7 @@ export default () => {
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             {proyecto && < Typography variant='h4'>
-                                {proyecto.name}
+                                {proyecto.nombre}
                             </Typography> }
                         </Grid>
                     </Grid>
