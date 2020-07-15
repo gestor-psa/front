@@ -124,21 +124,21 @@ export default [
                             "razonSocial": "IBM Argentina SRL",
                             "cuit": "30503961268",
                             "estado": "activo",
-                            "fechaDesdeQueEsCliente": "14/07/2020",
+                            "fechaDesdeQueEsCliente": "2020-07-14",
                             "id": 0
                         }, {
                             "nombre": "YPF",
                             "razonSocial": "YPF Sociedad Anonima",
                             "cuit": "30546689979",
                             "estado": "activo",
-                            "fechaDesdeQueEsCliente": "04/08/2014",
+                            "fechaDesdeQueEsCliente": "2014-08-04",
                             "id": 1
                         }, {
                             "nombre": "Arcor",
                             "razonSocial": "Grupo Arcor Sociedad Anonima",
                             "cuit": "30707006397",
                             "estado": "inactivo",
-                            "fechaDesdeQueEsCliente": "04/08/2014",
+                            "fechaDesdeQueEsCliente": "2014-08-04",
                             "id": 2
                         }
                     ]
@@ -155,7 +155,7 @@ export default [
                         "razonSocial": "YPF Sociedad Anonima",
                         "cuit": "30546689979",
                         "estado": "activo",
-                        "fechaDesdeQueEsCliente": "04/08/2014",
+                        "fechaDesdeQueEsCliente": "2014-08-04",
                         "id": 1
                     }
                 ),

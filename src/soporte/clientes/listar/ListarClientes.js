@@ -12,6 +12,7 @@ import EsqueletoTabla from "soporte/common/EsqueletoTabla";
 import Loading from "soporte/common/Loading";
 import {makeStyles} from "@material-ui/core/styles";
 import {Hidden, useMediaQuery} from "@material-ui/core";
+import Fecha from "soporte/common/Fecha";
 
 
 const useStyles = makeStyles(theme => ({
@@ -71,7 +72,11 @@ export default () => {
                                             <TableCell>{cliente.cuit}</TableCell>
                                         </Hidden>
                                         <TableCell>{cliente.estado.capitalize()}</TableCell>
-                                        <TableCell>{cliente.fechaDesdeQueEsCliente.capitalize()}</TableCell>
+                                        <TableCell>
+                                            <Fecha fecha={cliente.fechaDesdeQueEsCliente.capitalize()}
+                                                   formato="DD/MM/YYYY"
+                                            />
+                                        </TableCell>
                                     </TableRow>
                                 ))}
                         </TableBody>

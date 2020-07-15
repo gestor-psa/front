@@ -4,10 +4,11 @@ import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 import EsqueletoMultilinea from "soporte/common/EsqueletoMultilinea";
 
 
-export default ({
-                    mostrar, nombre, descripcion, responsable, tipo,
-                    severidad, estado, fechaDeCreacion, fechaDeActualizacion
-                }) => {
+export default (
+    {
+        mostrar, nombre, descripcion, responsable, tipo,
+        severidad, estado, fechaDeCreacion, fechaDeActualizacion
+    }) => {
 
     return (
         <Fragment>

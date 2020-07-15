@@ -12,11 +12,14 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(1),
     },
     acciones: {
-        margin: theme.spacing(0, 2)
+        margin: theme.spacing(0, 2),
+        [theme.breakpoints.down('xs')]: {
+            margin: theme.spacing(0, 1)
+        }
     }
 }));
 
-export default ({mostrar, onModificar, onEliminar, onCrearTarea}) => {
+export default ({mostrar, onModificar, onEliminar}) => {
     const classes = useStyles();
 
     const [openEliminar, setOpenEliminar] = useState(false);
@@ -26,7 +29,7 @@ export default ({mostrar, onModificar, onEliminar, onCrearTarea}) => {
     return (
         <div className={classes.root}>
             <ConfirmarTooltip
-                mensaje='¿Eliminar ticket?'
+                mensaje='¿Eliminar cliente?'
                 open={openEliminar}
                 onCancelar={onNotEliminar}
                 onConfirmar={onEliminar}
@@ -41,15 +44,6 @@ export default ({mostrar, onModificar, onEliminar, onCrearTarea}) => {
                     Eliminar
                 </ColoredButton>
             </ConfirmarTooltip>
-            <ColoredButton
-                onClick={onCrearTarea}
-                disabled={!mostrar}
-                variant='outlined'
-                color='warning'
-                className={classes.acciones}
-            >
-                Crear tarea
-            </ColoredButton>
             <Button
                 disabled={!mostrar}
                 color="secondary"

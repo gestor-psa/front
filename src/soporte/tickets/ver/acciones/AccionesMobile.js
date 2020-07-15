@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import SpeedDial from "@material-ui/lab/SpeedDial";
 import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
 import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import {Assignment, Delete, Edit} from "@material-ui/icons";
 import Backdrop from "@material-ui/core/Backdrop";
-import ConfirmarEliminar from "soporte/tickets/ver/acciones/ConfirmarEliminar";
+import ConfirmarTooltip from "soporte/common/ConfirmarTooltip";
 
 
 const useStyles = makeStyles(theme => ({
@@ -29,12 +29,12 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({mostrar, onModificar, onEliminar, onCrearTarea, eliminarEnProceso}) => {
+export default ({mostrar, onModificar, onEliminar, onCrearTarea}) => {
     const classes = useStyles();
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
-    const [openEliminar, setOpenEliminar] = React.useState(false);
+    const [openEliminar, setOpenEliminar] = useState(false);
     const onAbrirEliminar = () => setOpenEliminar(true);
     const onNotEliminar = () => setOpenEliminar(false);
 
@@ -52,14 +52,14 @@ export default ({mostrar, onModificar, onEliminar, onCrearTarea, eliminarEnProce
         }, {
             icon: <Delete className={classes.eliminar} onClick={onAbrirEliminar}/>,
             title: (
-                <ConfirmarEliminar
+                <ConfirmarTooltip
+                    mensaje='¿Eliminar ticket?'
                     open={openEliminar}
                     onCancelar={onNotEliminar}
                     onConfirmar={onEliminar}
-                    eliminarEnProceso={eliminarEnProceso}
                 >
                     <span className={classes.eliminar} onClick={onAbrirEliminar}>Eliminar</span>
-                </ConfirmarEliminar>
+                </ConfirmarTooltip>
             )
         },
     ];

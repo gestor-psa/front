@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
@@ -24,8 +24,14 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({children, open, onConfirmar, onCancelar, eliminarEnProceso}) => {
+export default ({mensaje, children, open, onConfirmar, onCancelar}) => {
     const classes = useStyles();
+    const [eliminarEnProceso, setEliminarEnProceso] = useState(false);
+
+    const onConfirmarInterno = () => {
+        setEliminarEnProceso(true);
+        onConfirmar();
+    }
 
     return (
         <Tooltip
@@ -39,14 +45,15 @@ export default ({children, open, onConfirmar, onCancelar, eliminarEnProceso}) =>
             leaveDelay={500}
             arrow
             onClose={onCancelar}
-            open={open}
+            open={open || eliminarEnProceso}
             disableFocusListener
+            disableTouchListener
             title={
                 <Alert severity="warning">
-                    <AlertTitle>¿Eliminar ticket?</AlertTitle>
+                    <AlertTitle>{mensaje}</AlertTitle>
                     <ProgressButton
                         color='warning'
-                        onClick={onConfirmar}
+                        onClick={onConfirmarInterno}
                         variant='contained'
                         className={classes.botones}
                         inProgress={eliminarEnProceso}
