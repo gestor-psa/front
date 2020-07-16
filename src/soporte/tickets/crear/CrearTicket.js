@@ -40,6 +40,8 @@ export default () => {
                 />}
             ladoDerecho={
                 <CamposDeSeleccion
+                    errors={errors}
+                    register={register}
                     onDataChange={onDataChange}
                 />}
             fin={
