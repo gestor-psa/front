@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {KeyboardDatePicker} from "@material-ui/pickers";
 import {Controller} from "react-hook-form";
 
@@ -8,10 +8,11 @@ export default ({label, onDataChange, control, defaultValue = null, ...props}) =
     return (
         <Controller
             name='fechaDesdeQueEsCliente'
-            render={({onChange, value = defaultValue}) => {
-                useEffect(() => {
-                    onChange(defaultValue)
-                }, [onChange])
+            key={defaultValue}
+            defaultValue={defaultValue}
+            control={control}
+            rules={{required: true, validate: v => !v.isValid || v.isValid()}}
+            render={({onChange, value}) => {
 
                 const onFechaChange = v => {
                     onChange(v)
@@ -32,8 +33,6 @@ export default ({label, onDataChange, control, defaultValue = null, ...props}) =
                     />
                 )
             }}
-            control={control}
-            rules={{required: true, validate: v => !v.isValid || v.isValid()}}
         />
     )
 }
