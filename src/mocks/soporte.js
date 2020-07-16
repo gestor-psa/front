@@ -184,4 +184,20 @@ export default [
                 ),
             )
         }),
+    rest.put(process.env.REACT_APP_URL_SOPORTE + '/clientes/1',
+        (req, res, ctx) => {
+            return res(
+                ctx.delay(1000),
+                ctx.status(200),
+                ctx.json({
+                        "nombre": "YPF",
+                        "razonSocial": "YPF Sociedad Anonima",
+                        "cuit": "30546689979",
+                        "estado": "inactivo",
+                        "fechaDesdeQueEsCliente": "2014-08-04",
+                        "id": 1
+                    }
+                ),
+            )
+        }),
 ]

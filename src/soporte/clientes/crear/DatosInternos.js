@@ -2,8 +2,7 @@ import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import SeleccionDeGrupo from "soporte/common/SeleccionDeGrupo";
 import Typography from "@material-ui/core/Typography";
-import SelectorFecha from "soporte/common/SelectorFecha";
-import {Controller} from "react-hook-form";
+import FechaDesdeQueEsCliente from "soporte/clientes/crear/FechaDesdeQueEsCliente";
 
 
 const useStyles = makeStyles(theme => ({
@@ -42,22 +41,14 @@ export default ({onDataChange, control, errors, cliente = {}}) => {
                 onChange={({valor}) => onDataChange({estado: valor})}
             />
             <div className={classes.fecha}>
-                <Controller
-                    render={({onChange}) => (
-                        <SelectorFecha
-                            label="Fecha desde que es cliente"
-                            onChange={v => {
-                                onChange(v);
-                                onDataChange({fechaDesdeQueEsCliente: v.format('YYYY-MM-DD')})
-                            }}
-                            required
-                            error={Boolean(errors.fechaDesdeQueEsCliente)}
-                            helperText={errors.fechaDesdeQueEsCliente && fechaErrors[errors.fechaDesdeQueEsCliente.type]}
-                        />
-                    )}
-                    name='fechaDesdeQueEsCliente'
+                <FechaDesdeQueEsCliente
+                    label="Fecha desde que es cliente"
+                    defaultValue={cliente.fechaDesdeQueEsCliente}
+                    onDataChange={onDataChange}
+                    required
+                    error={Boolean(errors.fechaDesdeQueEsCliente)}
+                    helperText={errors.fechaDesdeQueEsCliente && fechaErrors[errors.fechaDesdeQueEsCliente.type]}
                     control={control}
-                    rules={{required: true, validate: v => v.isValid()}}
                 />
             </div>
         </div>

@@ -29,8 +29,6 @@ export default () => {
             });
     }
 
-    console.log(data);
-
     return (
         <Layout
             titulo='Cargar cliente'

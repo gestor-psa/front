@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import {Controller} from "react-hook-form";
@@ -65,11 +65,16 @@ export default ({onDataChange, control, errors, defaultValue = '', className = '
             }}
             control={control}
             render={({onChange, value = defaultValue}) => {
+
                 const onCuitChange = e => {
                     const cuit = e.target.value.slice(0, 11)
                     onDataChange({cuit})
                     onChange(cuit)
                 }
+
+                useEffect(() => {
+                    onChange(defaultValue)
+                }, [onChange])
 
                 return (
                     <TextField
