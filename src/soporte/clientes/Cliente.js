@@ -25,7 +25,7 @@ export default () => {
                 <VerCliente cliente={cliente}/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
-                <ModificarCliente cliente={cliente} onTicketChange={c => setCliente(c)}/>
+                <ModificarCliente cliente={cliente} onClienteChange={c => setCliente(c)}/>
             </AnimatedRoute>
         </AnimatedSwitch>
     )
