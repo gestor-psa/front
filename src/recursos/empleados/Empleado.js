@@ -17,11 +17,17 @@ const useStyles = makeStyles(theme => ({
         }
     }
 }));
+const parseFecha = (fecha) => {
+    return fecha.slice(6,8) + "/" + fecha.slice(4,6) + "/" + fecha.slice(0,4);
+}
+
 export default () => {
     const classes = useStyles();
     const { id } = useParams();
     const { path } = useRouteMatch() || {};
     const [empleado, setEmpleado] = useState();
+
+    
 
     useEffect(() => {
         id && axios.get(process.env.REACT_APP_URL_RECURSOS + '/employees/' + id)
@@ -38,9 +44,9 @@ export default () => {
                 <Paper className={classes.root}>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <Typography variant='h4'>
-                                Ver Empleado
-                    </Typography>
+                            {empleado &&<Typography variant='h4'>
+                                {empleado.name + " "+ empleado.surname}
+                    </Typography>}
                         </Grid>
                         <Grid item container spacing={6} xs={12}>
                             <Grid item xs={12} md={6}>
@@ -49,16 +55,16 @@ export default () => {
                                         DNI: {empleado.dni}
                                     </Typography>
                                     <Typography>
-                                        Nombre y apellido: {empleado.name + " " + empleado.surname}
-                                    </Typography>
-                                    <Typography>
-                                        Fecha de nacimiento: {empleado.date_birth}
+                                        Fecha de nacimiento: {parseFecha(empleado.date_birth.toString())}
                                     </Typography>
                                     <Typography>
                                         Legajo: {empleado.organization_id}
                                     </Typography>
                                     <Typography>
-                                        Fecha de contratación: {empleado.date_hire}
+                                        Fecha de contratación: {parseFecha(empleado.date_hire.toString())}
+                                    </Typography>
+                                    <Typography>
+                                        Contrato: {empleado.contract ==='F'? "Full time":"Part time"}
                                     </Typography>
                                     <Typography>
                                         Puesto: {empleado.pos}

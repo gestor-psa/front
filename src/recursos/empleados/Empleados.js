@@ -51,7 +51,8 @@ export default () => {
                         <TableRow>
                             <TableCell>DNI</TableCell>
                             <TableCell>Nombre y apellido</TableCell>
-                            <TableCell>Legajo</TableCell>
+                            {/* <TableCell>Legajo</TableCell> */}
+                            <TableCell>Contrato</TableCell>
                             <TableCell>Puesto</TableCell>
                             <TableCell></TableCell>
                         </TableRow>
@@ -61,11 +62,12 @@ export default () => {
                             <TableRow>
                                 <TableCell>{empleado.dni}</TableCell>
                                 <TableCell>{empleado.name + " " + empleado.surname}</TableCell>
-                                <TableCell>{empleado.organization_id}</TableCell>
+                                {/* <TableCell>{empleado.organization_id}</TableCell> */}
+                                <TableCell>{empleado.contract ==='F'? "Full time":"Part time"}</TableCell>
                                 <TableCell>{empleado.pos}</TableCell>
                                 <TableCell>
                                     <Button color='primary' variant='contained' to={`${url}/${empleado.dni}`} component={Link}>
-                                        Ver mas
+                                        + Info
                                 </Button>
                                 </TableCell>
                             </TableRow>
@@ -75,7 +77,7 @@ export default () => {
             </TableContainer>
             <div className={classes.nuevoEmpleado}>
                 <Button color='secondary' variant='contained' to={`${url}/creacion`} component={Link}>
-                    Nuevo empleado
+                    Nuevo recurso
                 </Button>
             </div>
         </Fragment>

@@ -10,7 +10,13 @@ import axios from "axios";
 import {useHistory} from "react-router";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+// import "./estilos.css";
 
 // /empleados
 const useStyles = makeStyles(theme => ({
@@ -24,12 +30,25 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         marginBottom: theme.spacing(2.5)
     },
+
     nuevoEmpleado: {
 
     }
 }));
+const parseFecha = (fecha) => {
+    let month = '' + (fecha.getMonth() + 1);
+    let day = '' + fecha.getDate();
+    let year = fecha.getFullYear();
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+    return parseInt(year+month+day,10);
+}
+
 export default () => {
     const classes = useStyles();
+    // const [startDate, setStartDate] = useState(new Date());
     const { path } = useRouteMatch() || {};
     const [dni, setDni] = useState();
     const [name, setName] = useState();
@@ -37,16 +56,24 @@ export default () => {
     const [organization_id, setOrganization_id] = useState();
     const [date_birth, setDate_birth] = useState();
     const [date_hire, setDate_hire] = useState();
+    const [contract, setContract] = useState();
     const [pos, setPos] = useState();
     const history = useHistory();
 
+    const handleChange = (event) => {
+        setContract(event.target.value);
+      };
+
     const onCrear = () => {
         // setEsperando(true);
-        let empleado = {"dni":parseInt(dni,10),"name":name,"surname":surname,"organization_id":parseInt(organization_id,10),"date_birth":parseInt(date_birth,10),"date_hire":parseInt(date_hire,10),"pos":pos}
-        if (!empleado.dni || !empleado.name || !empleado.surname || !empleado.organization_id || !empleado.date_birth || !empleado.date_hire || !empleado.pos){
+        let empleado = {"dni":parseInt(dni,10),"name":name,"surname":surname,"organization_id":parseInt(organization_id,10),"date_birth":parseFecha(date_birth),"date_hire":parseFecha(date_hire),"pos":pos,"contract":contract}
+        if (!empleado.dni || !empleado.name || !empleado.surname || !empleado.organization_id || !empleado.date_birth || !empleado.date_hire || !empleado.pos || !empleado.contract){
             console.log("No hay info")
             return;
         }
+        // empleado.contract: P o F
+        empleado.active = true;
+        // empleado.contract = "F"
         axios.post(process.env.REACT_APP_URL_RECURSOS + '/employees', empleado)
             .then((result) => {
                 history.push(`/recursos`)
@@ -79,18 +106,55 @@ export default () => {
                                     />
                                     <TextField className={classes.campo}label='surname'onChange={(e) => setSurname(e.target.value)}
                                     />
-                                    <TextField className={classes.campo}label='Fecha de nacimiento'onChange={(e) => setDate_birth(e.target.value)}
+                                    
+                                    <DatePicker
+                                        selected={date_birth}
+                                        onChange={date => setDate_birth(date)}
+                                        customInput={<TextField className={classes.campo}label='Fecha de nacimiento'onChange={(e) => setDate_birth(e.target.value)}
+                                        />}
+                                        dateFormat="dd/MM/yyyy"
+                                        peekNextMonth
+                                        showMonthDropdown
+                                        showYearDropdown
+                                        dropdownMode="select"
                                     />
                                     <TextField className={classes.campo}label='Legajo'onChange={(e) => setOrganization_id(e.target.value)}
                                     />
-                                    <TextField className={classes.campo}label='Fecha de contratación'onChange={(e) => setDate_hire(e.target.value)}
+                                    <DatePicker
+                                        selected={date_hire}
+                                        onChange={date => setDate_hire(date)}
+                                        customInput={<TextField className={classes.campo} label='Fecha de contratación'onChange={(e) => setDate_hire(e.target.value)}
+                                        />}
+                                        dateFormat="dd/MM/yyyy"
+                                        peekNextMonth
+                                        showMonthDropdown
+                                        showYearDropdown
+                                        dropdownMode="select"
                                     />
                                     <TextField className={classes.campo}label='Puesto'onChange={(e) => setPos(e.target.value)}
                                     />
+                                    <FormControl className={classes.formControl} style={{width:"40%"}}>
+                                        <InputLabel id="demo-controlled-open-select-label">Contrato</InputLabel>
+                                        <Select
+                                        labelId="demo-controlled-open-select-label"
+                                        id="demo-controlled-open-select"
+                                        // open={open}
+                                        // onClose={handleClose}
+                                        // onOpen={handleOpen}
+                                        // value={age}
+                                        onChange={handleChange}
+                                        >
+                                        {/* <MenuItem value="">
+                                            Contrato
+                                        </MenuItem> */}
+                                        <MenuItem value="F">Full time</MenuItem>
+                                        <MenuItem value="P">Part time</MenuItem>
+                                        </Select>
+                                    </FormControl>
                                 </Fragment>}
                                 <div className={classes.nuevoEmpleado}>
-                                    <Button onClick={() => { onCrear() }} color="secondary" variant='contained'>
-                                Nuevo empleado
+                                    <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant='contained'>
+                                        Nuevo empleado
                                     </Button>
                                 </div>
                             </Grid>
