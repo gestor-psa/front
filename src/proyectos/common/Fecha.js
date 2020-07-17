@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DatePickers({name}) {
+export default function DatePickers({name, defvalue = "YYYY-MM-DD"}) {
   const classes = useStyles();
 
   return (
@@ -23,7 +23,7 @@ export default function DatePickers({name}) {
         id="date"
         label= {name}
         type="date"
-        defaultValue="YYYY-MM-DD"
+        defaultValue= {defvalue}
         className={classes.textField}
         InputLabelProps={{
           shrink: true,

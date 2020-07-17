@@ -39,6 +39,7 @@ export default ({mostrar}) => {
                 console.log(error.response);
             });
         */
+       history.push(`proyectos`)
     }
 
     const onFases = () => history.push(`${url}/fases`)

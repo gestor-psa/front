@@ -7,7 +7,7 @@ import AnimatedRoute from "components/common/AnimatedRoute";
 import ListadoProyectos from 'proyectos/ListadoProyectos';
 import AgregarProyecto from 'proyectos/AgregarProyecto';
 import CrearProyecto from 'proyectos/CrearProyecto';
-import OverviewProyecto from 'proyectos/ver/VerProyecto';
+import VerProyecto from 'proyectos/ver/VerProyecto';
 
 export default () => {
   const { path } = useRouteMatch() || {};
@@ -22,10 +22,10 @@ export default () => {
                 </Fragment>
             </AnimatedRoute>
             <AnimatedRoute path={`${path}/crear`}>
-                <CrearProyecto />
+                <CrearProyecto titulo = "Crear Proyecto" />
             </AnimatedRoute>
             <AnimatedRoute path={`${path}/:id(\\d+)`}>
-                <OverviewProyecto />
+                <VerProyecto />
             </AnimatedRoute>
         </AnimatedSwitch>
      </ContentWrapper>

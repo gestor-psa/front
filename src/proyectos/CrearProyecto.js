@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Layout from "proyectos/common/Layout";
 //import axios from "axios";
 import {useForm} from "react-hook-form";
@@ -10,17 +10,21 @@ import Grid from "@material-ui/core/Grid";
 //import {useHistory} from "react-router";
 
 
-export default () => {
+export default ({titulo, proyecto = {}}) => {
     const {register, errors, handleSubmit} = useForm();
     const [data, setData] = useState({estado: 'en progreso'});
     const [esperando] = useState(false);
     const onDataChange = (e) => setData({...data, ...e});
     //const history = useHistory();
 
+    useEffect(() => {
+      //  setData(proyecto);
+    }, [proyecto])
+
     const onConfirmar = () => {
        /* setEsperando(true);
         console.log(data);
-        axios.post(process.env.REACT_APP_URL_PROYECTOS + '/proyectos', data)
+        axios.post(process.env.REACT_APP_URL_PROYECTOS + '/proyectos' + proyecto.id, data)
             .then((result) => {
                 history.push(`/proyectos/${result.data.id}`)
                 console.log(result);
@@ -33,9 +37,10 @@ export default () => {
 
     return (
         <Layout
-            titulo='Crear Proyecto'
+            titulo={titulo}
             ladoIzquierdo={
                 <CamposDeTexto
+                    proyecto = {proyecto}
                     errors={errors}
                     register={register}
                     onDataChange={onDataChange}
@@ -45,16 +50,14 @@ export default () => {
                     <CamposDeSeleccion
                         onDataChange={onDataChange}
                     />
-                    <Fecha name = "Fecha de Inicio">
-                    </Fecha>
-                    <Fecha name = {"Fecha de Fin"}>
-                    </Fecha>
+                    <Fecha name = "Fecha de Inicio" defvalue = {proyecto.FechaInicio} />
+                    <Fecha name = "Fecha de Fin" defvalue = {proyecto.FechaFin} />
                 </Grid>}
             fin={
                 <Acciones
                     onConfirmar={handleSubmit(onConfirmar)}
                     esperando={esperando}
-                    textoConfirmar='Crear'
+                    textoConfirmar='Confirmar'
                 />}
         />
     )

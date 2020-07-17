@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({onDataChange, register, errors, ticket = {}, responsables = []}) => {
+export default ({onDataChange, register, errors, proyecto = {}}) => {
     const classes = useStyles();
 
     return (
@@ -19,8 +19,8 @@ export default ({onDataChange, register, errors, ticket = {}, responsables = []}
             <TextField
                 label='Nombre'
                 className={classes.campo}
-                key={ticket.nombre}
-                defaultValue={ticket.nombre}
+                key={proyecto.nombre}
+                defaultValue={proyecto.nombre}
                 onChange={(e) => onDataChange({nombre: e.target.value})}
                 // Validacion.
                 required
@@ -35,8 +35,8 @@ export default ({onDataChange, register, errors, ticket = {}, responsables = []}
                 multiline
                 label='Descripción'
                 className={classes.campo}
-                key={ticket.descripcion}
-                defaultValue={ticket.descripcion}
+                key={proyecto.descripcion}
+                defaultValue={proyecto.descripcion}
                 onChange={(e) => onDataChange({descripcion: e.target.value})}
                 // Validacion.
                 required

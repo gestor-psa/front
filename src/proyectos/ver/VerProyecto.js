@@ -3,7 +3,8 @@ import ProyectoDetails from "proyectos/ver/ProyectoDetalles";
 import { useParams, useRouteMatch } from "react-router";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
-import AccionesProyecto from "proyectos/ver/Acciones";
+import AccionesProyecto from "proyectos/ver/AccionesVer";
+import EditarProyecto from 'proyectos/CrearProyecto';
 //import axios from "axios";
 
 
@@ -36,7 +37,7 @@ export default () => {
                 <AccionesProyecto mostrar = {true}/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
-
+                <EditarProyecto titulo = "Modificar Proyecto" proyecto = {proyecto} />
             </AnimatedRoute>
         </AnimatedSwitch>
     )
