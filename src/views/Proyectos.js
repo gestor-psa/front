@@ -7,7 +7,7 @@ import AnimatedRoute from "components/common/AnimatedRoute";
 import ListadoProyectos from 'proyectos/ListadoProyectos';
 import AgregarProyecto from 'proyectos/AgregarProyecto';
 import CrearProyecto from 'proyectos/CrearProyecto';
-import OverviewProyecto from 'proyectos/VerProyecto';
+import OverviewProyecto from 'proyectos/ver/VerProyecto';
 
 export default () => {
   const { path } = useRouteMatch() || {};
