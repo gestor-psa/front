@@ -3,10 +3,15 @@ import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 import Fecha from "soporte/common/Fecha";
 
 
-export default ({mostrar, fechaDesdeQueEsCliente, estado}) => {
+export default ({mostrar, fechaDesdeQueEsCliente, estado, id}) => {
 
     return (
         <Fragment>
+            <EsqueletoTexto
+                etiqueta='Código de cliente'
+                mostrar={mostrar}
+                valor={id && `#${id}`}
+            />
             <EsqueletoTexto
                 etiqueta='Estado'
                 mostrar={mostrar}
