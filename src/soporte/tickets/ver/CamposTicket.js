@@ -6,12 +6,17 @@ import EsqueletoMultilinea from "soporte/common/EsqueletoMultilinea";
 
 export default (
     {
-        mostrar, nombre, descripcion, responsable, tipo,
+        mostrar, id, nombre, descripcion, responsable, tipo,
         severidad, estado, fechaDeCreacion, fechaDeActualizacion
     }) => {
 
     return (
         <Fragment>
+            <EsqueletoTexto
+                etiqueta='Código'
+                mostrar={mostrar}
+                valor={`#${id}`}
+            />
             <EsqueletoTexto
                 etiqueta='Nombre'
                 mostrar={mostrar}

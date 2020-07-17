@@ -10,7 +10,7 @@ export default ({mostrar, fechaDesdeQueEsCliente, estado, id}) => {
             <EsqueletoTexto
                 etiqueta='Código de cliente'
                 mostrar={mostrar}
-                valor={id && `#${id}`}
+                valor={`#${id}`}
             />
             <EsqueletoTexto
                 etiqueta='Estado'
