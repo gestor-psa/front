@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event'
 import {rest} from "msw";
 import moment from "moment";
 import {server} from 'mocks/server'
-import {poseeAtributos, verTickets} from "tests/soporte/steps/tickets/common";
+import {chequearResultado, poseeAtributos, verTickets} from "tests/soporte/steps/tickets/common";
 
 
 const feature = loadFeature('src/tests/soporte/features/tickets/crear_ticket.feature');
@@ -54,15 +54,6 @@ const crearTicket = ({when}) => {
         await userEvent.type(screen.getByRole('textbox', {name: /responsable/i}), atributos['responsable'])
         await act(async () => {
             userEvent.click(screen.getByText('Crear'))
-        })
-    });
-}
-
-const chequearResultado = ({then}) => {
-    then(/^veo que el resultado fue "([^"]*)"$/, async resultado => {
-        if (resultado === 'éxito') resultado = 'Ver ticket'
-        await waitFor(() => {
-            expect(screen.getByText(resultado)).toBeInTheDocument()
         })
     });
 }

@@ -15,7 +15,7 @@ global.console = {
     debug: console.debug,
 };
 
-jest.setTimeout(30000);
+jest.setTimeout(120000);
 
 /**
  * Setup mock service worker.

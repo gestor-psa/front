@@ -19,7 +19,7 @@ export default ({onDataChange, register, errors, ticket = {}}) => {
             <TextField
                 label='Nombre'
                 className={classes.campo}
-                key={ticket.nombre}
+                key={'nombre' + ticket.nombre}
                 defaultValue={ticket.nombre}
                 onChange={(e) => onDataChange({nombre: e.target.value})}
                 inputProps={{"aria-label": 'nombre'}}
@@ -36,7 +36,7 @@ export default ({onDataChange, register, errors, ticket = {}}) => {
                 multiline
                 label='Descripción'
                 className={classes.campo}
-                key={ticket.descripcion}
+                key={'descripcion' + ticket.descripcion}
                 defaultValue={ticket.descripcion}
                 onChange={(e) => onDataChange({descripcion: e.target.value})}
                 inputProps={{"aria-label": 'descripcion'}}
