@@ -45,19 +45,26 @@ export const verTickets = async () => {
 export const existeTicket = ({given}) => {
     given(/^que existe un ticket con los siguientes atributos:$/, tabla => {
         const atributos = tabla[0]
+
+        const ticket = {
+            ...atributos,
+            fechaDeCreacion: moment(atributos.fechaDeCreacion, "DD/MM/YYYY HH:mm").format(),
+            fechaDeActualizacion: moment(atributos.fechaDeActualizacion, "DD/MM/YYYY HH:mm").format()
+        }
+
         server.use(
             rest.get(process.env.REACT_APP_URL_SOPORTE + '/tickets/' + atributos.id,
                 (req, res, ctx) => {
                     return res(
                         ctx.status(201),
-                        ctx.json(atributos),
+                        ctx.json(ticket),
                     )
                 }),
             rest.get(process.env.REACT_APP_URL_SOPORTE + '/tickets',
                 (req, res, ctx) => {
                     return res(
                         ctx.status(201),
-                        ctx.json([atributos]),
+                        ctx.json([ticket]),
                     )
                 }),
         )
