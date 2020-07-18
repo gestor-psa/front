@@ -22,6 +22,7 @@ export default ({onDataChange, register, errors, ticket = {}}) => {
                 key={ticket.nombre}
                 defaultValue={ticket.nombre}
                 onChange={(e) => onDataChange({nombre: e.target.value})}
+                inputProps={{"aria-label": 'nombre'}}
                 // Validacion.
                 required
                 name='nombre'
@@ -38,12 +39,13 @@ export default ({onDataChange, register, errors, ticket = {}}) => {
                 key={ticket.descripcion}
                 defaultValue={ticket.descripcion}
                 onChange={(e) => onDataChange({descripcion: e.target.value})}
+                inputProps={{"aria-label": 'descripcion'}}
                 // Validacion.
                 required
                 name='descripcion'
                 error={Boolean(errors.descripcion)}
                 inputRef={register({required: true})}
-                helperText={errors.descripcion && 'La descripcion es requerida'}
+                helperText={errors.descripcion && 'La descripción es requerida'}
             />
             <SearchSelect
                 // url={process.env.REACT_APP_URL_RECURSOS + '/empleados'}

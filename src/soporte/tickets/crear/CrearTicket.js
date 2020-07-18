@@ -8,7 +8,7 @@ import Acciones from "soporte/common/Acciones";
 import {useHistory} from "react-router";
 
 
-export default () => {
+export default ({onTicketChange}) => {
     const {register, errors, handleSubmit} = useForm();
     const [data, setData] = useState({tipo: 'consulta', severidad: 'baja'});
     const [esperando, setEsperando] = useState(false);
@@ -20,8 +20,9 @@ export default () => {
         console.log(data);
         axios.post(process.env.REACT_APP_URL_SOPORTE + '/tickets', data)
             .then((result) => {
-                history.push(`/soporte/tickets/${result.data.id}`)
                 console.log(result);
+                onTicketChange(result.data)
+                history.push(`/soporte/tickets/${result.data.id}`)
             })
             .catch(error => {
                 // TODO.

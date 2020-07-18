@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useParams, useRouteMatch} from "react-router";
 import VerTicket from "soporte/tickets/ver/VerTicket";
 import axios from "axios";
@@ -7,17 +7,16 @@ import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 
 // /tickets
-export default () => {
+export default ({ticket, onTicketChange}) => {
     const {id} = useParams();
     const {path} = useRouteMatch() || {};
-    const [ticket, setTicket] = useState();
 
     useEffect(() => {
-        id && axios.get(process.env.REACT_APP_URL_SOPORTE + '/tickets/' + id)
+        !ticket && id && axios.get(process.env.REACT_APP_URL_SOPORTE + '/tickets/' + id)
             .then(res => {
-                setTicket(res.data);
+                onTicketChange(res.data);
             })
-    }, [id]);
+    }, [ticket, onTicketChange, id]);
 
     return (
         <AnimatedSwitch>
@@ -25,7 +24,7 @@ export default () => {
                 <VerTicket ticket={ticket}/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
-                <ModificarTicket ticket={ticket} onTicketChange={t => setTicket(t)}/>
+                <ModificarTicket ticket={ticket} onTicketChange={onTicketChange}/>
             </AnimatedRoute>
         </AnimatedSwitch>
     )
