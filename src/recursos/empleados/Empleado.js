@@ -5,8 +5,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { useParams, useRouteMatch } from "react-router";
 import axios from "axios";
+import ModificarEmpleado from "recursos/empleados/ModificarEmpleado"
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 // /empleados
 const useStyles = makeStyles(theme => ({
@@ -25,6 +28,7 @@ export default () => {
     const classes = useStyles();
     const { id } = useParams();
     const { path } = useRouteMatch() || {};
+    const { url } = useRouteMatch() || {};
     const [empleado, setEmpleado] = useState();
 
     
@@ -79,10 +83,16 @@ export default () => {
                             {/* <Acciones mostrar={Boolean(ticket)}/> */}
                         </Grid>
                     </Grid>
+                    <div className={classes.nuevoEmpleado}>
+                <Button color='secondary' variant='contained' to={`${url}/modificacion`} component={Link}>
+                    Modificar
+                </Button>
+                </div>
                 </Paper>
+                
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
-
+                <ModificarEmpleado/>
             </AnimatedRoute>
         </AnimatedSwitch>
     )
