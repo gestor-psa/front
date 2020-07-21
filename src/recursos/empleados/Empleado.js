@@ -87,6 +87,15 @@ export default () => {
                 <Button color='secondary' variant='contained' to={`${url}/modificacion`} component={Link}>
                     Modificar
                 </Button>
+                <Button  style={{marginLeft:"40px"}} color='secondary' variant='contained' component={Link} disabled>
+                    Eliminar
+                </Button>
+                <Button  style={{marginLeft:"40%"}} color='secondary' variant='contained' component={Link} disabled>
+                    Ver horas cargadas
+                </Button>
+                <Button  style={{marginLeft:"40px"}} color='secondary' variant='contained' component={Link} disabled>
+                    Cargar horas
+                </Button>
                 </div>
                 </Paper>
                 

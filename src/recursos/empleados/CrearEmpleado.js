@@ -102,9 +102,9 @@ export default () => {
                                     
                                     <TextField className={classes.campo}label='DNI'onChange={(e) => setDni(e.target.value)}
                                     />
-                                    <TextField className={classes.campo}label='name'onChange={(e) => setName(e.target.value)}
+                                    <TextField className={classes.campo}label='Nombre'onChange={(e) => setName(e.target.value)}
                                     />
-                                    <TextField className={classes.campo}label='surname'onChange={(e) => setSurname(e.target.value)}
+                                    <TextField className={classes.campo}label='Apellido'onChange={(e) => setSurname(e.target.value)}
                                     />
                                     
                                     <DatePicker
@@ -155,6 +155,9 @@ export default () => {
                                 <div className={classes.nuevoEmpleado}>
                                     <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant='contained'>
                                         Nuevo empleado
+                                    </Button>
+                                    <Button  style={{marginTop:"40px", marginLeft:"40px"}} color='secondary' variant='contained' disabled>
+                                        Cancelar
                                     </Button>
                                 </div>
                             </Grid>

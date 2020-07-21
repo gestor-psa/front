@@ -32,13 +32,13 @@ const useStyles = makeStyles(theme => ({
 
 const mediaLinks = [
     {
-        link: '//github.com/seblaz/',
+        link: '//github.com/gestor-psa/',
         icon: faGithub
     }, {
-        link: '//www.linkedin.com/in/sebastian-blazquez/',
+        link: '//www.linkedin.com/',
         icon: faLinkedinIn
     }, {
-        link: 'mailto:sebastian.blazquez96@gmail.com',
+        link: '',
         icon: faEnvelope
     }
 ];

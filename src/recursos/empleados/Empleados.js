@@ -45,6 +45,14 @@ export default () => {
 
     return (
         <Fragment>
+             <div className={classes.nuevoEmpleado}>
+                <Button  style={{marginBottom:"20px", marginRight:"80%"}} color='secondary' variant='contained' disabled>
+                    Buscar:
+                </Button>
+                <Button style = {{marginBottom: "20px"}}color='secondary' variant='contained' to={`${url}/creacion`} component={Link}>
+                    Nuevo recurso
+                </Button>
+            </div>
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
                     <TableHead>
@@ -75,11 +83,6 @@ export default () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div className={classes.nuevoEmpleado}>
-                <Button color='secondary' variant='contained' to={`${url}/creacion`} component={Link}>
-                    Nuevo recurso
-                </Button>
-            </div>
         </Fragment>
     );
 }

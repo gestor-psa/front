@@ -110,9 +110,9 @@ export default () => {
                                     
                                     <TextField className={classes.campo}defaultValue={empleado.dni} label='DNI'onChange={(e) => empleado.dni = e.target.value}
                                     />
-                                    <TextField className={classes.campo}defaultValue={empleado.name}label='name'onChange={(e) => empleado.name = e.target.value}
+                                    <TextField className={classes.campo}defaultValue={empleado.name}label='Nombre'onChange={(e) => empleado.name = e.target.value}
                                     />
-                                    <TextField className={classes.campo}defaultValue={empleado.surname}label='surname'onChange={(e) => empleado.surname = e.target.value}
+                                    <TextField className={classes.campo}defaultValue={empleado.surname}label='Apellido'onChange={(e) => empleado.surname = e.target.value}
                                     />
                                     
                                     <DatePicker
@@ -166,6 +166,9 @@ export default () => {
                                 <div className={classes.nuevoEmpleado}>
                                     <Button style={{marginTop:"40px"}}onClick={() => { onModificar() }} color="secondary" variant='contained'>
                                         Modificar empleado
+                                    </Button>
+                                    <Button  style={{marginTop:"40px", marginLeft:"40px"}} color='secondary' variant='contained' disabled>
+                                        Cancelar
                                     </Button>
                                 </div>
                             </Grid>
