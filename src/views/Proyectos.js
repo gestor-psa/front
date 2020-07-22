@@ -4,7 +4,8 @@ import { useRouteMatch } from "react-router";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 
-import ListadoProyectos from 'proyectos/ListadoProyectos';
+import VistaListado from 'proyectos/VistaListado';
+import Proyecto from 'proyectos/Proyecto'
 import AgregarProyecto from 'proyectos/AgregarProyecto';
 import CrearProyecto from 'proyectos/CrearProyecto';
 import VerProyecto from 'proyectos/ver/VerProyecto';
@@ -12,13 +13,17 @@ import VerProyecto from 'proyectos/ver/VerProyecto';
 export default () => {
   const { path } = useRouteMatch() || {};
 
+  const mapProyecto = (proyecto) => (
+    <Proyecto proyecto={proyecto} key={proyecto.id}/>
+  )
+
   return (
     <ContentWrapper>
       <AnimatedSwitch>
             <AnimatedRoute exact path={path}>
                 <Fragment>
                     <AgregarProyecto />
-                    <ListadoProyectos />
+                    <VistaListado mapf = {mapProyecto} url = '/proyectos' />
                 </Fragment>
             </AnimatedRoute>
             <AnimatedRoute path={`${path}/crear`}>

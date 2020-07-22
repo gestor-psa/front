@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {useHistory, useRouteMatch} from "react-router";
+import {useHistory, useRouteMatch, useParams} from "react-router";
 import Button from "@material-ui/core/Button";
 import ConfirmarTooltip from "soporte/common/ConfirmarTooltip";
 import ColoredButton from "soporte/common/ColoredButton";
-
+import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({mostrar}) => {
+    const { id } = useParams();
     const classes = useStyles();
     const {url} = useRouteMatch() || {};
     const [openEliminar, setOpenEliminar] = useState(false);
@@ -28,18 +29,18 @@ export default ({mostrar}) => {
     const onModificar = () => history.push(`${url}/modificacion`)
 
     const onEliminar = () => {
-       /* axios.delete(process.env.REACT_APP_URL_SOPORTE + '/proyectos/' + id)
+        //TODO hacer que la baja sea logica
+        axios.delete(process.env.REACT_APP_URL_SOPORTE + '/proyectos/' + id)
             .then((result) => {
                 history.push('/proyectos')
-                setMensaje('proyecto dado de baja');
-                setMostrar(true);
+                //setMensaje('proyecto dado de baja');
+                //setMostrar(true);
             })
             .catch(error => {
                 // TODO.
                 console.log(error.response);
             });
-        */
-       history.push(`proyectos`)
+       history.push(`proyectos`);
     }
 
     const onFases = () => history.push(`${url}/fases`)
