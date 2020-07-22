@@ -11,17 +11,17 @@ export default (
 
     return (
         <Fragment>
-                <Typography variant='h4'>{nombre}</Typography>
+                <Typography variant='h4'>{nombre && nombre.capitalize()}</Typography>
                 <EsqueletoMultilinea
                     filas={3}
                     etiqueta='Descripción'
                     mostrar={mostrar}
-                    valor={descripcion}
+                    valor={descripcion && descripcion.capitalize()}
                 />
                 <EsqueletoTexto
                     etiqueta='Responsable'
                     mostrar={mostrar}
-                    valor={responsable}
+                    valor={(responsable && responsable.capitalize()) || "Sin asignar"}
                 />
                 <EsqueletoTexto
                     etiqueta='Estado'
