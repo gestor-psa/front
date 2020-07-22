@@ -16,7 +16,7 @@ export default ({label, onDataChange, control, defaultValue = null, ...props}) =
 
                 const onFechaChange = v => {
                     onChange(v)
-                    onDataChange(v.format('YYYY-MM-DD'))
+                    onDataChange({fechaDesdeQueEsCliente: v.format('YYYY-MM-DD')})
                 }
 
                 return (
