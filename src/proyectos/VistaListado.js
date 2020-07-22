@@ -13,7 +13,7 @@ export default ({mapf, url}) => {
             .catch(error => {
                 // TODO.
             })
-    }, []);
+    }, [url]);
 
     return (
         <Fragment>
