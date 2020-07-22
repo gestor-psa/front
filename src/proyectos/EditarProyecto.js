@@ -1,28 +1,28 @@
 import React, {useState, useEffect} from "react";
 import Layout from "proyectos/common/Layout";
-//import axios from "axios";
+import axios from "axios";
 import {useForm} from "react-hook-form";
 import CamposDeTexto from "proyectos/crear/CamposDeTexto";
 import CamposDeSeleccion from "proyectos/crear/CamposDeSeleccion";
 import Acciones from "proyectos/crear/Acciones";
 import Fecha from "proyectos/common/Fecha.js"
 import Grid from "@material-ui/core/Grid";
-//import {useHistory} from "react-router";
+import {useHistory} from "react-router";
 
 
 export default ({titulo, proyecto = {}}) => {
     const {register, errors, handleSubmit} = useForm();
     const [data, setData] = useState({estado: 'en progreso'});
-    const [esperando] = useState(false);
+    const [esperando, setEsperando] = useState(false);
     const onDataChange = (e) => setData({...data, ...e});
-    //const history = useHistory();
+    const history = useHistory();
 
     useEffect(() => {
-      //  setData(proyecto);
+        setData(proyecto);
     }, [proyecto])
 
     const onConfirmar = () => {
-       /* setEsperando(true);
+       setEsperando(true);
         console.log(data);
         axios.post(process.env.REACT_APP_URL_PROYECTOS + '/proyectos' + proyecto.id, data)
             .then((result) => {
@@ -32,7 +32,7 @@ export default ({titulo, proyecto = {}}) => {
             .catch(error => {
                 // TODO.
                 console.log(error.response);
-            }); */
+            });
     }
 
     return (

@@ -4,7 +4,7 @@ import { useParams, useRouteMatch, useHistory } from "react-router";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 import AccionesProyecto from "proyectos/ver/AccionesVer";
-import EditarProyecto from 'proyectos/CrearProyecto';
+import EditarProyecto from 'proyectos/EditarProyecto';
 import axios from "axios";
 import VistaListado from 'proyectos/VistaListado';
 import { Typography } from '@material-ui/core';

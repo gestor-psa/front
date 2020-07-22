@@ -7,7 +7,7 @@ import AnimatedRoute from "components/common/AnimatedRoute";
 import VistaListado from 'proyectos/VistaListado';
 import Proyecto from 'proyectos/Proyecto'
 import AgregarProyecto from 'proyectos/AgregarProyecto';
-import CrearProyecto from 'proyectos/CrearProyecto';
+import CrearProyecto from 'proyectos/EditarProyecto';
 import VerProyecto from 'proyectos/ver/VerProyecto';
 
 export default () => {
