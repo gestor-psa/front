@@ -18,13 +18,13 @@ export default ({titulo, proyecto = {}}) => {
     const history = useHistory();
 
     useEffect(() => {
-        setData(proyecto);
+        //setData(proyecto); breaks stuff
     }, [proyecto])
 
     const onConfirmar = () => {
        setEsperando(true);
         console.log(data);
-        axios.post(process.env.REACT_APP_URL_PROYECTOS + '/proyectos' + proyecto.id, data)
+        axios.post(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/' + proyecto.id, data)
             .then((result) => {
                 history.push(`/proyectos/${result.data.id}`)
                 console.log(result);
