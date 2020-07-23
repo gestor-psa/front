@@ -66,6 +66,10 @@ export default () => {
 
     const onCrear = () => {
         // setEsperando(true);
+        if (!date_birth || !date_hire){
+            console.log("Ingrese la fecha");
+            return;
+        }
         let empleado = {"dni":parseInt(dni,10),"name":name,"surname":surname,"organization_id":parseInt(organization_id,10),"date_birth":parseFecha(date_birth),"date_hire":parseFecha(date_hire),"pos":pos,"contract":contract}
         if (!empleado.dni || !empleado.name || !empleado.surname || !empleado.organization_id || !empleado.date_birth || !empleado.date_hire || !empleado.pos || !empleado.contract){
             console.log("No hay info")

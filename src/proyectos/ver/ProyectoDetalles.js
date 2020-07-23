@@ -3,11 +3,20 @@ import Fecha from "soporte/common/Fecha";
 import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 import EsqueletoMultilinea from "soporte/common/EsqueletoMultilinea";
 import Typography from "@material-ui/core/Typography";
+import axios from "axios";
 
 export default (
     {
-        mostrar, nombre, descripcion, responsable, estado, fechaInicio, fechaFin
+        mostrar, nombre, descripcion, responsableDni, estado, fechaInicio, fechaFin
     }) => {
+    const [responsable, setResponsable] = React.useState(false);
+
+    React.useEffect(() => {
+        if (responsableDni) {
+            axios.get(process.env.REACT_APP_URL_RECURSOS + '/employees/' + responsableDni)
+                .then(res =>{ setResponsable(res.data);console.log(res.data)})
+        }
+    }, [responsableDni]);
 
     return (
         <Fragment>
@@ -21,7 +30,7 @@ export default (
                 <EsqueletoTexto
                     etiqueta='Responsable'
                     mostrar={mostrar}
-                    valor={(responsable && responsable.capitalize()) || "Sin asignar"}
+                    valor={(responsable.name && (responsable.name+" "+responsable.surname)) || "Sin asignar"}
                 />
                 <EsqueletoTexto
                     etiqueta='Estado'

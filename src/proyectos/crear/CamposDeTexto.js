@@ -1,7 +1,7 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import SearchSelect from "soporte/common/SearchSelect";
+import SearchSelect from "proyectos/common/SearchSelect";
 
 
 const useStyles = makeStyles(theme => ({
@@ -46,22 +46,11 @@ export default ({onDataChange, register, errors, proyecto = {}}) => {
                 helperText={errors.descripcion && 'La descripcion es requerida'}
             />
             <SearchSelect
-                // url={process.env.REACT_APP_URL_RECURSOS + '/empleados'}
-                opciones={[
-                    {
-                        "nombre": "Juan Perez",
-                        "id": 45357946
-                    }, {
-                        "nombre": "Sebastián Blázquez",
-                        "id": 39917487
-                    }, {
-                        "nombre": "Carolina Martínez",
-                        "id": 87542369
-                    }
-                ]}
+                url={process.env.REACT_APP_URL_RECURSOS + '/employees'}
+                defaultValue={proyecto.responsableDni}
                 autocompleteProps={{
-                    getOptionLabel: empleado => empleado.nombre,
-                    onChange: (e, v) => onDataChange({responsable: v.nombre})
+                    getOptionLabel: empleado => (empleado.name+' ' + empleado.surname),
+                    onChange: (e, v) => onDataChange({responsableDni: v.dni})
                 }}
                 textFieldProps={{label: 'Responsable'}}
             />

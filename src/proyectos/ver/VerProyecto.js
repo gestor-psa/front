@@ -19,15 +19,25 @@ export default () => {
     useEffect(() => {
         axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/'+ id)
             .then(res => {
-                console.log(res);
+                console.log(res.data);
                 setProyecto(res.data);
             })
             .catch(error => {
                 // TODO.
             })
-            //setProyecto({nombre: "Gestor PSA", estado:"Activo", fechaInicio: "01/01/2020", fechaFin:"",
-            //descripcion: "Gestor PSA para gestionar proyectos en forma modular Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum"
     }, [id]);
+
+    const onConfirm = (data) => {
+        axios.put(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/'+ id, data)
+            .then((result) => {
+                history.push(`/proyectos/`+ id)
+                console.log(result);
+            })
+            .catch(error => {
+                // TODO.
+            console.log(error.response);
+        });
+      };
 
     const volver = () => (history.push('/proyectos/'+ id));
     const volverB =  <ColoredButton onClick={volver} variant='outlined'color='warning'> Volver</ColoredButton>;
@@ -42,15 +52,15 @@ export default () => {
                 <AccionesProyecto mostrar = {true}/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
-                <EditarProyecto titulo = "Modificar Proyecto" proyecto = {proyecto} />
+                <EditarProyecto onConfirm = {onConfirm} titulo = "Modificar Proyecto" proyecto = {proyecto} />
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/fases`}> 
                 {volverB}
-                {(proyecto && <VistaListado url = {'/proyectos/'+id+"fases"}></VistaListado>) || error}
+                {(proyecto && <VistaListado url = {'/proyectos/'+id+"/fases"}></VistaListado>) || error}
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/tareas`}> 
                 {volverB}
-                {(proyecto && <VistaListado url = {'/proyectos/'+id+"tareas"}></VistaListado>) || error}
+                {(proyecto && <VistaListado url = {'/proyectos/'+id+"/tareas"}></VistaListado>) || error}
             </AnimatedRoute>
         </AnimatedSwitch>
     )
