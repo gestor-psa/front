@@ -176,8 +176,6 @@ export default () => {
 
                                         ))
                                         }
-                                        <MenuItem value="1">Tarea 1</MenuItem>
-                                        <MenuItem value="2">Tarea 2</MenuItem>
                                         </Select>
                                     </FormControl>}
                                     <TextField type="number" className={classes.campo}label='Horas'onChange={(e) => setHours(e.target.value)}
