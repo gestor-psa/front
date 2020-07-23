@@ -154,7 +154,7 @@ export default () => {
                                 </Fragment>}
                                 <div className={classes.nuevoEmpleado}>
                                     <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant="outlined">
-                                        Nuevo empleado
+                                        Crear Recurso
                                     </Button>
                                     <Button  style={{marginTop:"40px", marginLeft:"40px", color:'red'}}onClick={() => {history.push('/recursos/') }} variant='outlined' color='error'>
                                         Cancelar
