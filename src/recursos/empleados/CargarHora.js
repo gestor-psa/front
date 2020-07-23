@@ -65,6 +65,10 @@ export default () => {
     const handleChangeCategory = (event) => {
         setCategory(event.target.value);
       };
+
+    const handleChangeTarea = (event) => {
+        setTaskId(event.target.value);
+    };
     
     const handleChangeProyecto = (event) => {
         setProyecto(event.target.value);
@@ -85,16 +89,28 @@ export default () => {
     }, [id]);
 
     const onCrear = () => {
-        // setEsperando(true);
-        let hora = {"dni":parseInt(dni,10),"hours":parseInt(hours,10),"taskId":parseInt(taskId,10),"category":category,"date":parseFecha(date)}
-        if (!hora.dni || !hora.dni || !hora.hours || !hora.taskId || !hora.category || !hora.date){
+        // setEsperando(true); 
+        if (!date){
+            console.log("Ingrese una fecha");
+            return;
+        }
+        let hora = {"employeeDni":parseInt(dni,10),"hours":parseInt(hours,10),"taskId":parseInt(taskId,10),"category":category,"date":parseFecha(date)}
+        if (hora.category==='proyecto' && !hora.taskId){
+            console.log("No hay una tarea asignada")
+            return;
+        }
+        if (!hora.employeeDni || !hora.hours || !hora.category || !hora.date){
             console.log("No hay info")
             return;
         }
+        if (!hora.taskId){
+            hora.taskId = 1;
+        }
+        console.log(hora);
 
-        axios.post(process.env.REACT_APP_URL_RECURSOS + '/employees', hora)
+        axios.post(process.env.REACT_APP_URL_RECURSOS + '/hours', hora)
             .then((result) => {
-                history.push(`/recursos`)
+                history.push(`/recursos/`+id);
                 console.log(result);
             })
             .catch(error => {
@@ -122,19 +138,12 @@ export default () => {
                                         <Select
                                         labelId="demo-controlled-open-select-label"
                                         id="demo-controlled-open-select"
-                                        // open={open}
-                                        // onClose={handleClose}
-                                        // onOpen={handleOpen}
-                                        // value={age}
                                         onChange={handleChangeCategory}
                                         >
-                                        {/* <MenuItem value="">
-                                            Contrato
-                                        </MenuItem> */}
                                         <MenuItem value="proyecto">Proyectos</MenuItem>
-                                        <MenuItem value="soporte">Soporte</MenuItem>
-                                        <MenuItem value="estudio">Estudio</MenuItem>
-                                        <MenuItem value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
+                                        <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="soporte">Soporte</MenuItem>
+                                        <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="estudio">Estudio</MenuItem>
+                                        <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
                                         </Select>
                                     </FormControl>
                                     {category === 'proyecto' &&<FormControl className={classes.formControl} style={{width:"100%"}}>
@@ -142,20 +151,33 @@ export default () => {
                                         <Select
                                         labelId="demo-controlled-open-select-label"
                                         id="demo-controlled-open-select"
-                                        // open={open}
-                                        // onClose={handleClose}
-                                        // onOpen={handleOpen}
-                                        // value={age}
+                                        defaultValue={proyecto}
+                                        value={proyecto}
                                         onChange={handleChangeProyecto}
                                         >
-                                        {/* <MenuItem value="">
-                                            Contrato
-                                        </MenuItem> */}
                                         {proyectos && proyectos.map(proyecto =>(
-                                            <MenuItem value={proyecto.id}>{proyecto.nombre}</MenuItem>
+                                            <MenuItem onClick={() => {setTaskId(null);console.log(taskId)}}value={proyecto.id}>{proyecto.nombre}</MenuItem>
 
                                         ))
                                         }
+                                        </Select>
+                                    </FormControl>}
+                                    {category === 'proyecto' && proyecto &&<FormControl className={classes.formControl} style={{width:"100%"}}>
+                                        <InputLabel id="demo-controlled-open-select-label">Tarea</InputLabel>
+                                        <Select
+                                        labelId="demo-controlled-open-select-label"
+                                        id="demo-controlled-open-select"
+                                        onChange={handleChangeTarea}
+                                        defaultValue={taskId}
+                                        value={taskId}
+                                        >
+                                        {tasks && tasks.map(tarea =>(
+                                            <MenuItem value={tarea.id}>{tarea.nombre}</MenuItem>
+
+                                        ))
+                                        }
+                                        <MenuItem value="1">Tarea 1</MenuItem>
+                                        <MenuItem value="2">Tarea 2</MenuItem>
                                         </Select>
                                     </FormControl>}
                                     <TextField type="number" className={classes.campo}label='Horas'onChange={(e) => setHours(e.target.value)}
