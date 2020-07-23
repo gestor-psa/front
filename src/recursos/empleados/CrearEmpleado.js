@@ -66,6 +66,10 @@ export default () => {
 
     const onCrear = () => {
         // setEsperando(true);
+        if (!date_birth || !date_hire){
+            console.log("Ingrese la fecha");
+            return;
+        }
         let empleado = {"dni":parseInt(dni,10),"name":name,"surname":surname,"organization_id":parseInt(organization_id,10),"date_birth":parseFecha(date_birth),"date_hire":parseFecha(date_hire),"pos":pos,"contract":contract}
         if (!empleado.dni || !empleado.name || !empleado.surname || !empleado.organization_id || !empleado.date_birth || !empleado.date_hire || !empleado.pos || !empleado.contract){
             console.log("No hay info")
@@ -153,10 +157,10 @@ export default () => {
                                     </FormControl>
                                 </Fragment>}
                                 <div className={classes.nuevoEmpleado}>
-                                    <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant='contained'>
-                                        Nuevo empleado
+                                    <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant="outlined">
+                                        Crear Recurso
                                     </Button>
-                                    <Button  style={{marginTop:"40px", marginLeft:"40px"}} color='secondary' variant='contained' disabled>
+                                    <Button  style={{marginTop:"40px", marginLeft:"40px", color:'red'}}onClick={() => {history.push('/recursos/') }} variant='outlined' color='error'>
                                         Cancelar
                                     </Button>
                                 </div>

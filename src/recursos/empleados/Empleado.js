@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState, Fragment, useContext } from 'react';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -6,10 +6,30 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useParams, useRouteMatch } from "react-router";
 import axios from "axios";
 import ModificarEmpleado from "recursos/empleados/ModificarEmpleado"
+import CargarHora from "recursos/empleados/CargarHora"
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import {useHistory} from "react-router";
+import ConfirmacionContext from "contexts/ConfirmacionContext";
+import Modal from "@material-ui/core/Modal";
+
+
+function rand() {
+    return Math.round(Math.random() * 20) - 10;
+  }
+  
+  function getModalStyle() {
+    const top = 50 + rand();
+    const left = 50 + rand();
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }  
 
 // /empleados
 const useStyles = makeStyles(theme => ({
@@ -18,7 +38,15 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down('xs')]: {
             padding: theme.spacing(2, 2)
         }
-    }
+    },
+    paper: {
+        position: 'absolute',
+        width: 400,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+      }
 }));
 const parseFecha = (fecha) => {
     return fecha.slice(6,8) + "/" + fecha.slice(4,6) + "/" + fecha.slice(0,4);
@@ -30,8 +58,48 @@ export default () => {
     const { path } = useRouteMatch() || {};
     const { url } = useRouteMatch() || {};
     const [empleado, setEmpleado] = useState();
+    const {setMostrar, setMensaje} = useContext(ConfirmacionContext);
+    // getModalStyle is not a pure function, we roll the style only on the first render
+    const [modalStyle] = React.useState(getModalStyle);
+    const [open, setOpen] = React.useState(false);
+    const history = useHistory();
 
-    
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const body = (
+        <div style={modalStyle} className={classes.paper}>
+          <h2 id="simple-modal-title">Usted está por eliminar un empleado.</h2>
+          <h3 id="simple-modal-description">
+            ¿Desea eliminarlo?
+          </h3>
+          <Modal />
+          <Button  style={{marginLeft:"20px", color:"red"}}onClick={ () => {onEliminar()}} color='error' variant='outlined'>
+                    Eliminar
+            </Button>
+            <Button  style={{marginLeft:"80px"}}onClick={handleClose} color='secondary' variant='outlined'>
+                    Cancelar
+            </Button>
+        </div>
+      );
+
+    const onEliminar = () => {
+        axios.delete(process.env.REACT_APP_URL_RECURSOS + '/employees/' + empleado.dni)
+            .then(res => {
+                    history.push(`/recursos`)
+                    setMensaje('Empleado eliminado');
+                    setMostrar(true); 
+                }).catch(error => {
+                // TODO.
+                console.log(error.response);
+            });    
+        
+    }    
 
     useEffect(() => {
         id && axios.get(process.env.REACT_APP_URL_RECURSOS + '/employees/' + id)
@@ -84,21 +152,37 @@ export default () => {
                         </Grid>
                     </Grid>
                     <div className={classes.nuevoEmpleado}>
-                <Button color='secondary' variant='contained' to={`${url}/modificacion`} component={Link}>
+                <Button color='secondary' variant='outlined' to={`${url}/modificacion`} component={Link}>
                     Modificar
                 </Button>
-                <Button  style={{marginLeft:"40px"}} color='secondary' variant='contained' component={Link} disabled>
+                
+                {/* <Button  style={{marginLeft:"40px"}}onClick={ () => {onEliminar()}} color='secondary' variant='contained'>
+                    Eliminar
+                </Button> */}
+                <Button type="button" style={{marginLeft:"40px", color:"red"}}onClick={handleOpen} color='error' variant='outlined'>
                     Eliminar
                 </Button>
+                <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                >
+                {body}
+                </Modal>
+
                 <Button  style={{marginLeft:"40%"}} color='secondary' variant='contained' component={Link} disabled>
                     Ver horas cargadas
                 </Button>
-                <Button  style={{marginLeft:"40px"}} color='secondary' variant='contained' component={Link} disabled>
+                <Button  style={{marginLeft:"40px"}} color='secondary' variant='contained' to={`${url}/cargarhora`} component={Link}>
                     Cargar horas
                 </Button>
                 </div>
                 </Paper>
                 
+            </AnimatedRoute>
+            <AnimatedRoute exact path={`${path}/cargarhora`}>
+                <CargarHora/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
                 <ModificarEmpleado/>
