@@ -9,13 +9,28 @@ import Proyecto from 'proyectos/Proyecto'
 import AgregarProyecto from 'proyectos/AgregarProyecto';
 import CrearProyecto from 'proyectos/EditarProyecto';
 import VerProyecto from 'proyectos/ver/VerProyecto';
+import axios from "axios";
+import {useHistory} from "react-router";
 
 export default () => {
   const { path } = useRouteMatch() || {};
+  const history = useHistory();
 
   const mapProyecto = (proyecto) => (
     <Proyecto proyecto={proyecto} key={proyecto.id}/>
   )
+
+  const onConfirm = (data) => {
+    axios.post(process.env.REACT_APP_URL_PROYECTOS + '/proyectos', data)
+        .then((result) => {
+            history.push(`/proyectos/${result.data.id}`)
+            console.log(result);
+        })
+        .catch(error => {
+            // TODO.
+        console.log(error.response);
+    });
+  };
 
   return (
     <ContentWrapper>
@@ -27,7 +42,7 @@ export default () => {
                 </Fragment>
             </AnimatedRoute>
             <AnimatedRoute path={`${path}/crear`}>
-                <CrearProyecto titulo = "Crear Proyecto" />
+                <CrearProyecto titulo = "Crear Proyecto" onConfirm = {onConfirm} />
             </AnimatedRoute>
             <AnimatedRoute path={`${path}/:id(\\d+)`}>
                 <VerProyecto />
