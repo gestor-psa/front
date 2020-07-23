@@ -135,6 +135,9 @@ export default () => {
                                         Fecha de contratación: {parseFecha(empleado.date_hire.toString())}
                                     </Typography>
                                     <Typography>
+                                        Antigüedad : {Math.floor(((new Date().getFullYear() - Math.floor(empleado.date_hire/10000))*12 + ((new Date().getMonth() +1) - Math.floor((empleado.date_hire%10000)/100)))/12)} años {Math.floor(((new Date().getFullYear() - Math.floor(empleado.date_hire/10000))*12 + ((new Date().getMonth() +1) - Math.floor((empleado.date_hire%10000)/100)))%12)} meses
+                                    </Typography>
+                                    <Typography>
                                         Contrato: {empleado.contract ==='F'? "Full time":"Part time"}
                                     </Typography>
                                     <Typography>
