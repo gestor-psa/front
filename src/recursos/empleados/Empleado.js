@@ -81,7 +81,7 @@ export default () => {
           <Button  style={{marginLeft:"20px", color:"red"}}onClick={ () => {onEliminar()}} color='error' variant='outlined'>
                     Eliminar
             </Button>
-            <Button  style={{marginLeft:"80px"}}onClick={handleClose} color='secondary' variant='contained'>
+            <Button  style={{marginLeft:"80px"}}onClick={handleClose} color='secondary' variant='outlined'>
                     Cancelar
             </Button>
         </div>
@@ -151,7 +151,7 @@ export default () => {
                         </Grid>
                     </Grid>
                     <div className={classes.nuevoEmpleado}>
-                <Button color='secondary' variant='contained' to={`${url}/modificacion`} component={Link}>
+                <Button color='secondary' variant='outlined' to={`${url}/modificacion`} component={Link}>
                     Modificar
                 </Button>
                 
