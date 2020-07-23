@@ -10,6 +10,9 @@ import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import axios from 'axios';
 import { useParams} from "react-router";
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 
 
 
@@ -23,6 +26,10 @@ const useStyles = makeStyles({
         marginTop: "50px"
     }
 });
+
+const parseFecha = (fecha) => {
+    return fecha.slice(6,8) + "/" + fecha.slice(4,6) + "/" + fecha.slice(0,4);
+}
 
 export default () => {
     const [horas, setHoras] = useState();
@@ -45,18 +52,29 @@ export default () => {
     return (
         <Fragment>
              <div className={classes.nuevaHora}>
-                <Button  style={{marginBottom:"20px", marginRight:"80%"}} color='secondary' variant='contained' disabled>
-                    Buscar:
+                <Button style={{marginBottom:"20px", marginRight:"70%"}} color='secondary' variant='contained' disabled>
+                    Categoría
+                    <ArrowDropDownIcon />
                 </Button>
-                <Button style = {{marginBottom: "20px"}}color='secondary' variant='contained'  disabled>
-                    Cargar horas
-                </Button>
+                <ToggleButtonGroup style={{marginBottom:"20px"}} variant='contained' disabled>
+                    <ToggleButton >
+                        Día
+                    </ToggleButton>
+                    <ToggleButton >
+                        Semana
+                    </ToggleButton>
+                    <ToggleButton >
+                        Mes
+                    </ToggleButton>
+                    <ToggleButton >
+                        Año
+                    </ToggleButton>
+                </ToggleButtonGroup>
             </div>
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>ID</TableCell>
                             <TableCell>Fecha</TableCell>
                             {/* <TableCell>Legajo</TableCell> */}
                             <TableCell>Categoría</TableCell>
@@ -67,10 +85,9 @@ export default () => {
                     <TableBody>
                         {horas && horas.map(hora => (
                             <TableRow>
-                                <TableCell>{hora.id}</TableCell>
-                                <TableCell>{hora.date}</TableCell>
+                                <TableCell>{parseFecha(hora.date.toString())}</TableCell>
                                 {/* <TableCell>{empleado.organization_id}</TableCell> */}
-                                <TableCell>{hora.category}</TableCell>
+                                <TableCell>{hora.category[0].toUpperCase() + hora.category.slice(1)}</TableCell>
                                 <TableCell>{hora.category === 'proyecto' ? hora.taskId : '---'}</TableCell>
                                 <TableCell>{hora.hours}</TableCell>
                             </TableRow>
