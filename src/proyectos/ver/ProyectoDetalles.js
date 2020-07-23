@@ -7,7 +7,7 @@ import axios from "axios";
 
 export default (
     {
-        mostrar, nombre, descripcion, responsableDni=40743621, estado, fechaInicio, fechaFin
+        mostrar, nombre, descripcion, responsableDni, estado, fechaInicio, fechaFin
     }) => {
     const [responsable, setResponsable] = React.useState(false);
 
