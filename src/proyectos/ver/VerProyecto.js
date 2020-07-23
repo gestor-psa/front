@@ -19,7 +19,7 @@ export default () => {
     useEffect(() => {
         axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/'+ id)
             .then(res => {
-                console.log(res);
+                console.log(res.data);
                 setProyecto(res.data);
             })
             .catch(error => {

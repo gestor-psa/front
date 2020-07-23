@@ -42,6 +42,23 @@ export default [
                   ]),
             )
         }),
+        rest.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/1',
+        (req, res, ctx) => {
+            return res(
+                ctx.delay(300),
+                ctx.status(200),
+                ctx.json(
+                    {
+                      "id": 1,
+                      "nombre": "cloud erp",
+                      "descripcion": "el mejor proyecto de psa",
+                      "estado": "activo",
+                      "fechaInicio": "2020-01-01",
+                      "fechaFin": "2021-01-01"
+                    },
+                )
+            )
+        }),
         rest.put(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/1',
         (req, res, ctx) => {
             return res(
