@@ -153,10 +153,10 @@ export default () => {
                                     </FormControl>
                                 </Fragment>}
                                 <div className={classes.nuevoEmpleado}>
-                                    <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant='contained'>
+                                    <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant="outlined">
                                         Nuevo empleado
                                     </Button>
-                                    <Button  style={{marginTop:"40px", marginLeft:"40px"}} color='secondary' variant='contained' disabled>
+                                    <Button  style={{marginTop:"40px", marginLeft:"40px", color:'red'}}onClick={() => {history.push('/recursos/') }} variant='outlined' color='error'>
                                         Cancelar
                                     </Button>
                                 </div>
