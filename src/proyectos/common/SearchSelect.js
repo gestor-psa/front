@@ -20,7 +20,7 @@ export default ({opciones = null, defaultValue, url = '', autocompleteProps = {}
     }, [url, loading, opciones]);
 
     const getOptionLabel = autocompleteProps.getOptionLabel || (x => x);
-    const defval = (defaultValue && opciones.find(x => x.id === defaultValue)) || {name: "Sin", surname:"Asignar"};
+    const defval = (options && options.find(x => x.id === defaultValue)) || {name: "Sin", surname:"Asignar"};
     return (
         <Autocomplete
             {...autocompleteProps}

@@ -13,7 +13,8 @@ export default [
                       "descripcion": "el mejor proyecto de psa",
                       "estado": "activo",
                       "fechaInicio": "2020-01-01",
-                      "fechaFin": "2021-01-01"
+                      "fechaFin": "2021-01-01",
+                      "responsableDni":40743621,
                     },
                     {
                       "id": 2,
@@ -54,7 +55,8 @@ export default [
                       "descripcion": "el mejor proyecto de psa",
                       "estado": "activo",
                       "fechaInicio": "2020-01-01",
-                      "fechaFin": "2021-01-01"
+                      "fechaFin": "2021-01-01",
+                      "responsableDni":40743621,
                     },
                 )
             )
