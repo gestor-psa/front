@@ -7,6 +7,7 @@ import { useParams, useRouteMatch } from "react-router";
 import axios from "axios";
 import ModificarEmpleado from "recursos/empleados/ModificarEmpleado"
 import CargarHora from "recursos/empleados/CargarHora"
+import HorasCargadas from "recursos/empleados/HorasCargadas"
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 import Button from "@material-ui/core/Button";
@@ -171,7 +172,7 @@ export default () => {
                 {body}
                 </Modal>
 
-                <Button  style={{marginLeft:"40%"}} color='secondary' variant='contained' component={Link} disabled>
+                <Button  style={{marginLeft:"40%"}} color='secondary' variant='contained' to={`${url}/horascargadas`} component={Link} >
                     Ver horas cargadas
                 </Button>
                 <Button  style={{marginLeft:"40px"}} color='secondary' variant='contained' to={`${url}/cargarhora`} component={Link}>
@@ -186,6 +187,9 @@ export default () => {
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
                 <ModificarEmpleado/>
+            </AnimatedRoute>
+            <AnimatedRoute exact path={`${path}/horascargadas`}>
+                <HorasCargadas/>
             </AnimatedRoute>
         </AnimatedSwitch>
     )
