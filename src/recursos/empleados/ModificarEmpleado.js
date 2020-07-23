@@ -165,7 +165,7 @@ export default () => {
                                 </Fragment>}
                                 <div className={classes.nuevoEmpleado}>
                                     <Button style={{marginTop:"40px"}}onClick={() => { onModificar() }} color="secondary" variant='outlined'>
-                                        Modificar empleado
+                                        Modificar recurso
                                     </Button>
                                     <Button  style={{marginTop:"40px", marginLeft:"40px", color: "red"}}onClick={() => {history.push('/recursos/'+empleado.dni) }} color='error' variant='outlined' >
                                         Cancelar
