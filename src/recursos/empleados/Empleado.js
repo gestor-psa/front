@@ -10,6 +10,7 @@ import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
+import {useHistory} from "react-router";
 import ConfirmacionContext from "contexts/ConfirmacionContext";
 import Modal from "@material-ui/core/Modal";
 
@@ -60,6 +61,7 @@ export default () => {
     // getModalStyle is not a pure function, we roll the style only on the first render
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
+    const history = useHistory();
 
     const handleOpen = () => {
         setOpen(true);
@@ -88,6 +90,7 @@ export default () => {
     const onEliminar = () => {
         axios.delete(process.env.REACT_APP_URL_RECURSOS + '/employees/' + empleado.dni)
             .then(res => {
+                    history.push(`/recursos`)
                     setMensaje('Empleado eliminado');
                     setMostrar(true); 
                 }).catch(error => {
