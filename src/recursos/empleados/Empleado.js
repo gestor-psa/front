@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import {useHistory} from "react-router";
 import ConfirmacionContext from "contexts/ConfirmacionContext";
 import Modal from "@material-ui/core/Modal";
-
+import InsertChartOutlinedOutlinedIcon from '@material-ui/icons/InsertChartOutlinedOutlined';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -52,6 +52,7 @@ const useStyles = makeStyles(theme => ({
 const parseFecha = (fecha) => {
     return fecha.slice(6,8) + "/" + fecha.slice(4,6) + "/" + fecha.slice(0,4);
 }
+
 
 export default () => {
     const classes = useStyles();
@@ -137,6 +138,9 @@ export default () => {
                                         Fecha de contratación: {parseFecha(empleado.date_hire.toString())}
                                     </Typography>
                                     <Typography>
+                                        Antigüedad : {Math.floor(((new Date().getFullYear() - Math.floor(empleado.date_hire/10000))*12 + ((new Date().getMonth() +1) - Math.floor((empleado.date_hire%10000)/100)))/12)} años {Math.floor(((new Date().getFullYear() - Math.floor(empleado.date_hire/10000))*12 + ((new Date().getMonth() +1) - Math.floor((empleado.date_hire%10000)/100)))%12)} meses
+                                    </Typography>
+                                    <Typography>
                                         Contrato: {empleado.contract ==='F'? "Full time":"Part time"}
                                     </Typography>
                                     <Typography>
@@ -146,6 +150,7 @@ export default () => {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 {/* <Comentarios mostrar={Boolean(ticket)}/> */}
+                                <InsertChartOutlinedOutlinedIcon style={{ fontSize: 150 , marginLeft:"40%"}}  />
                             </Grid>
                         </Grid>
                         <Grid item xs={12}>
@@ -171,11 +176,12 @@ export default () => {
                 >
                 {body}
                 </Modal>
+                
 
-                <Button  style={{marginLeft:"40%"}} color='secondary' variant='contained' to={`${url}/horascargadas`} component={Link} >
+                <Button  style={{marginLeft:"35%"}} color='secondary' variant='outlined' to={`${url}/horascargadas`} component={Link} >
                     Ver horas cargadas
                 </Button>
-                <Button  style={{marginLeft:"40px"}} color='secondary' variant='contained' to={`${url}/cargarhora`} component={Link}>
+                <Button  style={{marginLeft:"40px"}} color='secondary' variant='outlined' to={`${url}/cargarhora`} component={Link}>
                     Cargar horas
                 </Button>
                 </div>
