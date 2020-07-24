@@ -3,7 +3,7 @@ import SeleccionDeGrupo from "proyectos/common/SeleccionDeGrupo";
 
 
 
-export default ({onDataChange, proyecto = {}}) => {
+export default ({onDataChange, proyecto}) => {
    
 
     const estados = [
@@ -21,7 +21,7 @@ export default ({onDataChange, proyecto = {}}) => {
             valor: 'cancelado'
         }
     ];
-
+    console.log(proyecto);
     return (
         <div>
             <SeleccionDeGrupo

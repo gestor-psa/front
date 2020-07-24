@@ -25,6 +25,8 @@ export default ({titulo, onConfirm = () => null, proyecto = {duracion: 0}}) => {
         onConfirm(data);
     }
 
+    console.log(proyecto);
+
     return (
         <Layout
             titulo={titulo}
@@ -38,6 +40,7 @@ export default ({titulo, onConfirm = () => null, proyecto = {duracion: 0}}) => {
             ladoDerecho={
                 <Grid >
                     <CamposDeSeleccion
+                        proyecto = {proyecto}
                         onDataChange={onDataChange}
                     />
                     <CamposFecha proyecto = {proyecto} onChange = {onDataChange}/>

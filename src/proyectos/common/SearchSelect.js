@@ -10,21 +10,26 @@ import match from 'autosuggest-highlight/match';
 export default ({opciones = null, defaultValue, url = '', autocompleteProps = {}, textFieldProps = {}}) => {
     const [open, setOpen] = React.useState(false);
     const [options, setOptions] = React.useState(opciones);
+    const [defval, setDefval] = React.useState({});
     const loading = open && !options;
 
     React.useEffect(() => {
         if (!opciones && loading) {
             axios.get(url)
-                .then(res => setOptions(res.data))
+                .then(res => {
+                    console.log(res.data);
+                    setOptions(res.data);
+                    var filterdni = res.data.filter(x => x.dni === defaultValue);
+                    filterdni.length > 0 && setDefval(filterdni[0]);
+                })
         }
-    }, [url, loading, opciones]);
+    }, [url, loading, opciones, defaultValue]);
 
     const getOptionLabel = autocompleteProps.getOptionLabel || (x => x);
-    const defval = (options && options.find(x => x.id === defaultValue)) || {name: "Sin", surname:"Asignar"};
     return (
         <Autocomplete
             {...autocompleteProps}
-            defaultValue={defval}
+            defaultValue={defval.name && defval}
             key={getOptionLabel(defval)}
             open={open}
             openOnFocus

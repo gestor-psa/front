@@ -30,9 +30,9 @@ export default ({mostrar}) => {
 
     const onEliminar = () => {
         //TODO hacer que la baja sea logica
-        axios.delete(process.env.REACT_APP_URL_SOPORTE + '/proyectos/' + id)
+        axios.delete(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/' + id)
             .then((result) => {
-                history.push('/proyectos')
+               // history.push('/proyectos')
                 //setMensaje('proyecto dado de baja');
                 //setMostrar(true);
             })
@@ -40,7 +40,7 @@ export default ({mostrar}) => {
                 // TODO.
                 console.log(error.response);
             });
-       history.push(`proyectos`);
+       history.push(`/proyectos`);
     }
 
     const onFases = () => history.push(`${url}/fases`)
