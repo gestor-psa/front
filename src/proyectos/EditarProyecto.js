@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import Layout from "proyectos/common/Layout";
 import {useForm} from "react-hook-form";
 import CamposDeTexto from "proyectos/crear/CamposDeTexto";
@@ -15,9 +15,9 @@ export default ({titulo, onConfirm = () => null, proyecto = {duracion: 0}}) => {
     const onDataChange = (e) => setData({...data, ...e});
     
 
-    useEffect(() => {
+    /*useEffect(() => {
         //setData(proyecto); breaks stuff
-    }, [proyecto])
+    }, [proyecto])*/
 
     const onConfirmar = () => {
        setEsperando(true);

@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { Paper, Typography } from '@material-ui/core';
-import { useRouteMatch } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -17,10 +16,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default (props) => {
     const classes = useStyles();
-    const { path } = useRouteMatch() || {};
     const history = useHistory();
 
-    const pushToOverview = (id) => history.push(`${path}/${id}`);
+    const pushToOverview = (id) => {history.push(`${history.location.pathname}/`+id);};
 
     return (
         <Fragment>

@@ -8,7 +8,8 @@ import EditarProyecto from 'proyectos/EditarProyecto';
 import axios from "axios";
 import VistaListado from 'proyectos/VistaListado';
 import { Typography } from '@material-ui/core';
-import ColoredButton from "soporte/common/ColoredButton";
+import BotonVolver from "proyectos/common/BotonVolver";
+import Proyecto from 'proyectos/Proyecto'
 
 export default () => {
     const { id } = useParams();
@@ -39,28 +40,35 @@ export default () => {
         });
       };
 
-    const volver = () => (history.push('/proyectos/'+ id));
-    const volverB =  <ColoredButton onClick={volver} variant='outlined'color='warning'> Volver</ColoredButton>;
-    const error = <Typography color = 'error'>Error al cargar proyecto</Typography>;
-    //const mapFases = (fase) =>(fase.nombre);
     
+    const error = <Typography color = 'error'>Error al cargar proyecto</Typography>;
+
+    const mapFases = (fase) => (
+        <Proyecto proyecto={fase} key={fase.id}/>
+      )
+    
+    const mapTareas = (tarea) => (
+        <Proyecto proyecto={tarea} key={tarea.id}/>
+    )
+
     return (
 
         <AnimatedSwitch>
             <AnimatedRoute exact path={path}>
                 <ProyectoDetails mostrar={Boolean(proyecto)} {...proyecto}/>
                 <AccionesProyecto mostrar = {true}/>
+                <BotonVolver></BotonVolver>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
                 <EditarProyecto onConfirm = {onConfirm} titulo = "Modificar Proyecto" proyecto = {proyecto} />
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/fases`}> 
-                {volverB}
-                {(proyecto && <VistaListado url = {'/proyectos/'+id+"/fases"}></VistaListado>) || error}
+                <BotonVolver></BotonVolver>
+                {(proyecto && <VistaListado url = {'/proyectos/'+id+"/fases"} mapf = {mapFases}></VistaListado>) || error}
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/tareas`}> 
-                {volverB}
-                {(proyecto && <VistaListado url = {'/proyectos/'+id+"/tareas"}></VistaListado>) || error}
+                <BotonVolver></BotonVolver>
+                {(proyecto && <VistaListado url = {'/proyectos/'+id+"/tareas"} mapf = {mapTareas}></VistaListado>) || error}
             </AnimatedRoute>
         </AnimatedSwitch>
     )
