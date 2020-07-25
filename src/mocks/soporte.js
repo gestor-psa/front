@@ -87,6 +87,24 @@ export default [
                 }),
             )
         }),
+    rest.put(process.env.REACT_APP_URL_SOPORTE + '/tickets/1',
+        (req, res, ctx) => {
+            return res(
+                ctx.delay(1000),
+                ctx.status(200),
+                ctx.json({
+                    "nombre": "Tiempos de espera",
+                    "descripcion": "Se desea optimizar los tiempos de espera al confirmar la compra, de forma tal que tarde aproximadamente la mitad de lo que tarda hoy en día.",
+                    "tipo": "mejora",
+                    "severidad": "media",
+                    "responsable": "Agustín Ramirez",
+                    "estado": "iniciado",
+                    "fechaDeCreacion": "2020-06-04T18:19:29.472Z",
+                    "fechaDeActualizacion": null,
+                    "id": 1
+                }),
+            )
+        }),
     rest.delete(process.env.REACT_APP_URL_SOPORTE + '/tickets/1',
         (req, res, ctx) => {
             return res(
@@ -200,4 +218,45 @@ export default [
                 ),
             )
         }),
+    // rest.get(process.env.REACT_APP_URL_PROYECTOS + '/tareas',
+    //     (req, res, ctx) => {
+    //         return res(
+    //             ctx.delay(1000),
+    //             ctx.status(200),
+    //             ctx.json([
+    //                 {
+    //                     "id": 1,
+    //                     "nombre": "ABM Tareas",
+    //                     "descripcion": "hacer x",
+    //                     "estado": "activa",
+    //                     "prioridad": "alta",
+    //                     "fechaInicio": "2020-07-20",
+    //                     "fechaFin": "2020-07-22",
+    //                     "proyectoId": 1,
+    //                     "tickets": [1]
+    //                 }, {
+    //                     "id": 2,
+    //                     "nombre": "ABM Proyectos",
+    //                     "descripcion": "hacer abm",
+    //                     "estado": "finalizado",
+    //                     "prioridad": "alta",
+    //                     "fechaInicio": "2020-07-23",
+    //                     "fechaFin": "2020-07-23",
+    //                     "proyectoId": 1,
+    //                     "tickets": [1]
+    //                 }, {
+    //                     "id": 3,
+    //                     "nombre": "ABM Fases",
+    //                     "descripcion": "crud",
+    //                     "estado": "finalizado",
+    //                     "prioridad": "alta",
+    //                     "fechaInicio": "2020-07-23",
+    //                     "fechaFin": "2020-07-23",
+    //                     "proyectoId": 2,
+    //                     "tickets": [1]
+    //                 }
+    //             ]),
+    //         )
+    //     }
+    // ),
 ]

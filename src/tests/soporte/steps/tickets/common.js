@@ -24,7 +24,7 @@ export const existeTicket = ({given}) => {
             rest.get(process.env.REACT_APP_URL_SOPORTE + '/tickets/' + atributos.id,
                 (req, res, ctx) => {
                     return res(
-                        ctx.status(201),
+                        ctx.status(200),
                         ctx.json(ticket),
                     )
                 }),
@@ -35,6 +35,13 @@ export const existeTicket = ({given}) => {
                         ctx.json([ticket]),
                     )
                 }),
+            rest.get(process.env.REACT_APP_URL_PROYECTOS + '/tareas',
+                (req, res, ctx) => {
+                    return res(
+                        ctx.status(200),
+                        ctx.json([]),
+                    )
+                })
         )
     });
 }

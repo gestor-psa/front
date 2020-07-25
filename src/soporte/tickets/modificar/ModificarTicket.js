@@ -24,7 +24,7 @@ export default ({ticket, onTicketChange}) => {
         setEsperando(true);
         axios.put(process.env.REACT_APP_URL_SOPORTE + '/tickets/' + id, data)
             .then((result) => {
-                onTicketChange(result.data);
+                onTicketChange({...ticket, ...result.data});
                 history.push(`/soporte/tickets/${result.data.id}`)
                 console.log(result);
             })

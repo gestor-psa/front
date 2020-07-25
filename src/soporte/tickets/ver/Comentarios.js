@@ -48,7 +48,11 @@ const useStyles = makeStyles(theme => ({
 
 export default ({mostrar}) => {
     const classes = useStyles();
-    const comentarios = Array(8).fill("Este es un comentario bastante más largo aunque no tanto más puesto que solo es un comentario.Este es un comentario bastante más largo aunque no tanto más puesto que solo es un comentario.");
+    const comentarios = [
+        "El ticket fue resuelta correctamente.",
+        "El cliente se comunicó nuevamente para informar que el problema aún no fue resuelto.",
+        "Se abrió una tarea en el proyecto PSA ERP."
+    ];
 
     return (
         <div className={classes.root}>
