@@ -29,9 +29,7 @@ export default ({mostrar}) => {
             });
     }
 
-    const onCrearTarea = () => {
-        // TODO.
-    }
+    const onCrearTarea = () => history.push(`${url}/creacion-tarea`)
 
     return (
         <Fragment>

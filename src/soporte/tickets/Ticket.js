@@ -5,6 +5,7 @@ import axios from "axios";
 import ModificarTicket from "soporte/tickets/modificar/ModificarTicket";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
+import CrearTarea from "soporte/tickets/crear-tarea/CrearTarea";
 
 
 // /tickets
@@ -32,6 +33,9 @@ export default ({ticket, onTicketChange}) => {
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
                 <ModificarTicket ticket={ticket} onTicketChange={onTicketChange}/>
+            </AnimatedRoute>
+            <AnimatedRoute exact path={`${path}/creacion-tarea`}>
+                <CrearTarea ticket={ticket} onTicketChange={onTicketChange}/>
             </AnimatedRoute>
         </AnimatedSwitch>
     )

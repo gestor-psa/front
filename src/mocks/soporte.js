@@ -259,4 +259,23 @@ export default [
     //         )
     //     }
     // ),
+    // rest.post(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/1/tareas',
+    //     (req, res, ctx) => {
+    //         return res(
+    //             ctx.delay(1000),
+    //             ctx.status(200),
+    //             ctx.json({
+    //                     "id": 1,
+    //                     "nombre": "ABM Tareas",
+    //                     "descripcion": "hacer x",
+    //                     "estado": "activa",
+    //                     "prioridad": "alta",
+    //                     "fechaInicio": "2020-07-20",
+    //                     "fechaFin": "2020-07-22",
+    //                     "proyectoId": 1,
+    //                     "tickets": [1]
+    //                 }
+    //             ),
+    //         )
+    //     }),
 ]
