@@ -10,6 +10,7 @@ import VistaListado from 'proyectos/VistaListado';
 import { Typography } from '@material-ui/core';
 import BotonVolver from "proyectos/common/BotonVolver";
 import Proyecto from 'proyectos/Proyecto'
+import VistaFases from 'proyectos/ver/VistaFases'
 
 export default () => {
     const { id } = useParams();
@@ -40,16 +41,16 @@ export default () => {
         });
       };
 
-    
+    console.log(path)
     const error = <Typography color = 'error'>Error al cargar proyecto</Typography>;
-
-    const mapFases = (fase) => (
-        <Proyecto proyecto={fase} key={fase.id}/>
-      )
     
     const mapTareas = (tarea) => (
         <Proyecto proyecto={tarea} key={tarea.id}/>
     )
+
+    const mapFases = (fase) => (
+        <Proyecto proyecto={fase} key={fase.id}/>
+      )
 
     return (
 
@@ -62,13 +63,23 @@ export default () => {
             <AnimatedRoute exact path={`${path}/modificacion`}>
                 <EditarProyecto onConfirm = {onConfirm} titulo = "Modificar Proyecto" proyecto = {proyecto} />
             </AnimatedRoute>
-            <AnimatedRoute exact path={`${path}/fases`}> 
-                <BotonVolver></BotonVolver>
-                {(proyecto && <VistaListado url = {'/proyectos/'+id+"/fases"} mapf = {mapFases}></VistaListado>) || error}
-            </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/tareas`}> 
                 <BotonVolver></BotonVolver>
                 {(proyecto && <VistaListado url = {'/proyectos/'+id+"/tareas"} mapf = {mapTareas}></VistaListado>) || error}
+            </AnimatedRoute>
+            <AnimatedRoute exact path={ `${path}/fases`}>
+                
+                <BotonVolver></BotonVolver>
+                {<VistaListado url = {`${path}/fases`} mapf = {mapFases}></VistaListado>}
+                
+            </AnimatedRoute>
+            <AnimatedRoute exact path={`${path}`+"/fases/crear"}>
+                <BotonVolver></BotonVolver>
+                crear fase
+            </AnimatedRoute>
+            <AnimatedRoute exact path={`${path}`+"/fases/:id(\\d+)"}>
+                <BotonVolver></BotonVolver>
+                verFase
             </AnimatedRoute>
         </AnimatedSwitch>
     )

@@ -4,6 +4,7 @@ import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 import EsqueletoMultilinea from "soporte/common/EsqueletoMultilinea";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+//import Moment from 'moment';
 
 export default (
     {
@@ -18,35 +19,42 @@ export default (
         }
     }, [responsableDni]);
 
+    var duracion;
+
     return (
         <Fragment>
-                <Typography variant='h4'>{nombre && nombre.capitalize()}</Typography>
-                <EsqueletoMultilinea
+                {<Typography variant='h4'>{nombre && nombre.capitalize()}</Typography>}
+                {descripcion && <EsqueletoMultilinea
                     filas={3}
                     etiqueta='Descripción'
                     mostrar={mostrar}
                     valor={descripcion && descripcion.capitalize()}
-                />
-                <EsqueletoTexto
+                />}
+                {responsableDni && <EsqueletoTexto
                     etiqueta='Responsable'
                     mostrar={mostrar}
-                    valor={(responsable.name && (responsable.name+" "+responsable.surname)) || "Sin asignar"}
-                />
-                <EsqueletoTexto
+                    valor={(responsable && responsable.name && (responsable.name+" "+responsable.surname)) || "Sin asignar"}
+                />}
+                {estado && <EsqueletoTexto
                     etiqueta='Estado'
-                    mostrar={mostrar}
+                    mostrar={mostrar && estado}
                     valor={estado && estado.capitalize()}
-                />
-                <EsqueletoTexto
+                />}
+                {fechaInicio && <EsqueletoTexto
                     etiqueta='Fecha de inicio'
-                    mostrar={mostrar}
+                    mostrar={mostrar && fechaInicio}
                     valor={<Fecha fecha={fechaInicio}/>}
-                />
-                <EsqueletoTexto
+                />}
+                {fechaFin && <EsqueletoTexto
                     etiqueta='Fecha de finalización'
                     mostrar={mostrar}
                     valor={<Fecha fecha={fechaFin}/>}
-                />
+                />}
+                {duracion && <EsqueletoTexto
+                    etiqueta='Duracion en dias'
+                    mostrar={mostrar && duracion}
+                    valor={duracion+" dias"}
+                />}
            
         </Fragment>
     )
