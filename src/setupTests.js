@@ -50,3 +50,10 @@ const createMatchMedia = (width) => {
 }
 
 window.matchMedia = createMatchMedia(window.innerWidth);
+
+window.SVGElement.prototype.getBBox = () => ({
+    x: 0,
+    y: 0,
+    width: 30,
+    height: 30
+});

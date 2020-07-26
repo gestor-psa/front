@@ -1,4 +1,5 @@
 import {rest} from "msw";
+import moment from "moment";
 
 export default [
     rest.get(process.env.REACT_APP_URL_SOPORTE + '/tickets',
@@ -278,4 +279,38 @@ export default [
     //             ),
     //         )
     //     }),
+    rest.get(process.env.REACT_APP_URL_SOPORTE + '/reportes/ticketsAbiertosYCerradosPorDia',
+        (req, res, ctx) => {
+            const min = 0
+            const max = 5
+            return res(
+                // ctx.delay(1000),
+                ctx.status(200),
+                ctx.json(
+                    [...Array(30).keys()]
+                        .map(n => ({
+                            dia: moment().subtract(n, 'days').format("YYYY-MM-DD"),
+                            cantidadAbiertos: Math.round(Math.random() * (max - min) + min),
+                            cantidadCerrados: Math.round(Math.random() * (max - min) + min)
+                        }))
+                ),
+            )
+        }),
+    rest.get(process.env.REACT_APP_URL_SOPORTE + '/reportes/ticketsAcumuladosPorDia',
+        (req, res, ctx) => {
+            const min = -2
+            const max = 2
+            let acumulador = 40
+            return res(
+                // ctx.delay(500),
+                ctx.status(200),
+                ctx.json(
+                    [...Array(30).keys()]
+                        .map(n => ({
+                            dia: moment().subtract(n, 'days').format("YYYY-MM-DD"),
+                            cantidad: acumulador += Math.round(Math.random() * (max - min) + min)
+                        }))
+                ),
+            )
+        }),
 ]
