@@ -10,7 +10,7 @@ import VistaListado from 'proyectos/VistaListado';
 import { Typography } from '@material-ui/core';
 import BotonVolver from "proyectos/common/BotonVolver";
 import Proyecto from 'proyectos/Proyecto'
-import VistaFases from 'proyectos/ver/VistaFases'
+//import VistaFases from 'proyectos/ver/VistaFases'
 
 export default () => {
     const { id } = useParams();
@@ -71,11 +71,11 @@ export default () => {
                 <BotonVolver></BotonVolver>
                 {<VistaListado url = {`${path}/fases`} mapf = {mapFases}></VistaListado>}
             </AnimatedRoute>
-            <AnimatedRoute exact path={`${path}`+"/fases/crear"}>
+            <AnimatedRoute exact path={`${path}/fases/crear`}>
                 <BotonVolver></BotonVolver>
                 crear fase
             </AnimatedRoute>
-            <AnimatedRoute exact path={`${path}`+"/fases/:id(\\d+)"}>
+            <AnimatedRoute exact path={`${path}/fases/:id(\\d+)`}>
                 <BotonVolver></BotonVolver>
                 verFase
             </AnimatedRoute>

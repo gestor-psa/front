@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import ContentWrapper from "components/common/ContentWrapper";
-import { useRouteMatch } from "react-router";
+//import { useRouteMatch } from "react-router";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 
@@ -15,8 +15,8 @@ import {useHistory} from "react-router";
 import ProyectoDetails from "proyectos/ver/ProyectoDetalles";
 
 export default ({path, idProyecto}) => {
-  const history = useHistory();
-  const [fase, setFase] = useState();
+ // const history = useHistory();
+  //const [fase, setFase] = useState();
 
   const mapFases = (fase) => (
     <Proyecto proyecto={fase} key={fase.id}/>
