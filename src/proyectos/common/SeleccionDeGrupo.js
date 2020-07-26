@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 export default ({opciones, seleccionPorDefecto, onChange = () => null}) => {
     const [seleccionado, setSeleccionado] = useState(seleccionPorDefecto || opciones[0].valor);
     const classes = useStyles();
-    console.log(opciones, seleccionPorDefecto);
+   
     return (
         <FormControl className = {classes.formControl}>
         <InputLabel >Estado*</InputLabel>

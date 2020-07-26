@@ -25,8 +25,6 @@ export default ({titulo, onConfirm = () => null, proyecto = {duracion: 0}}) => {
         onConfirm(data);
     }
 
-    console.log(proyecto);
-
     return (
         <Layout
             titulo={titulo}

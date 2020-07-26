@@ -68,10 +68,8 @@ export default () => {
                 {(proyecto && <VistaListado url = {'/proyectos/'+id+"/tareas"} mapf = {mapTareas}></VistaListado>) || error}
             </AnimatedRoute>
             <AnimatedRoute exact path={ `${path}/fases`}>
-                
                 <BotonVolver></BotonVolver>
                 {<VistaListado url = {`${path}/fases`} mapf = {mapFases}></VistaListado>}
-                
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}`+"/fases/crear"}>
                 <BotonVolver></BotonVolver>

@@ -21,7 +21,7 @@ export default ({onDataChange, proyecto}) => {
             valor: 'cancelado'
         }
     ];
-    console.log(proyecto);
+
     return (
         <div>
             <SeleccionDeGrupo
