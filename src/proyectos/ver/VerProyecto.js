@@ -19,7 +19,7 @@ export default () => {
     const [proyecto, setProyecto] = useState();
     const [fase, setFase] = useState();
     const history = useHistory();
-
+    console.log(fase)
     useEffect(() => {
         axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/'+ id)
             .then(res => {

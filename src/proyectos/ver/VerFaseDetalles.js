@@ -18,7 +18,7 @@ export default ({proyectoId, setFaseProyecto}) => {
             .catch(error => {
                 // TODO.
             })
-    }, [id]);
+    }, [ id, proyectoId, setFaseProyecto]);
 
     return (<Grid>
             <ProyectoDetails mostrar={Boolean(fase)} {...fase} />
