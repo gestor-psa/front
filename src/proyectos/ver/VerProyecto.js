@@ -10,18 +10,19 @@ import VistaListado from 'proyectos/VistaListado';
 import { Typography } from '@material-ui/core';
 import BotonVolver from "proyectos/common/BotonVolver";
 import Proyecto from 'proyectos/Proyecto'
+import FaseDetalles from "proyectos/ver/VerFaseDetalles";
 //import VistaFases from 'proyectos/ver/VistaFases'
 
 export default () => {
     const { id } = useParams();
     const { path } = useRouteMatch() || {};
     const [proyecto, setProyecto] = useState();
+    const [fase, setFase] = useState();
     const history = useHistory();
 
     useEffect(() => {
         axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/'+ id)
             .then(res => {
-                console.log(res.data);
                 setProyecto(res.data);
             })
             .catch(error => {
@@ -33,6 +34,7 @@ export default () => {
         axios.put(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/'+ id, data)
             .then((result) => {
                 history.push(`/proyectos/`+ id)
+                setProyecto(data);
                 console.log(result);
             })
             .catch(error => {
@@ -41,7 +43,7 @@ export default () => {
         });
       };
 
-    console.log(path)
+
     const error = <Typography color = 'error'>Error al cargar proyecto</Typography>;
     
     const mapTareas = (tarea) => (
@@ -57,8 +59,7 @@ export default () => {
         <AnimatedSwitch>
             <AnimatedRoute exact path={path}>
                 <ProyectoDetails mostrar={Boolean(proyecto)} {...proyecto}/>
-                <AccionesProyecto mostrar = {true}/>
-                <BotonVolver></BotonVolver>
+                <AccionesProyecto mostrar = {true} verFases = {true} verTareas = {true}/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
                 <EditarProyecto onConfirm = {onConfirm} titulo = "Modificar Proyecto" proyecto = {proyecto} />
@@ -69,15 +70,17 @@ export default () => {
             </AnimatedRoute>
             <AnimatedRoute exact path={ `${path}/fases`}>
                 <BotonVolver></BotonVolver>
-                {<VistaListado url = {`${path}/fases`} mapf = {mapFases}></VistaListado>}
+                {<VistaListado url = {'/proyectos/'+id+"/fases"} mapf = {mapFases}></VistaListado>}
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/fases/crear`}>
                 <BotonVolver></BotonVolver>
                 crear fase
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/fases/:id(\\d+)`}>
+                <FaseDetalles proyectoId = {id} setFaseProyecto = {setFase}/>
+            </AnimatedRoute>
+            <AnimatedRoute exact path={`${path}/fases/:id(\\d+)/iteraciones`}>
                 <BotonVolver></BotonVolver>
-                verFase
             </AnimatedRoute>
         </AnimatedSwitch>
     )

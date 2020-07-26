@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({mostrar}) => {
+export default ({mostrar, verFases, verTareas, verIteraciones}) => {
     const { id } = useParams();
     const classes = useStyles();
     const {url} = useRouteMatch() || {};
@@ -47,6 +47,8 @@ export default ({mostrar}) => {
 
     const onTareas = () => history.push(`${url}/tareas`)
 
+    const onIteraciones = () => history.push(`${url}/iteraciones`)
+
     return (
         <div className={classes.root}>
             <ConfirmarTooltip
@@ -65,7 +67,7 @@ export default ({mostrar}) => {
                     Dar de Baja
                 </ColoredButton>
             </ConfirmarTooltip>
-            <ColoredButton
+            {verFases && <ColoredButton
                 onClick={onFases}
                 disabled={!mostrar}
                 variant='outlined'
@@ -73,8 +75,17 @@ export default ({mostrar}) => {
                 className={classes.acciones}
             >
                 Ver Fases
-            </ColoredButton>
-            <ColoredButton
+            </ColoredButton>}
+            {verIteraciones && <ColoredButton
+                onClick={onIteraciones}
+                disabled={!mostrar}
+                variant='outlined'
+                color='warning'
+                className={classes.acciones}
+            >
+                Ver Iteraciones
+            </ColoredButton>}
+            {verTareas && <ColoredButton
                 onClick={onTareas}
                 disabled={!mostrar}
                 variant='outlined'
@@ -82,7 +93,7 @@ export default ({mostrar}) => {
                 className={classes.acciones}
             >
                 Ver Tareas
-            </ColoredButton>
+            </ColoredButton>}
             <Button
                 disabled={!mostrar}
                 color="secondary"
