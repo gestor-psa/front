@@ -25,12 +25,13 @@ export default ({titulo, onConfirm = () => null, proyecto = {duracion: 0}}) => {
         onConfirm(data);
     }
 
+
     return (
         <Layout
             titulo={titulo}
             ladoIzquierdo={
                 <CamposDeTexto
-                    proyecto = {data}
+                    proyecto = {proyecto}
                     errors={errors}
                     register={register}
                     onDataChange={onDataChange}
@@ -41,7 +42,7 @@ export default ({titulo, onConfirm = () => null, proyecto = {duracion: 0}}) => {
                         proyecto = {data}
                         onDataChange={onDataChange}
                     />
-                    <CamposFecha proyecto = {data} onChange = {onDataChange}/>
+                    <CamposFecha proyecto = {proyecto} onChange = {onDataChange}/>
                 </Grid>}
             fin={
                 <Acciones

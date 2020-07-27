@@ -24,22 +24,6 @@ export default [
                       "fechaInicio": "2020-04-01",
                       "fechaFin": "2020-08-10"
                     },
-                    {
-                      "id": 3,
-                      "nombre": "psa/prueba",
-                      "descripcion": "prueba de api",
-                      "estado": "detenido",
-                      "fechaInicio": "2020-03-01",
-                      "fechaFin": "2020-06-01"
-                    },
-                    {
-                      "id": 4,
-                      "nombre": "Lorem Ipsum",
-                      "descripcion": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                      "estado": "en progreso",
-                      "fechaInicio": "2020-03-01",
-                      "fechaFin": null
-                    }
                   ]),
             )
         }),
