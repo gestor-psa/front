@@ -58,7 +58,7 @@ export default () => {
 
         <AnimatedSwitch>
             <AnimatedRoute exact path={path}>
-                <ProyectoDetails mostrar={Boolean(proyecto)} {...proyecto}/>
+                <ProyectoDetails esProyecto = {true} mostrar={Boolean(proyecto)} {...proyecto}/>
                 <AccionesProyecto mostrar = {true} verFases = {true} verTareas = {true}/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>

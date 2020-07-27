@@ -8,6 +8,7 @@ import axios from "axios";
 
 export default (
     {
+        esProyecto, //esFase, esIteracion,
         mostrar, nombre, descripcion, responsableDni, estado, fechaInicio, fechaFin
     }) => {
     const [responsable, setResponsable] = React.useState(false);
@@ -30,24 +31,24 @@ export default (
                     mostrar={mostrar}
                     valor={descripcion && descripcion.capitalize()}
                 />}
-                {responsableDni && <EsqueletoTexto
+                {esProyecto && <EsqueletoTexto
                     etiqueta='Responsable'
                     mostrar={mostrar}
                     valor={(responsable && responsable.name && (responsable.name+" "+responsable.surname)) || "Sin asignar"}
                 />}
-                {estado && <EsqueletoTexto
+                {<EsqueletoTexto
                     etiqueta='Estado'
                     mostrar={mostrar && estado}
                     valor={estado && estado.capitalize()}
                 />}
-                {fechaInicio && <EsqueletoTexto
+                { <EsqueletoTexto
                     etiqueta='Fecha de inicio'
                     mostrar={mostrar && fechaInicio}
                     valor={<Fecha fecha={fechaInicio}/>}
                 />}
-                {fechaFin && <EsqueletoTexto
+                { <EsqueletoTexto
                     etiqueta='Fecha de finalización'
-                    mostrar={mostrar}
+                    mostrar={mostrar && fechaFin}
                     valor={<Fecha fecha={fechaFin}/>}
                 />}
                 {duracion && <EsqueletoTexto
