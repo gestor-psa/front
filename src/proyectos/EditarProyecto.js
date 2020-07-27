@@ -30,7 +30,7 @@ export default ({titulo, onConfirm = () => null, proyecto = {duracion: 0}}) => {
             titulo={titulo}
             ladoIzquierdo={
                 <CamposDeTexto
-                    proyecto = {proyecto}
+                    proyecto = {data}
                     errors={errors}
                     register={register}
                     onDataChange={onDataChange}
@@ -38,10 +38,10 @@ export default ({titulo, onConfirm = () => null, proyecto = {duracion: 0}}) => {
             ladoDerecho={
                 <Grid >
                     <CamposDeSeleccion
-                        proyecto = {proyecto}
+                        proyecto = {data}
                         onDataChange={onDataChange}
                     />
-                    <CamposFecha proyecto = {proyecto} onChange = {onDataChange}/>
+                    <CamposFecha proyecto = {data} onChange = {onDataChange}/>
                 </Grid>}
             fin={
                 <Acciones
