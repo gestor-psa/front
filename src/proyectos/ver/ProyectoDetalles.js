@@ -15,7 +15,7 @@ export default (
     React.useEffect(() => {
         if (responsableDni) {
             axios.get(process.env.REACT_APP_URL_RECURSOS + '/employees/' + responsableDni)
-                .then(res =>{ setResponsable(res.data);console.log(res.data)})
+                .then(res =>{ setResponsable(res.data);})
         }
     }, [responsableDni]);
 
