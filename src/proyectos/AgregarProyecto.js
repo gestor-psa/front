@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default () => {
+export default ({titulo = "Nuevo proyecto"}) => {
     const classes = useStyles();
     const {path} = useRouteMatch() || {};
 
@@ -24,7 +24,7 @@ export default () => {
         component={Link}
         className={classes.cta}
         >
-            Nuevo proyecto
+             {titulo}
         </Button>
     )
 }

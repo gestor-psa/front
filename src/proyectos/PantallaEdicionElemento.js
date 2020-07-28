@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Layout from "proyectos/common/Layout";
 import {useForm} from "react-hook-form";
 import CamposDeTexto from "proyectos/crear/CamposDeTexto";
@@ -6,18 +6,29 @@ import CamposDeSeleccion from "proyectos/crear/CamposDeSeleccion";
 import Acciones from "proyectos/crear/Acciones";
 import CamposFecha from "proyectos/crear/CamposFecha.js"
 import Grid from "@material-ui/core/Grid";
+import axios from "axios";
 
 
-export default ({titulo, onConfirm = () => null, proyecto = {duracion: 0}}) => {
+export default ({titulo, onConfirm = () => null, url}) => {
     const {register, errors, handleSubmit} = useForm();
-    const [data, setData] = useState(proyecto);
+    const [elemento, setElem] = useState({duracion: 0});
+    const [data, setData] = useState(elemento);
     const [esperando, setEsperando] = useState(false);
     const onDataChange = (e) => setData({...data, ...e});
     
 
-    /*useEffect(() => {
-        //setData(proyecto); breaks stuff
-    }, [proyecto])*/
+    useEffect(() => {
+        if (url) {
+        axios.get(process.env.REACT_APP_URL_PROYECTOS + url)
+            .then(res => {
+                setElem(res.data);
+                setData(res.data);
+            })
+            .catch(error => {
+                // TODO.
+            })
+        }
+    }, [url]);
 
     const onConfirmar = () => {
        setEsperando(true);
@@ -31,7 +42,7 @@ export default ({titulo, onConfirm = () => null, proyecto = {duracion: 0}}) => {
             titulo={titulo}
             ladoIzquierdo={
                 <CamposDeTexto
-                    proyecto = {proyecto}
+                    proyecto = {elemento}
                     errors={errors}
                     register={register}
                     onDataChange={onDataChange}
@@ -42,7 +53,7 @@ export default ({titulo, onConfirm = () => null, proyecto = {duracion: 0}}) => {
                         proyecto = {data}
                         onDataChange={onDataChange}
                     />
-                    <CamposFecha proyecto = {proyecto} onChange = {onDataChange}/>
+                    <CamposFecha proyecto = {elemento} onChange = {onDataChange}/>
                 </Grid>}
             fin={
                 <Acciones

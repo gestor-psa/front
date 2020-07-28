@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ProyectoDetails from "proyectos/ver/ProyectoDetalles";
+import ProyectoDetails from "proyectos/ver/PantallaDetallesElemento";
 import { useParams } from "react-router";
 import AccionesProyecto from "proyectos/ver/AccionesVer";
 import axios from "axios";
