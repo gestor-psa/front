@@ -19,7 +19,7 @@ export default ({path, idProyecto}) => {
   //const [fase, setFase] = useState();
 
   const mapFases = (fase) => (
-    <Proyecto proyecto={fase} key={fase.id}/>
+    <Proyecto proyecto={fase} key={fase.id || fase.codigo}/>
   )
 
   return (

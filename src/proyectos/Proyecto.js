@@ -30,7 +30,7 @@ export default (props) => {
 
     return (
         <Fragment>
-            <Paper elevation={3} className={classes.paper} onClick={() => pushToOverview(props.proyecto.id)} square={false} variant={"outlined"}>
+            <Paper elevation={3} className={classes.paper} onClick={() => pushToOverview(props.proyecto.id || props.proyecto.codigo)} square={false} variant={"outlined"}>
                 <Typography gutterBottom variant="h2" align="left">
                     {props.proyecto.nombre}
                 </Typography>

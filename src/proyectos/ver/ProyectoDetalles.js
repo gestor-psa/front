@@ -38,22 +38,22 @@ export default (
                 />}
                 {<EsqueletoTexto
                     etiqueta='Estado'
-                    mostrar={mostrar && estado}
+                    mostrar={mostrar}
                     valor={estado && estado.capitalize()}
                 />}
                 { <EsqueletoTexto
                     etiqueta='Fecha de inicio'
-                    mostrar={mostrar && fechaInicio}
+                    mostrar={mostrar}
                     valor={<Fecha fecha={fechaInicio}/>}
                 />}
                 { <EsqueletoTexto
                     etiqueta='Fecha de finalización'
-                    mostrar={mostrar && fechaFin}
+                    mostrar={mostrar}
                     valor={<Fecha fecha={fechaFin}/>}
                 />}
                 {duracion && <EsqueletoTexto
                     etiqueta='Duracion en dias'
-                    mostrar={mostrar && duracion}
+                    mostrar={mostrar}
                     valor={duracion+" dias"}
                 />}
            

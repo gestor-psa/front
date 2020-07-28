@@ -47,11 +47,11 @@ export default () => {
     const error = <Typography color = 'error'>Error al cargar proyecto</Typography>;
     
     const mapTareas = (tarea) => (
-        <Proyecto proyecto={tarea} key={tarea.id}/>
+        <Proyecto proyecto={tarea} key={tarea.id || tarea.codigo}/>
     )
 
     const mapFases = (fase) => (
-        <Proyecto proyecto={fase} key={fase.id}/>
+        <Proyecto proyecto={fase} key={fase.id || fase.codigo}/>
       )
 
     return (

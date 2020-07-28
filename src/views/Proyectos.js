@@ -17,7 +17,7 @@ export default () => {
   const history = useHistory();
 
   const mapProyecto = (proyecto) => (
-    <Proyecto proyecto={proyecto} key={proyecto.id}/>
+    <Proyecto proyecto={proyecto} key={proyecto.id || proyecto.codigo}/>
   )
 
   const onConfirm = (data) => {
