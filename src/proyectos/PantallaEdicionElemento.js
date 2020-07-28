@@ -16,6 +16,7 @@ export default ({titulo, onConfirm = () => null, url}) => {
     const [esperando, setEsperando] = useState(false);
     const onDataChange = (e) => setData({...data, ...e});
     
+    console.log(url)
 
     useEffect(() => {
         if (url) {

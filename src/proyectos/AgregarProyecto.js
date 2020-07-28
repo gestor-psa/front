@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default ({titulo = "Nuevo proyecto"}) => {
+export default ({titulo = "Nuevo proyecto", url}) => {
     const classes = useStyles();
     const {path} = useRouteMatch() || {};
 
@@ -20,7 +20,7 @@ export default ({titulo = "Nuevo proyecto"}) => {
         <Button
         color='secondary'
         variant='contained'
-        to={`${path}/crear`}
+        to={`${ url || path}/crear`}
         component={Link}
         className={classes.cta}
         >

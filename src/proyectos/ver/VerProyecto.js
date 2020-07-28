@@ -7,14 +7,13 @@ import AccionesProyecto from "proyectos/ver/AccionesVer";
 import EditarProyecto from 'proyectos/PantallaEdicionElemento';
 import axios from "axios";
 
-export default ({setProyecto, proyecto}) => {
+export default ({setProyecto, proyecto, url}) => {
     const { id } = useParams();
     const { path } = useRouteMatch() || {};
     const history = useHistory();
-    const url =  '/proyectos/'+ id;
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_URL_PROYECTOS + url)
+        axios.get(process.env.REACT_APP_URL_PROYECTOS + url + "/" + id)
             .then(res => {
                 setProyecto(res.data);
             })
@@ -44,7 +43,7 @@ export default ({setProyecto, proyecto}) => {
                 <AccionesProyecto mostrar = {true} verFases = {true} verTareas = {true}/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
-                <EditarProyecto onConfirm = {onConfirm} titulo = "Modificar Proyecto" url = {url} />
+                <EditarProyecto onConfirm = {onConfirm} titulo = "Modificar detalles" url = {url + "/" + id} />
             </AnimatedRoute>
         </AnimatedSwitch>
     )

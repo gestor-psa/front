@@ -12,47 +12,44 @@ import VerProyecto from 'proyectos/ver/VerProyecto';
 import axios from "axios";
 import {useHistory} from "react-router";
 import VistaFases from 'proyectos/ver/VistaFases'
+import ElementoRouter from "proyectos/common/ElementoRouter";
 
 export default () => {
   const { path } = useRouteMatch() || {};
-  const history = useHistory();
   const [proyecto, setProyecto] = useState({});
+  const [fase, setFase] = useState({});
 
-  const mapProyecto = (proyecto) => (
-    <Proyecto proyecto={proyecto} key={proyecto.id || proyecto.codigo}/>
-  )
-
-  const onConfirm = (data) => {
-    axios.post(process.env.REACT_APP_URL_PROYECTOS + '/proyectos', data)
-        .then((result) => {
-            history.push(`/proyectos/${result.data.id}`)
-            console.log(result);
-        })
-        .catch(error => {
-            // TODO.
-        console.log(error.response);
-    });
-  };
 
   return (
     <ContentWrapper>
       <AnimatedSwitch>
-            <AnimatedRoute exact path={path}>
-                <Fragment>
-                    <AgregarProyecto />
-                    <VistaListado mapf = {mapProyecto} url = '/proyectos' />
-                </Fragment>
-            </AnimatedRoute>
-            <AnimatedRoute path={`${path}/crear`}>
-                <CrearProyecto titulo = "Crear Proyecto" onConfirm = {onConfirm} />
-            </AnimatedRoute>
-            <AnimatedRoute path={`${path}/:id(\\d+)`}>
-                <VerProyecto proyecto = {proyecto} setProyecto = {setProyecto} />
-            </AnimatedRoute>
 
-            <AnimatedRoute  path={ `${path}/:id(\\d+)/fases`}>
-                <VistaFases path = {path} idProyecto = {proyecto.id || proyecto.codigo}></VistaFases>
-            </AnimatedRoute>
+          <AnimatedRoute path={path}>
+              <Fragment>
+                  <ElementoRouter elem = {proyecto} setElem = {setProyecto} titulo = "Nuevo Proyecto"
+                   url = {"/proyectos"} isProyecto = {true}>
+                  </ElementoRouter>
+              </Fragment>
+          </AnimatedRoute>
+
+          <AnimatedRoute  path={ `${path}/:id(\\d+)/fases`}>
+                <ElementoRouter elem = {fase} setElem = {setFase} titulo = "Nueva Fase" 
+                url = {"/proyectos/"+proyecto.id+"/fases"} isFase = {proyecto}>
+                </ElementoRouter>
+          </AnimatedRoute>
+
+          <AnimatedRoute  path={ `${path}/:id(\\d+)/tareas`}>
+                <ElementoRouter elem = {fase} setElem = {setFase} titulo = "Nueva Tarea" 
+                url = {"/proyectos/"+proyecto.id+"/tareas"} isTarea = {proyecto}>
+                </ElementoRouter>
+          </AnimatedRoute>
+
+          <AnimatedRoute  path={ `${path}/:id(\\d+)/fases/:id(\\d+)/iteraciones`}>
+                <ElementoRouter elem = {fase} setElem = {setFase} titulo = "Nueva Tarea" 
+                url = {"/proyectos/"+proyecto.id+"/tareas"} 
+                isIteracion = {proyecto} isFase = {fase}>
+                </ElementoRouter>
+          </AnimatedRoute>
 
         </AnimatedSwitch>
      </ContentWrapper>
