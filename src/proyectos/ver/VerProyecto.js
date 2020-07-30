@@ -8,10 +8,11 @@ import EditarProyecto from 'proyectos/PantallaEdicionElemento';
 import axios from "axios";
 import BotonVolver from 'proyectos/common/BotonVolver'
 
-export default ({setProyecto, proyecto, url}) => {
+export default ({setProyecto, proyecto, url, isFase, isIteracion, isTarea}) => {
     const { id } = useParams();
     const { path } = useRouteMatch() || {};
     const history = useHistory();
+    const isProyecto = !(isFase || isIteracion || isTarea);
 
     useEffect(() => {
         axios.get(process.env.REACT_APP_URL_PROYECTOS + url + "/" + id)
@@ -42,7 +43,7 @@ export default ({setProyecto, proyecto, url}) => {
             <AnimatedRoute exact path={path}>
                 <BotonVolver url = {url}/>
                 <ProyectoDetails esProyecto = {true} mostrar={Boolean(proyecto)} {...proyecto}/>
-                <AccionesProyecto mostrar = {true} verFases = {true} verTareas = {true}/>
+                <AccionesProyecto mostrar = {true} verFases = {isProyecto} verTareas = {isProyecto || isIteracion} verIteraciones = {isFase && !isIteracion}/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
                 <EditarProyecto onConfirm = {onConfirm} titulo = "Modificar detalles" url = {url + "/" + id} />

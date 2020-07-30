@@ -9,8 +9,7 @@ import axios from "axios";
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
-        justifyContent: 'flex-end',
-        marginTop: theme.spacing(1),
+        marginTop: theme.spacing(3),
     },
     acciones: {
         margin: theme.spacing(0, 2)

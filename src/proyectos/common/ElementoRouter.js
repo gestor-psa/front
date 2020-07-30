@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
 import ContentWrapper from "components/common/ContentWrapper";
 import { useRouteMatch } from "react-router";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
@@ -50,7 +50,8 @@ export default ({url, titulo, elem, setElem, isFase, isTarea, isIteracion, urlRe
             </AnimatedRoute>
             <AnimatedRoute path={`${path}/:id(\\d+)`}>
                 <Grid>
-                <VerProyecto proyecto = {elem} setProyecto = {setElem} url = {url} />
+                <VerProyecto proyecto = {elem} setProyecto = {setElem} url = {url}  
+                isFase = {isFase} isTarea = {isTarea} isIteracion = {isIteracion} />
                 </Grid>
             </AnimatedRoute>
 
