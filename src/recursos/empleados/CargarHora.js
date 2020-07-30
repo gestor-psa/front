@@ -16,6 +16,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Card from '@material-ui/core/Card';
 // import "./estilos.css";
 
 // /empleados
@@ -24,7 +25,13 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(4, 6),
         [theme.breakpoints.down('xs')]: {
             padding: theme.spacing(2, 2)
-        }
+        },
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
     },
     campo: {
         width: '100%',
@@ -33,7 +40,18 @@ const useStyles = makeStyles(theme => ({
 
     nuevoEmpleado: {
 
-    }
+    },
+    bullet: {
+        display: 'inline-block',
+        margin: '0 2px',
+        transform: 'scale(0.8)',
+    },
+    title: {
+        fontSize: 14,
+    },
+    pos: {
+        marginBottom: 12,
+    },
 }));
 const parseFecha = (fecha) => {
     let month = '' + (fecha.getMonth() + 1);
@@ -59,8 +77,12 @@ export default () => {
     const [proyectos, setProyectos] = useState();
     const [proyecto, setProyecto] = useState();
     const [tasks, setTasks] = useState();
-
     const history = useHistory();
+    var numeroDiaLunes;
+    var numeroDiaMartes;
+    var numeroDiaMiercoles;
+    var numeroDiaJueves;
+    var numeroDiaViernes;
 
     const handleChangeCategory = (event) => {
         setCategory(event.target.value);
@@ -118,6 +140,49 @@ export default () => {
                 console.log(error.response);
             });
     }
+    
+    const numeroLunes = () => {
+        switch (new Date().getDay()){
+            case 0:
+                numeroDiaLunes = (new Date().getDate() + 1);
+                return numeroDiaLunes;
+            case 1:
+                numeroDiaLunes = (new Date().getDate() + 0);
+                return numeroDiaLunes;
+            case 2:
+                numeroDiaLunes = (new Date().getDate() - 1);
+                return numeroDiaLunes;
+            case 3:
+                numeroDiaLunes = (new Date().getDate() - 2);
+                return numeroDiaLunes;
+            case 4:
+                numeroDiaLunes = (new Date().getDate() - 3);
+                return numeroDiaLunes;
+            case 5:
+                numeroDiaLunes = (new Date().getDate() - 4);
+                return numeroDiaLunes;
+            case 6:
+                numeroDiaLunes = (new Date().getDate() - 5);
+                return numeroDiaLunes;
+            default:
+        }
+    }
+    const numeroMartes = () => {
+        numeroDiaMartes = numeroDiaLunes + 1;
+        return numeroDiaMartes;
+    }
+    const numeroMiercoles = () => {
+        numeroDiaMiercoles = numeroDiaLunes + 2;
+        return numeroDiaMiercoles;
+    }
+    const numeroJueves = () => {
+        numeroDiaJueves = numeroDiaLunes + 3;
+        return numeroDiaJueves;
+    }
+    const numeroViernes = () => {
+        numeroDiaViernes = numeroDiaLunes + 4;
+        return numeroDiaViernes ;
+    }
 
     return (
 
@@ -130,81 +195,384 @@ export default () => {
                                 Cargar hora
                     </Typography>
                         </Grid>
-                        <Grid item container spacing={6} xs={12}>
-                            <Grid item xs={12} md={6}>
+                        <Grid container spacing={3} direction="row" justify="center" alignItems="center">
+                            <Grid item xs>
                                 {<Fragment>
-                                    <FormControl className={classes.formControl} style={{width:"100%"}}>
-                                        <InputLabel id="demo-controlled-open-select-label">Categoría</InputLabel>
-                                        <Select
-                                        labelId="demo-controlled-open-select-label"
-                                        id="demo-controlled-open-select"
-                                        onChange={handleChangeCategory}
-                                        >
-                                        <MenuItem value="proyecto">Proyectos</MenuItem>
-                                        <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="soporte">Soporte</MenuItem>
-                                        <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="estudio">Estudio</MenuItem>
-                                        <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                    {category === 'proyecto' &&<FormControl className={classes.formControl} style={{width:"100%"}}>
-                                        <InputLabel id="demo-controlled-open-select-label">Proyecto</InputLabel>
-                                        <Select
-                                        labelId="demo-controlled-open-select-label"
-                                        id="demo-controlled-open-select"
-                                        defaultValue={proyecto}
-                                        value={proyecto}
-                                        onChange={handleChangeProyecto}
-                                        >
-                                        {proyectos && proyectos.map(proyecto =>(
-                                            <MenuItem onClick={() => {setTaskId(null);console.log(taskId)}}value={proyecto.id}>{proyecto.nombre}</MenuItem>
+                                    <Card className={classes.root} variant="outlined" >
+                                        <Typography variant="h5" component="h2" align = 'center'>
+                                            Lunes
+                                         </Typography>
+                                         <Typography variant="h5" component="h2" align = 'center'>
+                                            {numeroLunes()}
+                                         </Typography>
+                                        <FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Categoría</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            onChange={handleChangeCategory}
+                                            >
+                                            <MenuItem value="proyecto">Proyectos</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="soporte">Soporte</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="estudio">Estudio</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        {category === 'proyecto' &&<FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Proyecto</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            defaultValue={proyecto}
+                                            value={proyecto}
+                                            onChange={handleChangeProyecto}
+                                            >
+                                            {proyectos && proyectos.map(proyecto =>(
+                                                <MenuItem onClick={() => {setTaskId(null);console.log(taskId)}}value={proyecto.id}>{proyecto.nombre}</MenuItem>
 
-                                        ))
-                                        }
-                                        </Select>
-                                    </FormControl>}
-                                    {category === 'proyecto' && proyecto &&<FormControl className={classes.formControl} style={{width:"100%"}}>
-                                        <InputLabel id="demo-controlled-open-select-label">Tarea</InputLabel>
-                                        <Select
-                                        labelId="demo-controlled-open-select-label"
-                                        id="demo-controlled-open-select"
-                                        onChange={handleChangeTarea}
-                                        defaultValue={taskId}
-                                        value={taskId}
-                                        >
-                                        {tasks && tasks.map(tarea =>(
-                                            <MenuItem value={tarea.id}>{tarea.nombre}</MenuItem>
+                                            ))
+                                            }
+                                            </Select>
+                                        </FormControl>}
+                                        {category === 'proyecto' && proyecto &&<FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Tarea</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            onChange={handleChangeTarea}
+                                            defaultValue={taskId}
+                                            value={taskId}
+                                            >
+                                            {tasks && tasks.map(tarea =>(
+                                                <MenuItem value={tarea.id}>{tarea.nombre}</MenuItem>
 
-                                        ))
-                                        }
-                                        </Select>
-                                    </FormControl>}
-                                    <TextField type="number" className={classes.campo}label='Horas'onChange={(e) => setHours(e.target.value)}
-                                    />
-                                    
-                                    <DatePicker
-                                        selected={date}
-                                        onChange={date => setDate(date)}
-                                        customInput={<TextField className={classes.campo}label='Fecha de hora'onChange={(e) => setDate(e.target.value)}
-                                        />}
-                                        dateFormat="dd/MM/yyyy"
-                                        peekNextMonth
-                                        showMonthDropdown
-                                        showYearDropdown
-                                        dropdownMode="select"
-                                    />
+                                            ))
+                                            }
+                                            </Select>
+                                        </FormControl>}
 
-                                    
+                                        <TextField type="number"  className={classes.campo}label='Horas'onChange={(e) => setHours(e.target.value)}
+                                        />
+                                        
+                                        <DatePicker
+                                            selected={date}
+                                            onChange={date => setDate(date)}
+                                            customInput={<TextField className={classes.campo}label='Fecha de hora'onChange={(e) => setDate(e.target.value)}
+                                            />}
+                                            dateFormat="dd/MM/yyyy"
+                                            peekNextMonth
+                                            showMonthDropdown
+                                            showYearDropdown
+                                            dropdownMode="select"
+                                        />
+                                        <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant='outlined'>
+                                            Cargar hora
+                                        </Button>
+                                    </Card>
                                 </Fragment>}
-                                <div className={classes.nuevoEmpleado}>
-                                    <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant='outlined'>
-                                        Cargar hora
-                                    </Button>
-                                    <Button  style={{marginTop:"40px", marginLeft:"40px", color: "red"}}onClick={() => {history.push('/recursos/'+id) }} color='error' variant='outlined' >
+                                
+                            </Grid>
+                            <Grid item xs>
+                                {<Fragment>
+                                    <Card className={classes.root} variant="outlined" width="25%">
+                                        <Typography variant="h5" component="h2" align = 'center'>
+                                            Martes
+                                            </Typography>
+                                            <Typography variant="h5" component="h2" align = 'center'>
+                                            {numeroMartes()}
+                                         </Typography>
+                                        <FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Categoría</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            onChange={handleChangeCategory}
+                                            >
+                                            <MenuItem value="proyecto">Proyectos</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="soporte">Soporte</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="estudio">Estudio</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        {category === 'proyecto' &&<FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Proyecto</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            defaultValue={proyecto}
+                                            value={proyecto}
+                                            onChange={handleChangeProyecto}
+                                            >
+                                            {proyectos && proyectos.map(proyecto =>(
+                                                <MenuItem onClick={() => {setTaskId(null);console.log(taskId)}}value={proyecto.id}>{proyecto.nombre}</MenuItem>
+
+                                            ))
+                                            }
+                                            </Select>
+                                        </FormControl>}
+                                        {category === 'proyecto' && proyecto &&<FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Tarea</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            onChange={handleChangeTarea}
+                                            defaultValue={taskId}
+                                            value={taskId}
+                                            >
+                                            {tasks && tasks.map(tarea =>(
+                                                <MenuItem value={tarea.id}>{tarea.nombre}</MenuItem>
+
+                                            ))
+                                            }
+                                            </Select>
+                                        </FormControl>}
+                                        <TextField type="number" className={classes.campo}label='Horas'onChange={(e) => setHours(e.target.value)}
+                                        />
+                                        
+                                        <DatePicker
+                                            selected={date}
+                                            onChange={date => setDate(date)}
+                                            customInput={<TextField className={classes.campo}label='Fecha de hora'onChange={(e) => setDate(e.target.value)}
+                                            />}
+                                            dateFormat="dd/MM/yyyy"
+                                            peekNextMonth
+                                            showMonthDropdown
+                                            showYearDropdown
+                                            dropdownMode="select"
+                                        />
+                                        <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant='outlined'>
+                                            Cargar hora
+                                        </Button>
+                                    </Card>
+                                </Fragment>}
+                            </Grid>
+                            <Grid item xs>
+                                {<Fragment>
+                                    <Card className={classes.root} variant="outlined">
+                                        <Typography variant="h5" component="h2" align = 'center'>
+                                            Miércoles
+                                            </Typography>
+                                            <Typography variant="h5" component="h2" align = 'center'>
+                                            {numeroMiercoles()}
+                                         </Typography>
+                                        <FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Categoría</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            onChange={handleChangeCategory}
+                                            >
+                                            <MenuItem value="proyecto">Proyectos</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="soporte">Soporte</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="estudio">Estudio</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        {category === 'proyecto' &&<FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Proyecto</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            defaultValue={proyecto}
+                                            value={proyecto}
+                                            onChange={handleChangeProyecto}
+                                            >
+                                            {proyectos && proyectos.map(proyecto =>(
+                                                <MenuItem onClick={() => {setTaskId(null);console.log(taskId)}}value={proyecto.id}>{proyecto.nombre}</MenuItem>
+
+                                            ))
+                                            }
+                                            </Select>
+                                        </FormControl>}
+                                        {category === 'proyecto' && proyecto &&<FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Tarea</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            onChange={handleChangeTarea}
+                                            defaultValue={taskId}
+                                            value={taskId}
+                                            >
+                                            {tasks && tasks.map(tarea =>(
+                                                <MenuItem value={tarea.id}>{tarea.nombre}</MenuItem>
+
+                                            ))
+                                            }
+                                            </Select>
+                                        </FormControl>}
+                                        <TextField type="number" className={classes.campo}label='Horas'onChange={(e) => setHours(e.target.value)}
+                                        />
+                                        
+                                        <DatePicker
+                                            selected={date}
+                                            onChange={date => setDate(date)}
+                                            customInput={<TextField className={classes.campo}label='Fecha de hora'onChange={(e) => setDate(e.target.value)}
+                                            />}
+                                            dateFormat="dd/MM/yyyy"
+                                            peekNextMonth
+                                            showMonthDropdown
+                                            showYearDropdown
+                                            dropdownMode="select"
+                                        />
+                                        <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant='outlined'>
+                                            Cargar hora
+                                        </Button>
+                                    </Card>
+                                </Fragment>}
+                            </Grid>
+                            <Grid item xs>
+                                {<Fragment>
+                                    <Card className={classes.root} variant="outlined">
+                                        <Typography variant="h5" component="h2" align = 'center'>
+                                            Jueves
+                                            </Typography>
+                                            <Typography variant="h5" component="h2" align = 'center'>
+                                            {numeroJueves()}
+                                         </Typography>
+                                        <FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Categoría</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            onChange={handleChangeCategory}
+                                            >
+                                            <MenuItem value="proyecto">Proyectos</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="soporte">Soporte</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="estudio">Estudio</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        {category === 'proyecto' &&<FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Proyecto</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            defaultValue={proyecto}
+                                            value={proyecto}
+                                            onChange={handleChangeProyecto}
+                                            >
+                                            {proyectos && proyectos.map(proyecto =>(
+                                                <MenuItem onClick={() => {setTaskId(null);console.log(taskId)}}value={proyecto.id}>{proyecto.nombre}</MenuItem>
+
+                                            ))
+                                            }
+                                            </Select>
+                                        </FormControl>}
+                                        {category === 'proyecto' && proyecto &&<FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Tarea</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            onChange={handleChangeTarea}
+                                            defaultValue={taskId}
+                                            value={taskId}
+                                            >
+                                            {tasks && tasks.map(tarea =>(
+                                                <MenuItem value={tarea.id}>{tarea.nombre}</MenuItem>
+
+                                            ))
+                                            }
+                                            </Select>
+                                        </FormControl>}
+                                        <TextField type="number" className={classes.campo}label='Horas'onChange={(e) => setHours(e.target.value)}
+                                        />
+                                        
+                                        <DatePicker
+                                            selected={date}
+                                            onChange={date => setDate(date)}
+                                            customInput={<TextField className={classes.campo}label='Fecha de hora'onChange={(e) => setDate(e.target.value)}
+                                            />}
+                                            dateFormat="dd/MM/yyyy"
+                                            peekNextMonth
+                                            showMonthDropdown
+                                            showYearDropdown
+                                            dropdownMode="select"
+                                        />
+                                        <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant='outlined'>
+                                            Cargar hora
+                                        </Button>
+                                    </Card>
+                                </Fragment>}
+                            </Grid>
+                            <Grid item xs>
+                                {<Fragment>
+                                    <Card className={classes.root} variant="outlined">
+                                        <Typography variant="h5" component="h2" align = 'center'>
+                                            Viernes
+                                            </Typography>
+                                            <Typography variant="h5" component="h2" align = 'center'>
+                                            {numeroViernes()}
+                                         </Typography>
+                                        <FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Categoría</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            onChange={handleChangeCategory}
+                                            >
+                                            <MenuItem value="proyecto">Proyectos</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="soporte">Soporte</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="estudio">Estudio</MenuItem>
+                                            <MenuItem onClick={() => {setProyecto(null);setTaskId(null);}} value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                        {category === 'proyecto' &&<FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Proyecto</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            defaultValue={proyecto}
+                                            value={proyecto}
+                                            onChange={handleChangeProyecto}
+                                            >
+                                            {proyectos && proyectos.map(proyecto =>(
+                                                <MenuItem onClick={() => {setTaskId(null);console.log(taskId)}}value={proyecto.id}>{proyecto.nombre}</MenuItem>
+
+                                            ))
+                                            }
+                                            </Select>
+                                        </FormControl>}
+                                        {category === 'proyecto' && proyecto &&<FormControl className={classes.formControl} style={{width:"100%"}}>
+                                            <InputLabel id="demo-controlled-open-select-label">Tarea</InputLabel>
+                                            <Select
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            onChange={handleChangeTarea}
+                                            defaultValue={taskId}
+                                            value={taskId}
+                                            >
+                                            {tasks && tasks.map(tarea =>(
+                                                <MenuItem value={tarea.id}>{tarea.nombre}</MenuItem>
+
+                                            ))
+                                            }
+                                            </Select>
+                                        </FormControl>}
+                                        <TextField type="number" className={classes.campo}label='Horas'onChange={(e) => setHours(e.target.value)}
+                                        />
+                                        
+                                        <DatePicker
+                                            selected={date}
+                                            onChange={date => setDate(date)}
+                                            customInput={<TextField className={classes.campo}label='Fecha de hora'onChange={(e) => setDate(e.target.value)}
+                                            />}
+                                            dateFormat="dd/MM/yyyy"
+                                            peekNextMonth
+                                            showMonthDropdown
+                                            showYearDropdown
+                                            dropdownMode="select"
+                                        />
+                                        <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant='outlined'>
+                                            Cargar hora
+                                        </Button>
+                                    </Card>
+                                </Fragment>}
+                            </Grid>
+                            <div className={classes.nuevoEmpleado}>
+                                    <Button  style={{marginBottom:"20px", marginLeft:"40px", color: "red"}}onClick={() => {history.push('/recursos/'+id) }} color='error' variant='outlined' >
                                         Cancelar
                                     </Button>
                                 </div>
-                            </Grid>
-
                         </Grid>
 
                     </Grid>
