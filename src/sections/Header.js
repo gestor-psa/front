@@ -9,6 +9,9 @@ import Drawer from 'components/header/Drawer';
 import DesktopTabs from 'components/header/DesktopTabs';
 import {Hidden} from '@material-ui/core';
 import Title from "components/header/Title";
+import Button from '@material-ui/core/Button';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {useHistory} from "react-router";
 
 
 const useStyles = makeStyles(theme => ({
@@ -41,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
     const classes = useStyles();
-
+    const history = useHistory();
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const openDrawer = () => setDrawerOpen(true),
         closeDrawer = () => setDrawerOpen(false);
@@ -66,6 +69,10 @@ export default () => {
                             <MenuIcon fontSize="large"/>
                         </IconButton>
                     </Hidden>
+                    <div/>
+                    <Button onClick={() => {history.push('/recursos/'+45487954) }}>
+                        <AccountCircleIcon  style={{ fontSize: 40, color:'white'}}/>
+                    </Button>
                 </Container>
             </AppBar>
             <Drawer
