@@ -6,14 +6,15 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import axios from 'axios';
-import { useParams} from "react-router";
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import {useParams, useHistory} from "react-router";
 
 
 const useStyles = makeStyles({
@@ -35,6 +36,7 @@ export default () => {
     const [horas, setHoras] = useState();
     const { id } = useParams();
     const classes = useStyles({ horas });
+    const history = useHistory();
     // const isMdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
 
     useEffect(() => {
@@ -51,26 +53,33 @@ export default () => {
 
     return (
         <Fragment>
-             <div className={classes.nuevaHora}>
-                <Button style={{marginBottom:"20px", marginRight:"70%"}} color='secondary' variant='contained' disabled>
-                    Categoría
-                    <ArrowDropDownIcon />
-                </Button>
-                <ToggleButtonGroup style={{marginBottom:"20px"}} variant='contained' disabled>
-                    <ToggleButton >
-                        Día
-                    </ToggleButton>
-                    <ToggleButton >
-                        Semana
-                    </ToggleButton>
-                    <ToggleButton >
-                        Mes
-                    </ToggleButton>
-                    <ToggleButton >
-                        Año
-                    </ToggleButton>
-                </ToggleButtonGroup>
-            </div>
+                <Grid container spacing={3} direction="row" justify="space-between">
+                    <Grid item xs={12}>
+                        <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
+                    </Grid>
+                    <Grid item>
+                        <Button color='secondary' variant='contained' disabled>
+                            Categoría
+                            <ArrowDropDownIcon />
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <ToggleButtonGroup style={{marginBottom:"20px"}} variant='contained' disabled>
+                            <ToggleButton >
+                                Día
+                            </ToggleButton>
+                            <ToggleButton >
+                                Semana
+                            </ToggleButton>
+                            <ToggleButton >
+                                Mes
+                            </ToggleButton>
+                            <ToggleButton >
+                                Año
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                    </Grid>  
+                </Grid>
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
                     <TableHead>

@@ -4,7 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRouteMatch } from "react-router";
-import Button from "@material-ui/core/Button";
 import axios from "axios";
 import {useParams, useHistory} from "react-router";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
@@ -14,6 +13,8 @@ import CartelCargaHora from "recursos/empleados/CartelCargaHora"
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 // import "./estilos.css";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 
 // /empleados
 const useStyles = makeStyles(theme => ({
@@ -149,11 +150,14 @@ export default () => {
                 <Paper className={classes.root}>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <Typography variant='h4'>
-                                Cargar hora
-                    </Typography>
+                            <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+dni) }}/>
                         </Grid>
-                        {<Grid container spacing={3} direction="row" justify="center" alignItems="center">
+                        <Grid item xs={12}>
+                            <Typography variant='h4'>
+                                Cargar horas
+                            </Typography>
+                        </Grid>
+                        {<Grid container spacing={3} style={{marginTop:"15px"}} direction="row" justify="center" alignItems="center">
                             <ArrowBackIosIcon onClick={()=>{cambiarSemana(-1)}}/>
 
                             <CartelCargaHora esHoy = {parseFecha(new Date(fechaLunes)) === parseFecha(new Date())} desactivado={new Date(fechaLunes).getMonth() !== new Date().getMonth()} dni={dni} proyectos={proyectos} dia="Lunes" nroDia={new Date(fechaLunes).getDate()}/>
@@ -162,11 +166,6 @@ export default () => {
                             <CartelCargaHora esHoy = {parseFecha(new Date(fechaJueves)) === parseFecha(new Date())} desactivado={new Date(fechaJueves).getMonth() !== new Date().getMonth()} dni={dni} proyectos={proyectos} dia="Jueves" nroDia={new Date(fechaJueves).getDate()}/>
                             <CartelCargaHora esHoy = {parseFecha(new Date(fechaViernes)) === parseFecha(new Date())} desactivado={new Date(fechaViernes).getMonth() !== new Date().getMonth()} dni={dni} proyectos={proyectos} dia="Viernes" nroDia={new Date(fechaViernes).getDate()}/>
                             <ArrowForwardIosIcon onClick={()=>{cambiarSemana(1)}}/>
-                            <div className={classes.nuevoEmpleado}>
-                                    <Button  style={{marginBottom:"20px", marginLeft:"40px", color: "red"}}onClick={() => {history.push('/recursos/'+id) }} color='error' variant='outlined' >
-                                        Cancelar
-                                    </Button>
-                                </div>
                         </Grid>}
 
                     </Grid>

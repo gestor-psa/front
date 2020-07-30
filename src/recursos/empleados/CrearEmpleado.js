@@ -98,9 +98,9 @@ export default () => {
                         <Grid item xs={12}>
                             <Typography variant='h4'>
                                 Nuevo Empleado
-                    </Typography>
+                            </Typography>
                         </Grid>
-                        <Grid item container spacing={6} xs={12}>
+                        <Grid item container spacing={3}>
                             <Grid item xs={12} md={6}>
                                 {<Fragment>
                                     
@@ -156,18 +156,20 @@ export default () => {
                                         </Select>
                                     </FormControl>
                                 </Fragment>}
-                                <div className={classes.nuevoEmpleado}>
-                                    <Button style={{marginTop:"40px"}}onClick={() => { onCrear() }} color="secondary" variant="outlined">
+                            </Grid>
+                            <Grid item container xs={12} spacing={3} justify="flex-end" >
+                                <Grid item>
+                                    <Button onClick={() => { onCrear() }} color="secondary" variant="outlined">
                                         Crear Recurso
                                     </Button>
-                                    <Button  style={{marginTop:"40px", marginLeft:"40px", color:'red'}}onClick={() => {history.push('/recursos/') }} variant='outlined' color='error'>
+                                </Grid>
+                                <Grid item>
+                                    <Button  style={{color:'red'}}onClick={() => {history.push('/recursos/') }} variant='outlined' color='inherit'>
                                         Cancelar
                                     </Button>
-                                </div>
+                                </Grid>
                             </Grid>
-
                         </Grid>
-
                     </Grid>
                 </Paper>
             </AnimatedRoute>

@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useRouteMatch } from "react-router";
+import Grid from "@material-ui/core/Grid";
 
 
 
@@ -45,44 +46,51 @@ export default () => {
 
     return (
         <Fragment>
-             <div className={classes.nuevoEmpleado}>
-                <Button  style={{marginBottom:"20px", marginRight:"80%"}} color='secondary' variant='contained' disabled>
-                    Buscar:
-                </Button>
-                <Button style = {{marginBottom: "20px"}}color='secondary' variant='contained' to={`${url}/creacion`} component={Link}>
-                    Nuevo recurso
-                </Button>
-            </div>
-            <TableContainer component={Paper}>
-                <Table className={classes.table}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>DNI</TableCell>
-                            <TableCell>Nombre y apellido</TableCell>
-                            {/* <TableCell>Legajo</TableCell> */}
-                            <TableCell>Contrato</TableCell>
-                            <TableCell>Puesto</TableCell>
-                            <TableCell></TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {empleados && empleados.map(empleado => (
-                            <TableRow>
-                                <TableCell>{empleado.dni}</TableCell>
-                                <TableCell>{empleado.name + " " + empleado.surname}</TableCell>
-                                {/* <TableCell>{empleado.organization_id}</TableCell> */}
-                                <TableCell>{empleado.contract ==='F'? "Full time":"Part time"}</TableCell>
-                                <TableCell>{empleado.pos}</TableCell>
-                                <TableCell>
-                                    <Button color='primary' variant='contained' to={`${url}/${empleado.dni}`} component={Link}>
-                                        + Info
-                                </Button>
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+            <Grid container spacing={3} direction="row" justify="space-between">
+                <Grid item>
+                    <Button style={{marginTop:'20px'}} color='secondary' variant='contained' disabled>
+                        Buscar
+                    </Button>
+                </Grid>
+                <Grid item>
+                    <Button style={{marginTop:'20px'}} color='secondary' variant='contained' to={`${url}/creacion`} component={Link}>
+                        Nuevo recurso
+                    </Button>
+                </Grid>
+                <Grid item xs={12}>
+                    <TableContainer component={Paper}>
+                        <Table className={classes.table}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>DNI</TableCell>
+                                    <TableCell>Nombre y apellido</TableCell>
+                                    {/* <TableCell>Legajo</TableCell> */}
+                                    <TableCell>Contrato</TableCell>
+                                    <TableCell>Puesto</TableCell>
+                                    <TableCell></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {empleados && empleados.map(empleado => (
+                                    <TableRow>
+                                        <TableCell>{empleado.dni}</TableCell>
+                                        <TableCell>{empleado.name + " " + empleado.surname}</TableCell>
+                                        {/* <TableCell>{empleado.organization_id}</TableCell> */}
+                                        <TableCell>{empleado.contract ==='F'? "Full time":"Part time"}</TableCell>
+                                        <TableCell>{empleado.pos}</TableCell>
+                                        <TableCell>
+                                            <Button color='primary' variant='contained' to={`${url}/${empleado.dni}`} component={Link}>
+                                                + Info
+                                        </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Grid> 
+            </Grid>
+            
         </Fragment>
     );
 }

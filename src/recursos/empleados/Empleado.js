@@ -16,6 +16,8 @@ import {useHistory} from "react-router";
 import ConfirmacionContext from "contexts/ConfirmacionContext";
 import Modal from "@material-ui/core/Modal";
 import InsertChartOutlinedOutlinedIcon from '@material-ui/icons/InsertChartOutlinedOutlined';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import WarningIcon from '@material-ui/icons/Warning';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -76,12 +78,22 @@ export default () => {
 
     const body = (
         <div style={modalStyle} className={classes.paper}>
-          <h2 id="simple-modal-title">Usted está por eliminar un empleado.</h2>
-          <h3 id="simple-modal-description">
-            ¿Desea eliminarlo?
-          </h3>
+        <Grid container spacing={1} alignItems="center" justify="center" >
+            <Grid item container xs={12} justify="center">
+                <h2 id="simple-modal-title">Usted está por eliminar un empleado</h2>
+            </Grid>
+            <Grid item>
+                <WarningIcon style={{ color: 'red', fontSize: 50}}/>
+            </Grid>
+            <Grid item>
+                <h3 id="simple-modal-description">Esta acción no puede ser deshecha</h3>
+            </Grid>
+            <Grid item container xs={12} justify="center">
+                <h3 id="simple-modal-description">¿Desea eliminarlo?</h3>
+            </Grid>
+        </Grid>
           <Modal />
-          <Button  style={{marginLeft:"20px", color:"red"}}onClick={ () => {onEliminar()}} color='error' variant='outlined'>
+          <Button  style={{marginLeft:"20px", color:"red"}}onClick={ () => {onEliminar()}} color='inherit' variant='outlined'>
                     Eliminar
             </Button>
             <Button  style={{marginLeft:"80px"}}onClick={handleClose} color='secondary' variant='outlined'>
@@ -116,11 +128,14 @@ export default () => {
         <AnimatedSwitch>
             <AnimatedRoute exact path={path}>
                 <Paper className={classes.root}>
-                    <Grid container spacing={3}>
+                    <Grid container spacing={5}>
+                        <Grid item xs={12}>
+                            <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/') }}/>
+                        </Grid>
                         <Grid item xs={12}>
                             {empleado &&<Typography variant='h4'>
                                 {empleado.name + " "+ empleado.surname}
-                    </Typography>}
+                            </Typography>}
                         </Grid>
                         <Grid item container spacing={6} xs={12}>
                             <Grid item xs={12} md={6}>
@@ -148,45 +163,49 @@ export default () => {
                                     </Typography>
                                 </Fragment>}
                             </Grid>
-                            <Grid item xs={12} md={6}>
-                                {/* <Comentarios mostrar={Boolean(ticket)}/> */}
-                                <InsertChartOutlinedOutlinedIcon style={{ fontSize: 150 , marginLeft:"40%"}}  />
+                            <Grid item container xs={6} alignItems="center" justify="center">
+                                <InsertChartOutlinedOutlinedIcon style={{ fontSize: 170}}  />
                             </Grid>
                         </Grid>
-                        <Grid item xs={12}>
-                            {/* <Acciones mostrar={Boolean(ticket)}/> */}
+                        <Grid item container spacing={3} direction="row" xs={12} justify="space-between">
+                            <Grid item container spacing={3} xs={6} justify="flex-start">
+                                <Grid item>
+                                    <Button color='secondary' variant='outlined' to={`${url}/modificacion`} component={Link}>
+                                        Modificar
+                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button type="button" style={{color:"red"}}onClick={handleOpen} color='inherit' variant='outlined'>
+                                        Eliminar
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            <Grid item container spacing={3} xs={6} justify="center">
+                                <Grid item>
+                                    <Button color='secondary' variant='outlined' to={`${url}/horascargadas`} component={Link} >
+                                        Ver horas cargadas
+                                    </Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button  color='secondary' variant='outlined' to={`${url}/cargarhora`} component={Link}>
+                                        Cargar horas
+                                    </Button>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
-                    <div className={classes.nuevoEmpleado}>
-                <Button color='secondary' variant='outlined' to={`${url}/modificacion`} component={Link}>
-                    Modificar
-                </Button>
-                
-                {/* <Button  style={{marginLeft:"40px"}}onClick={ () => {onEliminar()}} color='secondary' variant='contained'>
-                    Eliminar
-                </Button> */}
-                <Button type="button" style={{marginLeft:"40px", color:"red"}}onClick={handleOpen} color='error' variant='outlined'>
-                    Eliminar
-                </Button>
-                <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-                >
-                {body}
-                </Modal>
-                
-
-                <Button  style={{marginLeft:"35%"}} color='secondary' variant='outlined' to={`${url}/horascargadas`} component={Link} >
-                    Ver horas cargadas
-                </Button>
-                <Button  style={{marginLeft:"40px"}} color='secondary' variant='outlined' to={`${url}/cargarhora`} component={Link}>
-                    Cargar horas
-                </Button>
+                <div className={classes.nuevoEmpleado}>
+                    <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    >
+                    {body}
+                    </Modal>
                 </div>
                 </Paper>
-                
+    
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/cargarhora`}>
                 <CargarHora/>
