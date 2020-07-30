@@ -6,6 +6,7 @@ import AnimatedRoute from "components/common/AnimatedRoute";
 import AccionesProyecto from "proyectos/ver/AccionesVer";
 import EditarProyecto from 'proyectos/PantallaEdicionElemento';
 import axios from "axios";
+import BotonVolver from 'proyectos/common/BotonVolver'
 
 export default ({setProyecto, proyecto, url}) => {
     const { id } = useParams();
@@ -39,6 +40,7 @@ export default ({setProyecto, proyecto, url}) => {
 
         <AnimatedSwitch>
             <AnimatedRoute exact path={path}>
+                <BotonVolver url = {url}/>
                 <ProyectoDetails esProyecto = {true} mostrar={Boolean(proyecto)} {...proyecto}/>
                 <AccionesProyecto mostrar = {true} verFases = {true} verTareas = {true}/>
             </AnimatedRoute>

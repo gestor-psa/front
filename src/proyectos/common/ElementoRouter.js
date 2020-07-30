@@ -11,9 +11,10 @@ import CrearProyecto from 'proyectos/PantallaEdicionElemento';
 import VerProyecto from 'proyectos/ver/VerProyecto';
 import axios from "axios";
 import {useHistory} from "react-router";
-import VistaFases from 'proyectos/ver/VistaFases'
+import Grid from '@material-ui/core/Grid';
+import BotonVolver from 'proyectos/common/BotonVolver'
 
-export default ({url, titulo, elem, setElem, isFase, isTarea, isIteracion}) => {
+export default ({url, titulo, elem, setElem, isFase, isTarea, isIteracion, urlReturn}) => {
   const { path } = useRouteMatch() || {};
   const history = useHistory();
 
@@ -39,6 +40,7 @@ export default ({url, titulo, elem, setElem, isFase, isTarea, isIteracion}) => {
         
             <AnimatedRoute exact path={path}>
                 <Fragment>
+                    {(urlReturn && <BotonVolver url = {urlReturn}/>)}
                     <AgregarProyecto titulo = {titulo} url = {url}/>
                     <VistaListado mapf = {mapProyecto} url = {url} />
                 </Fragment>
@@ -47,7 +49,9 @@ export default ({url, titulo, elem, setElem, isFase, isTarea, isIteracion}) => {
                 <CrearProyecto titulo = {titulo} onConfirm = {onConfirm} />
             </AnimatedRoute>
             <AnimatedRoute path={`${path}/:id(\\d+)`}>
+                <Grid>
                 <VerProyecto proyecto = {elem} setProyecto = {setElem} url = {url} />
+                </Grid>
             </AnimatedRoute>
 
         </AnimatedSwitch>

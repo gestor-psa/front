@@ -4,21 +4,15 @@ import { useRouteMatch } from "react-router";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 
-import VistaListado from 'proyectos/VistaListado';
-import Proyecto from 'proyectos/Proyecto'
-import AgregarProyecto from 'proyectos/AgregarProyecto';
-import CrearProyecto from 'proyectos/PantallaEdicionElemento';
-import VerProyecto from 'proyectos/ver/VerProyecto';
-import axios from "axios";
-import {useHistory} from "react-router";
-import VistaFases from 'proyectos/ver/VistaFases'
 import ElementoRouter from "proyectos/common/ElementoRouter";
 
 export default () => {
   const { path } = useRouteMatch() || {};
   const [proyecto, setProyecto] = useState({});
   const [fase, setFase] = useState({});
+  const [ite, setIte] = useState({});
 
+  const GetId = (elem) => {return (elem.id || elem.codigo)};
 
   return (
     <ContentWrapper>
@@ -34,20 +28,26 @@ export default () => {
 
           <AnimatedRoute  path={ `${path}/:id(\\d+)/fases`}>
                 <ElementoRouter elem = {fase} setElem = {setFase} titulo = "Nueva Fase" 
-                url = {"/proyectos/"+proyecto.id+"/fases"} isFase = {proyecto}>
+                url = {"/proyectos/"+GetId(proyecto)+"/fases"} isFase = {proyecto}
+                urlReturn = {"/proyectos/"+GetId(proyecto)}
+                >
                 </ElementoRouter>
           </AnimatedRoute>
 
           <AnimatedRoute  path={ `${path}/:id(\\d+)/tareas`}>
                 <ElementoRouter elem = {fase} setElem = {setFase} titulo = "Nueva Tarea" 
-                url = {"/proyectos/"+proyecto.id+"/tareas"} isTarea = {proyecto}>
+                url = {"/proyectos/"+GetId(proyecto)+"/tareas"} isTarea = {proyecto}
+                urlReturn = {"/proyectos/"+GetId(proyecto)}
+                >
                 </ElementoRouter>
           </AnimatedRoute>
 
           <AnimatedRoute  path={ `${path}/:id(\\d+)/fases/:id(\\d+)/iteraciones`}>
-                <ElementoRouter elem = {fase} setElem = {setFase} titulo = "Nueva Tarea" 
-                url = {"/proyectos/"+proyecto.id+"/tareas"} 
-                isIteracion = {proyecto} isFase = {fase}>
+                <ElementoRouter elem = {ite} setElem = {setIte} titulo = "Nueva Tarea" 
+                url = {"/proyectos/"+GetId(proyecto)+"/fases/"+GetId(fase)+"/iteraciones"} 
+                isIteracion = {proyecto} isFase = {fase}
+                urlReturn = {"/proyectos/"+GetId(proyecto)+"/fases/"+GetId(fase)}
+                >
                 </ElementoRouter>
           </AnimatedRoute>
 

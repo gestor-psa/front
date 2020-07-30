@@ -22,7 +22,6 @@ export default ({titulo = "Nuevo proyecto", url}) => {
         variant='contained'
         to={`${ url || path}/crear`}
         component={Link}
-        className={classes.cta}
         >
              {titulo}
         </Button>
