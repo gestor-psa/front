@@ -126,7 +126,7 @@ export const poseeAtributos = ({then}) => {
         Object.values(atributos).forEach(valor => {
             if(valor) {
                 if(valor === 'ahora') valor = moment().format("DD/MM/YYYY HH:")
-                expect(screen.queryByText(new RegExp(valor, "i"))).toBeInTheDocument()
+                expect(screen.queryAllByText(new RegExp(`/(${valor}|.*)/`, "i"))[0]).toBeInTheDocument()
             }
         })
     });

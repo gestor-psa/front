@@ -17,14 +17,17 @@ export default ({ticket, onTicketChange}) => {
         if (!ticket && id) {
             Promise.all([
                 axios.get(process.env.REACT_APP_URL_SOPORTE + '/tickets/' + id),
-                // axios.get(process.env.REACT_APP_URL_PROYECTOS + '/tareas',
-                //     {params: {ticketId: id}})
+                axios.get(process.env.REACT_APP_URL_PROYECTOS + '/tareas',
+                    {params: {ticketId: id}})
             ]).then(([ticketRes, tareasRes]) => {
-                // onTicketChange({...ticketRes.data, tareas: tareasRes.data})
-                onTicketChange({...ticketRes.data, tareas: []}) // TODO: cambiar cuando proyectos lo arrregle
+                console.log(tareasRes.data, id)
+                onTicketChange({...ticketRes.data, tareas: tareasRes.data})
             })
         }
     }, [ticket, onTicketChange, id]);
+
+    useEffect(() => () => ticket && onTicketChange(undefined),
+        [onTicketChange, ticket])
 
     return (
         <AnimatedSwitch>

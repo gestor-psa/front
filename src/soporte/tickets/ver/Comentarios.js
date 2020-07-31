@@ -15,7 +15,9 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        minHeight: 430
+        [theme.breakpoints.up('md')]: {
+            minHeight: 350
+        }
     },
     comentarios: {
         margin: 0,
@@ -49,7 +51,7 @@ const useStyles = makeStyles(theme => ({
 export default ({mostrar}) => {
     const classes = useStyles();
     const comentarios = [
-        "El ticket fue resuelta correctamente.",
+        "El problema fue resuelto correctamente.",
         "El cliente se comunicó nuevamente para informar que el problema aún no fue resuelto.",
         "Se abrió una tarea en el proyecto PSA ERP."
     ];
@@ -59,7 +61,7 @@ export default ({mostrar}) => {
             <Typography variant='h6'>
                 Comentarios:
             </Typography>
-            <Loading mostrar={mostrar} esqueleto={<Skeleton variant="rect" height={400}/>}>
+            <Loading mostrar={mostrar} esqueleto={<Skeleton variant="rect" height={350}/>}>
                 <Timeline className={classes.comentarios}>
                     {comentarios.map((comentario, key) =>
                         <TimelineItem key={key} classes={{root: classes.item, missingOppositeContent: classes.itemOpuesto}}>

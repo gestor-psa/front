@@ -1,6 +1,7 @@
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import SearchSelect from "soporte/common/SearchSelect";
 
 
 const useStyles = makeStyles(theme => ({
@@ -27,20 +28,22 @@ export default ({onDataChange, register, errors}) => {
                 inputRef={register({required: true})}
                 helperText={errors.nombre && 'El nombre es requerido'}
             />
-            <TextField
-                rows={8}
-                rowsMax={16}
-                multiline
-                label='Descripción'
-                className={classes.campo}
-                onChange={(e) => onDataChange({descripcion: e.target.value})}
-                inputProps={{"aria-label": 'descripcion'}}
-                // Validacion.
-                required
-                name='descripcion'
-                error={Boolean(errors.descripcion)}
-                inputRef={register({required: true})}
-                helperText={errors.descripcion && 'La descripción es requerida'}
+            <SearchSelect
+                url={process.env.REACT_APP_URL_PROYECTOS + '/proyectos'}
+                autocompleteProps={{
+                    getOptionLabel: proyecto => proyecto.nombre || '',
+                    getOptionSelected: (e1, e2) => e1.nombre === e2.nombre,
+                    onChange: (e, v) => onDataChange({proyectoId: v && v.id})
+                }}
+                textFieldProps={{
+                    label: 'Proyecto',
+                    // Validacion.
+                    required: true,
+                    name: 'proyecto',
+                    error: Boolean(errors.proyecto),
+                    inputRef: register({required: true}),
+                    helperText: errors.descripcion && 'El proyecto es requerido'
+                }}
             />
         </div>
     )

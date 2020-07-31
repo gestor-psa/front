@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Layout from "soporte/common/Layout";
 import CamposDerecha from "soporte/tickets/crear-tarea/CamposDerecha";
 import CamposIzquierda from "soporte/tickets/crear-tarea/CamposIzquierda";
@@ -10,10 +10,14 @@ import axios from "axios";
 
 export default ({ticket, onTicketChange}) => {
     const {register, errors, handleSubmit} = useForm();
-    const [data, setData] = useState({tipo: 'consulta', severidad: 'baja'});
+    const [data, setData] = useState({estado: 'no iniciada'});
     const [esperando, setEsperando] = useState(false);
     const onDataChange = (e) => setData({...data, ...e});
     const history = useHistory();
+
+    useEffect(() => {
+        ticket && setData(data => ({...data, tickets: [ticket.id]}))
+    }, [ticket])
 
     const onConfirmar = () => {
         setEsperando(true);

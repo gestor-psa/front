@@ -18,7 +18,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 export default () => {
     const [tickets, setTickets] = useState();
     const theme = useTheme()
-    const height = 400
+    const height = 280
 
     const formatData = (data) =>
         data.map(({dia, cantidad}) => ({
@@ -39,8 +39,8 @@ export default () => {
     return (
         <Loading mostrar={tickets} esqueleto={<Skeleton variant="rect" height={height}/>}>
             {tickets && <Paper>
-                <Chart data={tickets} style={{display: 'flex'}}>
-                    <Title text="Tickets acumulados por día"/>
+                <Chart data={tickets} style={{display: 'flex'}} height={height}>
+                    <Title text="Tickets pendientes"/>
                     <ArgumentAxis
                         showGrid={true}
                         tickFormat={() => (e) => moment(e).format("MMM Do")}

@@ -21,7 +21,7 @@ import LineWithCirclePoint from "soporte/dashboard/LineWithCirclePoint";
 export default () => {
     const [tickets, setTickets] = useState();
     const theme = useTheme()
-    const height = 400
+    const height = 330
 
     const formatData = (data) =>
         data.map(({dia, ...datos}) => ({

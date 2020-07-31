@@ -14,6 +14,10 @@ const useStyles = makeStyles(theme => ({
     tituloTarea: {
         color: 'white'
     },
+    estado: {
+        maxWidth: '100%',
+        flexBasis: '100%'
+    },
     descriptor: {
         display: 'inline',
         color: 'white',
@@ -39,12 +43,12 @@ export default ({tarea, onClick}) => {
                                 {tarea.nombre}
                             </Typography>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={6} className={classes.estado}>
                             <Typography className={classes.descriptor}>
                                 Estado:&nbsp;
                             </Typography>
                             <Typography className={classes.valor}>
-                                {tarea.estado}
+                                {tarea.estado.capitalize()}
                             </Typography>
                         </Grid>
                     </Grid>

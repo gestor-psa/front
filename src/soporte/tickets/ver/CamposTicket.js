@@ -7,7 +7,8 @@ import EsqueletoMultilinea from "soporte/common/EsqueletoMultilinea";
 export default (
     {
         mostrar, id, nombre, descripcion, responsable, tipo,
-        severidad, estado, fechaDeCreacion, fechaDeActualizacion
+        severidad, estado, fechaDeCreacion, fechaDeActualizacion,
+        fechaDeCierre
     }) => {
 
     return (
@@ -57,6 +58,11 @@ export default (
                 etiqueta='Fecha de actualización'
                 mostrar={mostrar}
                 valor={<Fecha fecha={fechaDeActualizacion}/>}
+            />
+            <EsqueletoTexto
+                etiqueta='Fecha de cierre'
+                mostrar={mostrar}
+                valor={<Fecha fecha={fechaDeCierre}/>}
             />
         </Fragment>
     )
