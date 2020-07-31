@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useRouteMatch} from "react-router";
 import Ticket from "soporte/tickets/Ticket";
 import CrearTicket from "soporte/tickets/crear/CrearTicket";
@@ -10,7 +10,7 @@ import AnimatedRoute from "components/common/AnimatedRoute";
 export default () => {
     const {path} = useRouteMatch() || {};
     const [ticket, setTicket] = useState();
-    const onTicketChange = t => setTicket(t);
+    const onTicketChange = useCallback(t => setTicket(t), []);
 
     return (
         <AnimatedSwitch>

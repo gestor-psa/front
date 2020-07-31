@@ -17,6 +17,15 @@ export default ({mostrar}) => {
     const onModificar = () => history.push(`${url}/modificacion`)
 
     const onEliminar = () => {
+        axios.delete(process.env.REACT_APP_URL_PROYECTOS + '/events/tickets/' + id)
+            .then((result) => {
+                console.log('Ticket eliminado de proyectos')
+            })
+            .catch(error => {
+                // TODO.
+                console.log(error.response);
+            });
+
         axios.delete(process.env.REACT_APP_URL_SOPORTE + '/tickets/' + id)
             .then((result) => {
                 history.push('/soporte/tickets')

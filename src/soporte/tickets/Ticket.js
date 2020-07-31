@@ -20,7 +20,7 @@ export default ({ticket, onTicketChange}) => {
                 axios.get(process.env.REACT_APP_URL_PROYECTOS + '/tareas',
                     {params: {ticketId: id}})
             ]).then(([ticketRes, tareasRes]) => {
-                console.log(tareasRes.data, id)
+                console.log(ticketRes.data, tareasRes.data)
                 onTicketChange({...ticketRes.data, tareas: tareasRes.data})
             })
         }
