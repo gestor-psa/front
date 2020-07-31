@@ -176,7 +176,7 @@ export default (props) => {
 
                 <Button style={{ marginTop: "40px" }} disabled={props.desactivado} onClick={onCrear} color="secondary" variant='outlined'>
                     Cargar hora
-                                        </Button>
+                </Button>
             </Card>
         </Fragment>
         </Grid>

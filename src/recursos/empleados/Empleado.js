@@ -175,7 +175,9 @@ export default () => {
                                     </Button>
                                 </Grid>
                                 <Grid item>
-                                    <Button type="button" style={{color:"red"}}onClick={handleOpen} color='inherit' variant='outlined'>
+                                    <Button type="button" style={// eslint-disable-next-line 
+                                    {color: (id == 45487954)? "grey": "red"}}onClick={handleOpen} color='inherit' variant='outlined' disabled={// eslint-disable-next-line
+                                        id == 45487954}>
                                         Eliminar
                                     </Button>
                                 </Grid>
