@@ -7,7 +7,8 @@ import { useParams, useRouteMatch } from "react-router";
 import axios from "axios";
 import ModificarEmpleado from "recursos/empleados/ModificarEmpleado"
 import CargarHora from "recursos/empleados/CargarHora"
-import HorasCargadas from "recursos/empleados/HorasCargadas"
+// import HorasCargadas from "recursos/empleados/HorasCargadas"
+import HorasCargadasGrafico from "recursos/empleados/HorasCargadasGrafico"
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 import Button from "@material-ui/core/Button";
@@ -184,7 +185,7 @@ export default () => {
                             </Grid>
                             <Grid item container spacing={3} xs={6} justify="center">
                                 <Grid item>
-                                    <Button color='secondary' variant='outlined' to={`${url}/horascargadas`} component={Link} >
+                                    <Button color='secondary' variant='outlined' to={`${url}/horascargadasgrafico`} component={Link} >
                                         Ver horas cargadas
                                     </Button>
                                 </Grid>
@@ -215,8 +216,8 @@ export default () => {
             <AnimatedRoute exact path={`${path}/modificacion`}>
                 <ModificarEmpleado/>
             </AnimatedRoute>
-            <AnimatedRoute exact path={`${path}/horascargadas`}>
-                <HorasCargadas/>
+            <AnimatedRoute exact path={`${path}/horascargadasgrafico`}>
+                <HorasCargadasGrafico/>
             </AnimatedRoute>
         </AnimatedSwitch>
     )
