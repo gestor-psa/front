@@ -97,6 +97,14 @@ const numeroViernes = () => {
     let numeroDiaViernes = numeroLunes() + 4;
     return numeroDiaViernes ;
 }
+const numeroSabado = () => {
+    let numeroDiaSabado = numeroLunes() + 5;
+    return numeroDiaSabado ;
+}
+const numeroDomingo = () => {
+    let numeroDiaDomingo = numeroLunes() + 6;
+    return numeroDiaDomingo ;
+}
 
 export default () => {
     const classes = useStyles();
@@ -111,6 +119,8 @@ export default () => {
     let [fechaMiercoles, setFechaMiercoles] = useState(new Date());
     let [fechaJueves, setFechaJueves] = useState(new Date());
     let [fechaViernes, setFechaViernes] = useState(new Date());
+    let [fechaSabado, setFechaSabado] = useState(new Date());
+    let [fechaDomingo, setFechaDomingo] = useState(new Date());
 
     useEffect(() => {
         setDni(id);
@@ -125,6 +135,8 @@ export default () => {
         setFechaMiercoles(new Date().setDate(numeroMiercoles()));
         setFechaJueves(new Date().setDate(numeroJueves()));
         setFechaViernes(new Date().setDate(numeroViernes()));
+        setFechaSabado(new Date().setDate(numeroSabado()));
+        setFechaDomingo(new Date().setDate(numeroDomingo()));
     }, [id]);
     
     
@@ -141,6 +153,8 @@ export default () => {
         setFechaMiercoles(new Date(fechaMiercoles).setDate(new Date(fechaMiercoles).getDate() + 7*n));
         setFechaJueves(new Date(fechaJueves).setDate(new Date(fechaJueves).getDate() + 7*n));
         setFechaViernes(new Date(fechaViernes).setDate(new Date(fechaViernes).getDate() + 7*n));
+        setFechaSabado(new Date(fechaSabado).setDate(new Date(fechaSabado).getDate() + 7*n));
+        setFechaDomingo(new Date(fechaDomingo).setDate(new Date(fechaDomingo).getDate() + 7*n));
     }
 
     return (
@@ -159,13 +173,35 @@ export default () => {
                         </Grid>
                         {<Grid container spacing={3} style={{marginTop:"15px"}} direction="row" justify="center" alignItems="center">
                             <ArrowBackIosIcon onClick={()=>{cambiarSemana(-1)}}/>
-
-                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaLunes)) === parseFecha(new Date())} desactivado={new Date(fechaLunes).getMonth() !== new Date().getMonth()} dni={dni} proyectos={proyectos} dia="Lunes" nroDia={new Date(fechaLunes).getDate()}/>
-                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaMartes)) === parseFecha(new Date())} desactivado={new Date(fechaMartes).getMonth() !== new Date().getMonth()} dni={dni} proyectos={proyectos} dia="Martes" nroDia={new Date(fechaMartes).getDate()}/>
-                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaMiercoles)) === parseFecha(new Date())} desactivado={new Date(fechaMiercoles).getMonth() !== new Date().getMonth()} dni={dni} proyectos={proyectos} dia="Miércoles" nroDia={new Date(fechaMiercoles).getDate()}/>
-                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaJueves)) === parseFecha(new Date())} desactivado={new Date(fechaJueves).getMonth() !== new Date().getMonth()} dni={dni} proyectos={proyectos} dia="Jueves" nroDia={new Date(fechaJueves).getDate()}/>
-                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaViernes)) === parseFecha(new Date())} desactivado={new Date(fechaViernes).getMonth() !== new Date().getMonth()} dni={dni} proyectos={proyectos} dia="Viernes" nroDia={new Date(fechaViernes).getDate()}/>
+                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaLunes)) === parseFecha(new Date())} 
+                                desactivado={ new Date(fechaLunes).getMonth() !== new Date().getMonth() || new Date(fechaLunes).getDate() > new Date().getDate()}
+                                dni={dni} proyectos={proyectos} dia="Lunes" nroDia={new Date(fechaLunes).getDate()}
+                            />
+                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaMartes)) === parseFecha(new Date())} 
+                                desactivado={new Date(fechaMartes).getMonth() !== new Date().getMonth() || new Date(fechaMartes).getDate() > new Date().getDate()}
+                                dni={dni} proyectos={proyectos} dia="Martes" nroDia={new Date(fechaMartes).getDate()}
+                            />
+                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaMiercoles)) === parseFecha(new Date())} 
+                                desactivado={new Date(fechaMiercoles).getMonth() !== new Date().getMonth() || new Date(fechaMiercoles).getDate() > new Date().getDate()}
+                                dni={dni} proyectos={proyectos} dia="Miércoles" nroDia={new Date(fechaMiercoles).getDate()}
+                            />
+                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaJueves)) === parseFecha(new Date())} 
+                                desactivado={new Date(fechaJueves).getMonth() !== new Date().getMonth() || new Date(fechaJueves).getDate() > new Date().getDate()}
+                                dni={dni} proyectos={proyectos} dia="Jueves" nroDia={new Date(fechaJueves).getDate()}
+                            />
+                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaViernes)) === parseFecha(new Date())} 
+                                desactivado={new Date(fechaViernes).getMonth() !== new Date().getMonth() || new Date(fechaViernes).getDate() > new Date().getDate()}
+                                dni={dni} proyectos={proyectos} dia="Viernes" nroDia={new Date(fechaViernes).getDate()}
+                            />
                             <ArrowForwardIosIcon onClick={()=>{cambiarSemana(1)}}/>
+                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaSabado)) === parseFecha(new Date())} 
+                                desactivado={new Date(fechaSabado).getMonth() !== new Date().getMonth() || new Date(fechaSabado).getDate() > new Date().getDate()}
+                                dni={dni} proyectos={proyectos} dia="Sabado" nroDia={new Date(fechaSabado).getDate()}
+                            />
+                            <CartelCargaHora esHoy = {parseFecha(new Date(fechaDomingo)) === parseFecha(new Date())} 
+                                desactivado={new Date(fechaDomingo).getMonth() !== new Date().getMonth() || new Date(fechaDomingo).getDate() > new Date().getDate()}
+                                dni={dni} proyectos={proyectos} dia="Domingo" nroDia={new Date(fechaDomingo).getDate()}
+                            />
                         </Grid>}
 
                     </Grid>

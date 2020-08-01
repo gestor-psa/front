@@ -1,8 +1,14 @@
 import {Bar} from 'react-chartjs-2';
-import React, { Fragment, useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams} from "react-router";
+import {useParams, useHistory} from "react-router";
+import Grid from "@material-ui/core/Grid";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+
+
 
 // function aleatorio(min, max) {
     // return Math.floor(Math.random() * (max - min) + min);
@@ -33,31 +39,35 @@ const colores = [
     'rgba(144,148,151,1)',
     'rgba(241,196,15,1)'
 ]
+const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 
-
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
-        position: 'relative'
-    },
-    nuevaHora: {
-        display: 'flex',
-        justifyContent: "flex-end",
-        marginTop: "50px"
+        padding: theme.spacing(4, 6),
+        [theme.breakpoints.down('xs')]: {
+            padding: theme.spacing(2, 2)
+        }
     }
-});
+}));
 
 export default () => {
+    const classes = useStyles();
     const [horasLunes, setHorasLunes] = useState();
     const [horasMartes, setHorasMartes] = useState();
     const [horasMiercoles, setHorasMiercoles] = useState();
     const [horasJueves, setHorasJueves] = useState();
     const [horasViernes, setHorasViernes] = useState();
     const { id } = useParams();
-    const classes = useStyles({ horasLunes });
+    const history = useHistory();
     // const isMdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
     const state = {
-          labels: ['Lunes', 'Martes', 'Miercoles',
-                   'Jueves', 'Viernes'],
+          labels: [
+              'Lunes '+ new Date(new Date().setDate(new Date().getDate() - new Date().getDay() +1)).getDate(),
+              'Martes '+ new Date(new Date().setDate(new Date().getDate() - new Date().getDay() +2)).getDate(),
+              'Miercoles '+ new Date(new Date().setDate(new Date().getDate() - new Date().getDay() +3)).getDate(),
+              'Jueves '+ new Date(new Date().setDate(new Date().getDate() - new Date().getDay() +4)).getDate(),
+              'Viernes '+ new Date(new Date().setDate(new Date().getDate() - new Date().getDay() +5)).getDate()
+            ],
           datasets: [],
         }
 
@@ -183,8 +193,10 @@ export default () => {
             label: nombre,
             backgroundColor: colores[colorActual],
             data: horasCargadas[categoria],
-            borderWidth: 8,
+            borderWidth: {top:10},
             borderColor: 'rgba(250,250,250,1)',
+            hoverBorderColor: 'rgba(250,250,250,1)',
+            hoverBorderWidth: 11,
 
         });
         colorActual += 1;
@@ -194,30 +206,34 @@ export default () => {
     console.log(state);
 
     return (
-        <Fragment>
-             <div className={classes.nuevaHora}>
-            </div>
-            <Bar
-                data={state}
-                options={{
-                    title:{
-                    display:false,
-                    text:'Average Rainfall per month',
-                    fontSize:20
-                    },
-                    legend:{
-                    display:false,
-                    position:'right'
-                    },
-                    scales: {
-                        xAxes: [{ stacked: true }],
-                        yAxes: [{ 
-                            display: false,
-                            stacked: true }]
-                    }
-                }}
-            />
-            
-            </Fragment>
+        <Paper className={classes.root}>
+            <Grid container>
+                <Grid item xs={12}>
+                    <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
+                </Grid>
+                <Grid item container xs={12} justify={'center'}>
+                    <Typography variant='h4'>
+                        {'Horas cargadas - ' + meses[new Date().getMonth()] + ' '+ (new Date().getFullYear()).toString()}
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} style={{maxHeight:'100%',marginTop:'20px'}}>
+                    <Bar
+                        data={state}
+                        options={{
+                            legend:{
+                            display:false,
+                            position:'right'
+                            },
+                            scales: {
+                                xAxes: [{ stacked: true }],
+                                yAxes: [{ 
+                                    display: false,
+                                    stacked: true }]
+                            }
+                        }}
+                    />
+                </Grid>
+            </Grid>
+        </Paper>
     );
 }

@@ -49,13 +49,9 @@ const useStyles = makeStyles(theme => ({
 
 const crearFecha = (dia) => {
     let fecha = new Date();
-    let month = '' + (fecha.getMonth() + 1);
-    let day = dia;
+    let month = String(fecha.getMonth() + 1).padStart(2, '0');
+    let day = String(dia).padStart(2, '0');
     let year = fecha.getFullYear();
-    if (month.length < 2) 
-        month = '0' + month;
-    if (day.length < 2) 
-        day = '0' + day;
     console.log(year+month+day,10);
     return parseInt(year+month+day,10);
 }
@@ -116,15 +112,20 @@ export default (props) => {
 
 
     return (
-        <Grid item xs>
+        <Grid item container xs justify="center" alignItems="center" style={{maxWidth: "260px"}}>
         <Fragment>
             <Card className={classes.root} variant="outlined" >
+                <Grid item xs>
                 <Typography variant="h5" component="h2" align='center'style={{color:props.esHoy?"red":"black"}}>
                     {props.dia}
-                                         </Typography>
+                </Typography>
+                </Grid>
+                <Grid item xs>
                 <Typography variant="h5" component="h2" align='center' style={{color:props.esHoy?"red":"black"}}>
                     {props.nroDia}
                 </Typography>
+                </Grid>
+                <Grid item xs>
                 <FormControl disabled = {props.desactivado} className={classes.formControl} style={{ width: "100%" }}>
                     <InputLabel id="demo-controlled-open-select-label">Categoría</InputLabel>
                     <Select
@@ -138,6 +139,8 @@ export default (props) => {
                         <MenuItem onClick={() => { setProyecto(null); setTaskId(null); }} value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
                     </Select>
                 </FormControl>
+                </Grid>
+                <Grid item xs>
                 {category === 'proyecto' && <FormControl className={classes.formControl} style={{ width: "100%" }}>
                     <InputLabel id="demo-controlled-open-select-label">Proyecto</InputLabel>
                     <Select
@@ -154,6 +157,8 @@ export default (props) => {
                         }
                     </Select>
                 </FormControl>}
+                </Grid>
+                <Grid item xs>
                 {category === 'proyecto' && proyecto && <FormControl className={classes.formControl} style={{ width: "100%" }}>
                     <InputLabel id="demo-controlled-open-select-label">Tarea</InputLabel>
                     <Select
@@ -170,13 +175,15 @@ export default (props) => {
                         }
                     </Select>
                 </FormControl>}
-
-                <TextField disabled = {props.desactivado} type="number" className={classes.campo} label='Horas' onChange={(e) => setHours(e.target.value)}
-                />
-
-                <Button style={{ marginTop: "40px" }} disabled={props.desactivado} onClick={onCrear} color="secondary" variant='outlined'>
-                    Cargar hora
+                </Grid>
+                <Grid item xs>
+                <TextField disabled = {props.desactivado} type="number" className={classes.campo} label='Horas' onChange={(e) => setHours(e.target.value)}/>
+                </Grid>
+                <Grid item container xs justify="center" alignItems="center">
+                <Button style={{ marginTop: "20px" }} disabled={props.desactivado} onClick={onCrear} color="secondary" variant='outlined'>
+                    Cargar
                 </Button>
+                </Grid>
             </Card>
         </Fragment>
         </Grid>
