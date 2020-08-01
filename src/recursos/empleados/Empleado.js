@@ -16,9 +16,9 @@ import { Link } from "react-router-dom";
 import {useHistory} from "react-router";
 import ConfirmacionContext from "contexts/ConfirmacionContext";
 import Modal from "@material-ui/core/Modal";
-import InsertChartOutlinedOutlinedIcon from '@material-ui/icons/InsertChartOutlinedOutlined';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import WarningIcon from '@material-ui/icons/Warning';
+import HorasPorMesGrafico from "recursos/empleados/HorasPorMesGrafico"
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -129,7 +129,7 @@ export default () => {
         <AnimatedSwitch>
             <AnimatedRoute exact path={path}>
                 <Paper className={classes.root}>
-                    <Grid container spacing={5}>
+                    <Grid container spacing={3}>
                         <Grid item xs={12}>
                             <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/') }}/>
                         </Grid>
@@ -138,7 +138,7 @@ export default () => {
                                 {empleado.name + " "+ empleado.surname}
                             </Typography>}
                         </Grid>
-                        <Grid item container spacing={6} xs={12}>
+                        <Grid item container spacing={6} xs={12} alignItems="center" justify="baseline">
                             <Grid item xs={12} md={6}>
                                 {empleado && <Fragment>
                                     <Typography>
@@ -165,7 +165,7 @@ export default () => {
                                 </Fragment>}
                             </Grid>
                             <Grid item container xs={6} alignItems="center" justify="center">
-                                <InsertChartOutlinedOutlinedIcon style={{ fontSize: 170}}  />
+                                <HorasPorMesGrafico/>
                             </Grid>
                         </Grid>
                         <Grid item container spacing={3} direction="row" xs={12} justify="space-between">
