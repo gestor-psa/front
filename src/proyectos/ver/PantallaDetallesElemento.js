@@ -20,7 +20,14 @@ export default (
         }
     }, [responsableDni]);
 
-    var duracion;
+    const getDays = (fi, ff) => {
+        const date1 = new Date(fi);
+        const date2 = new Date(ff);
+        const diffTime = Math.abs(date2 - date1);
+        return Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    }
+
+    const duracion = fechaInicio && fechaFin ;
 
     return (
         <Fragment>
@@ -52,9 +59,9 @@ export default (
                     valor={<Fecha fecha={fechaFin}/>}
                 />}
                 {duracion && <EsqueletoTexto
-                    etiqueta='Duracion en dias'
+                    etiqueta='Duracion'
                     mostrar={mostrar}
-                    valor={duracion+" dias"}
+                    valor= {getDays(fechaInicio, fechaFin) + " dias"}
                 />}
            
         </Fragment>

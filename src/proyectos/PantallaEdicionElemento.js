@@ -7,11 +7,12 @@ import Acciones from "proyectos/crear/Acciones";
 import CamposFecha from "proyectos/crear/CamposFecha.js"
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
+import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 
 
 export default ({titulo, onConfirm = () => null, url}) => {
     const {register, errors, handleSubmit} = useForm();
-    const [elemento, setElem] = useState({duracion: 0});
+    const [elemento, setElem] = useState({});
     const [data, setData] = useState(elemento);
     const [esperando, setEsperando] = useState(false);
     const onDataChange = (e) => setData({...data, ...e});
@@ -37,6 +38,12 @@ export default ({titulo, onConfirm = () => null, url}) => {
         onConfirm(data);
     }
 
+    const getDays = (fi, ff) => {
+        const date1 = new Date(fi);
+        const date2 = new Date(ff);
+        const diffTime = Math.abs(date2 - date1);
+        return Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    }
 
     return (
         <Layout
@@ -55,6 +62,13 @@ export default ({titulo, onConfirm = () => null, url}) => {
                         onDataChange={onDataChange}
                     />
                     <CamposFecha proyecto = {elemento} onChange = {onDataChange}/>
+                    {elemento.fechaInicio && elemento.fechaFin && 
+                        <EsqueletoTexto
+                            etiqueta='Duracion'
+                            mostrar={true}
+                            valor= {getDays(elemento.fechaInicio, elemento.fechaFin) + " dias"}
+                        />
+                    }
                 </Grid>}
             fin={
                 <Acciones

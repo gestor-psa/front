@@ -37,7 +37,7 @@ export default ({url, titulo, elem, setElem, isFase, isTarea, isIteracion, urlRe
   return (
     <ContentWrapper>
       <AnimatedSwitch>
-        
+
             <AnimatedRoute exact path={path}>
                 <Fragment>
                     {(urlReturn && <BotonVolver url = {urlReturn}/>)}
@@ -45,9 +45,11 @@ export default ({url, titulo, elem, setElem, isFase, isTarea, isIteracion, urlRe
                     <VistaListado mapf = {mapProyecto} url = {url} />
                 </Fragment>
             </AnimatedRoute>
+
             <AnimatedRoute path={`${path}/crear`}>
                 <CrearProyecto titulo = {titulo} onConfirm = {onConfirm} />
             </AnimatedRoute>
+            
             <AnimatedRoute path={`${path}/:id(\\d+)`}>
                 <Grid>
                 <VerProyecto proyecto = {elem} setProyecto = {setElem} url = {url}  
