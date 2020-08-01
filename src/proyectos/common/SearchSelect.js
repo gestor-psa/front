@@ -10,7 +10,6 @@ import match from 'autosuggest-highlight/match';
 export default ({opciones = null, defaultValue, url = '', autocompleteProps = {}, textFieldProps = {}}) => {
     const [open, setOpen] = React.useState(false);
     const [options, setOptions] = React.useState(opciones);
-    const [defval, setDefval] = React.useState({});
     const loading = open && !options;
 
     React.useEffect(() => {
@@ -19,18 +18,16 @@ export default ({opciones = null, defaultValue, url = '', autocompleteProps = {}
                 .then(res => {
                     console.log(res.data);
                     setOptions(res.data);
-                    var filterdni = res.data.filter(x => x.dni === defaultValue);
-                    filterdni.length > 0 && setDefval(filterdni[0]);
                 })
         }
-    }, [url, loading, opciones, defaultValue]);
+    }, [url, loading, opciones]);
 
     const getOptionLabel = autocompleteProps.getOptionLabel || (x => x);
     return (
         <Autocomplete
             {...autocompleteProps}
-            defaultValue={defval.name && defval}
-            key={getOptionLabel(defval)}
+            defaultValue={defaultValue}
+            key={getOptionLabel(defaultValue || {})}
             open={open}
             openOnFocus
             onOpen={() => setOpen(true)}

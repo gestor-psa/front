@@ -14,16 +14,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DatePickers({tag ,name, defvalue = "YYYY-MM-DD", onChange}) {
+export default function DatePickers({tag ,name, defvalue, onChange}) {
   const classes = useStyles();
-
+  console.log(new Date(defvalue));
   return (
     <form className={classes.container} noValidate>
       <TextField
         id="date"
         label= {name}
         type="date"
-        defaultValue= {defvalue}
+        defaultValue= {new Date(defvalue)}
+        value = {defvalue}
         className={classes.textField}
         onChange = {(e) => {onChange({[tag]: e.target.value})}}
         InputLabelProps={{
