@@ -4,9 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { useParams} from "react-router";
 
-function aleatorio(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
+// function aleatorio(min, max) {
+    // return Math.floor(Math.random() * (max - min) + min);
+//   }
   
 function pasarHoras(pos, desde, horasCarg){
     for (let hora in desde){
@@ -24,53 +24,16 @@ function pasarHoras(pos, desde, horasCarg){
     }
 }
 
-// const state = {
-//   labels: ['January', 'February', 'March',
-//            'April', 'May'],
-//   datasets: [
-//     {
-//       label: 'Rainfall',
-//       backgroundColor: 'rgba(75,192,192,1)',
-//       borderColor: 'rgba(0,0,0,1)',
-//       borderWidth: 2,
-//       data: [65, 59, 80, 81, 56]
-//     },
-//     {
-//         label: 'Otra cosa',
-//         backgroundColor: 'rgba(192,75,1,192)',
-//         borderColor: 'rgba(0,0,0,1)',
-//         borderWidth: 2,
-//         data: [20, 20, 20, 20, 20]
-//     }
-//   ]
-// }
+const colores = [
+    'rgba(84,153,199,1)',
+    'rgba(231,76,60,1)',
+    'rgba(26,188,156,1)',
+    'rgba(243,156,18,1)',
+    'rgba(52,73,94,1)',
+    'rgba(144,148,151,1)',
+    'rgba(241,196,15,1)'
+]
 
-// export default class App extends React.Component {
-//   render() {
-//     return (
-//       <div>
-//         <Bar
-//           data={state}
-//           options={{
-//             title:{
-//               display:true,
-//               text:'Average Rainfall per month',
-//               fontSize:20
-//             },
-//             legend:{
-//               display:true,
-//               position:'right'
-//             },
-//             scales: {
-//                 xAxes: [{ stacked: true }],
-//                 yAxes: [{ stacked: true }]
-//             }
-//           }}
-//         />
-//       </div>
-//     );
-//   }
-// }
 
 const useStyles = makeStyles({
     root: {
@@ -95,7 +58,7 @@ export default () => {
     const state = {
           labels: ['Lunes', 'Martes', 'Miercoles',
                    'Jueves', 'Viernes'],
-          datasets: []
+          datasets: [],
         }
 
 
@@ -209,12 +172,22 @@ export default () => {
     pasarHoras(3, horasJueves, horasCargadas);
     pasarHoras(4, horasViernes, horasCargadas);
 
+    var colorActual = 0;
+
     for (let categoria in horasCargadas){
+        let nombre = categoria;
+        if (!isNaN(nombre)){
+            nombre = 'Tarea ' + categoria;
+        }
         state['datasets'].push({
-            label: categoria,
-            backgroundColor: 'rgba(' + aleatorio(0,255) + ',' + aleatorio(0,255) + ',' + aleatorio(0,255)  + ',1)',
-            data: horasCargadas[categoria]
+            label: nombre,
+            backgroundColor: colores[colorActual],
+            data: horasCargadas[categoria],
+            borderWidth: 8,
+            borderColor: 'rgba(250,250,250,1)',
+
         });
+        colorActual += 1;
     }
 
     console.log("State: !!!!!!!!!!!!");
