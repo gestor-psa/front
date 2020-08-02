@@ -7,6 +7,7 @@ import AccionesProyecto from "proyectos/ver/AccionesVer";
 import EditarProyecto from 'proyectos/PantallaEdicionElemento';
 import axios from "axios";
 import BotonVolver from 'proyectos/common/BotonVolver'
+import Tickets from "proyectos/ver/Tickets"
 
 export default ({setProyecto, proyecto, url, isFase, isIteracion, isTarea}) => {
     const { id } = useParams();
@@ -43,6 +44,7 @@ export default ({setProyecto, proyecto, url, isFase, isIteracion, isTarea}) => {
             <AnimatedRoute exact path={path}>
                 <BotonVolver url = {url}/>
                 <ProyectoDetails esProyecto = {true} mostrar={Boolean(proyecto)} {...proyecto}/>
+                {isTarea && <Tickets tickets = {proyecto.tickets} mostrar = {Boolean(proyecto)}></Tickets>}
                 <AccionesProyecto mostrar = {true} verFases = {isProyecto} verTareas = {isProyecto || isIteracion} verIteraciones = {isFase && !isIteracion}/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>

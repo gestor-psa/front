@@ -25,7 +25,7 @@ export default ({onDataChange, register, errors, proyecto = {}}) => {
                 })
             return resp;
         }
-        return {};
+        return {name: "Sin", surname: "Asignar"};
     };
     const responsable = getResp();
 
