@@ -1,5 +1,4 @@
 import React, {Fragment} from "react";
-import Fecha from "soporte/common/Fecha";
 import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 import EsqueletoMultilinea from "soporte/common/EsqueletoMultilinea";
 import Typography from "@material-ui/core/Typography";

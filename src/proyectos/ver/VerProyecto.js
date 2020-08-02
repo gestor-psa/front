@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ProyectoDetails from "proyectos/ver/PantallaDetallesElemento";
+import ProyectoDetails from "proyectos/ver/VistaDetallesElemento";
 import { useParams, useRouteMatch, useHistory } from "react-router";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
