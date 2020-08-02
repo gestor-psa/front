@@ -69,6 +69,7 @@ export default (props) => {
     const [category, setCategory] = useState();
     const [proyecto, setProyecto] = useState();
     const [tasks, setTasks] = useState();
+    const [render, setRender] = useState(true);
 
     const onCrear = () => {
         // setEsperando(true);
@@ -100,7 +101,12 @@ export default (props) => {
                         // TODO.
                 });
                 pasarHoras(0,horasDiaActual,horasCargadas);
-
+                setRender(false);
+                setHours("");
+                setCategory("");
+                setProyecto("");
+                setTaskId("");
+                setRender(true);
             })
             .catch(error => {
                 // TODO.
@@ -158,19 +164,20 @@ export default (props) => {
                 </Typography>
                 </Grid>
                 <Grid item xs>
-                <FormControl disabled = {props.desactivado} className={classes.formControl} style={{ width: "100%" }}>
+                {render && <FormControl disabled = {props.desactivado} className={classes.formControl} style={{ width: "100%" }}>
                     <InputLabel id="demo-controlled-open-select-label">Categoría</InputLabel>
                     <Select
                         labelId="demo-controlled-open-select-label"
                         id="demo-controlled-open-select"
                         onChange={handleChangeCategory}
+                        value={category}
                     >
                         <MenuItem value="proyecto">Proyectos</MenuItem>
                         <MenuItem onClick={() => { setProyecto(null); setTaskId(null); }} value="soporte">Soporte</MenuItem>
                         <MenuItem onClick={() => { setProyecto(null); setTaskId(null); }} value="estudio">Estudio</MenuItem>
                         <MenuItem onClick={() => { setProyecto(null); setTaskId(null); }} value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
                     </Select>
-                </FormControl>
+                </FormControl>}
                 </Grid>
                 <Grid item xs>
                 {category === 'proyecto' && <FormControl className={classes.formControl} style={{ width: "100%" }}>
@@ -209,7 +216,7 @@ export default (props) => {
                     </FormControl>}
                 </Grid>
                 <Grid item xs>
-                    <TextField disabled = {props.desactivado} type="number" className={classes.campo} label='Horas' onChange={(e) => setHours(e.target.value)}/>
+                    <TextField disabled = {props.desactivado} type="number" value={hours} className={classes.campo} label='Horas' onChange={(e) => setHours(e.target.value)}/>
                 </Grid>
                 <Grid item container xs justify="center" alignItems="center">
                     <Button style={{ marginTop: "10px", marginBottom: '15px'}} disabled={props.desactivado} onClick={onCrear} color="secondary" variant='outlined'>
