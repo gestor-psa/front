@@ -4,7 +4,7 @@ import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 import EsqueletoMultilinea from "soporte/common/EsqueletoMultilinea";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-//import Moment from 'moment';
+import Layout from "proyectos/common/Layout";
 
 export default (
     {
@@ -30,40 +30,48 @@ export default (
     const duracion = fechaInicio && fechaFin ;
 
     return (
-        <Fragment>
-                {<Typography variant='h4'>{nombre && nombre.capitalize()}</Typography>}
-                {descripcion && <EsqueletoMultilinea
-                    filas={3}
-                    etiqueta='Descripción'
-                    mostrar={mostrar}
-                    valor={descripcion && descripcion.capitalize()}
-                />}
-                {esProyecto && <EsqueletoTexto
-                    etiqueta='Responsable'
-                    mostrar={mostrar}
-                    valor={(responsable && responsable.name && (responsable.name+" "+responsable.surname)) || "Sin asignar"}
-                />}
-                {<EsqueletoTexto
-                    etiqueta='Estado'
-                    mostrar={mostrar}
-                    valor={estado && estado.capitalize()}
-                />}
-                { <EsqueletoTexto
+        <Layout
+               titulo = {<Typography variant='h4'>{nombre && nombre.capitalize()}</Typography>}
+                ladoIzquierdo = { 
+                <Fragment>  
+                    {descripcion && <EsqueletoMultilinea
+                        filas={3}
+                        etiqueta='Descripción'
+                        mostrar={mostrar}
+                        valor={descripcion && descripcion.capitalize()}
+                    />}
+                    {esProyecto && <EsqueletoTexto
+                        etiqueta='Responsable'
+                        mostrar={mostrar}
+                        valor={(responsable && responsable.name && (responsable.name+" "+responsable.surname)) || "Sin asignar"}
+                    />}
+                    {<EsqueletoTexto
+                        etiqueta='Estado'
+                        mostrar={mostrar}
+                        valor={estado && estado.capitalize()}
+                    />}
+                </Fragment> 
+                }
+                ladoDerecho = {
+                <Fragment>{ 
+                <EsqueletoTexto
                     etiqueta='Fecha de inicio'
                     mostrar={mostrar}
-                    valor={<Fecha fecha={fechaInicio}/>}
-                />}
-                { <EsqueletoTexto
-                    etiqueta='Fecha de finalización'
-                    mostrar={mostrar}
-                    valor={<Fecha fecha={fechaFin}/>}
-                />}
-                {duracion && <EsqueletoTexto
-                    etiqueta='Duracion'
-                    mostrar={mostrar}
-                    valor= {getDays(fechaInicio, fechaFin) + " dias"}
-                />}
+                    valor={fechaInicio}
+                    />}
+                    { <EsqueletoTexto
+                        etiqueta='Fecha de finalización'
+                        mostrar={mostrar}
+                        valor={fechaFin}
+                    />}
+                    {duracion && <EsqueletoTexto
+                        etiqueta='Duracion'
+                        mostrar={mostrar}
+                        valor= {getDays(fechaInicio, fechaFin) + " dias"}
+                    />}
+                </Fragment>
+                }
            
-        </Fragment>
+        />
     )
 }
