@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, {useEffect, useState, Fragment } from 'react';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,6 +11,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
+
+function pasarHoras(pos, desde, horasCarg){
+    for (let hora in desde){
+        horasCarg[pos] += desde[hora].hours;
+    }
+}
 
 
 const useStyles = makeStyles(theme => ({
@@ -32,7 +38,6 @@ const useStyles = makeStyles(theme => ({
     },
 
     nuevoEmpleado: {
-
     },
     bullet: {
         display: 'inline-block',
@@ -86,11 +91,23 @@ export default (props) => {
         axios.post(process.env.REACT_APP_URL_RECURSOS + '/hours', hora)
             .then((result) => {
                 console.log(result);
+                props.dni && axios.get(process.env.REACT_APP_URL_RECURSOS + '/hours/' + props.dni + '/day/' + crearFecha(props.nroDia))
+                    .then(res => {
+                        console.log(res)
+                        setHorasDiaActual(res.data);
+                    })
+                    .catch(error => {
+                        // TODO.
+                });
+                pasarHoras(0,horasDiaActual,horasCargadas);
+
             })
             .catch(error => {
                 // TODO.
                 console.log(error.response);
-            });
+        });
+
+        
     }
 
     const handleChangeCategory = (event) => {
@@ -108,8 +125,23 @@ export default (props) => {
             .then(res => {
                 setTasks(res.data);
             })
-      };
+    };
 
+    const [horasDiaActual, setHorasDiaActual] = useState();
+    var horasCargadas = [0];
+
+    useEffect(() => {
+        props.dni && axios.get(process.env.REACT_APP_URL_RECURSOS + '/hours/' + props.dni + '/day/' + crearFecha(props.nroDia))
+            .then(res => {
+                console.log(res)
+                setHorasDiaActual(res.data);
+            })
+            .catch(error => {
+                // TODO.
+        }); 
+    }, [props.dni, props.nroDia]);
+
+    pasarHoras(0,horasDiaActual,horasCargadas);
 
     return (
         <Grid item container xs justify="center" alignItems="center" style={{maxWidth: "260px"}}>
@@ -159,30 +191,37 @@ export default (props) => {
                 </FormControl>}
                 </Grid>
                 <Grid item xs>
-                {category === 'proyecto' && proyecto && <FormControl className={classes.formControl} style={{ width: "100%" }}>
-                    <InputLabel id="demo-controlled-open-select-label">Tarea</InputLabel>
-                    <Select
-                        labelId="demo-controlled-open-select-label"
-                        id="demo-controlled-open-select"
-                        onChange={handleChangeTarea}
-                        defaultValue={taskId}
-                        value={taskId}
-                    >
-                        {tasks && tasks.map(tarea => (
-                            <MenuItem value={tarea.id}>{tarea.nombre}</MenuItem>
+                    {category === 'proyecto' && proyecto && <FormControl className={classes.formControl} style={{ width: "100%" }}>
+                        <InputLabel id="demo-controlled-open-select-label">Tarea</InputLabel>
+                        <Select
+                            labelId="demo-controlled-open-select-label"
+                            id="demo-controlled-open-select"
+                            onChange={handleChangeTarea}
+                            defaultValue={taskId}
+                            value={taskId}
+                        >
+                            {tasks && tasks.map(tarea => (
+                                <MenuItem value={tarea.id}>{tarea.nombre}</MenuItem>
 
-                        ))
-                        }
-                    </Select>
-                </FormControl>}
+                            ))
+                            }
+                        </Select>
+                    </FormControl>}
                 </Grid>
                 <Grid item xs>
-                <TextField disabled = {props.desactivado} type="number" className={classes.campo} label='Horas' onChange={(e) => setHours(e.target.value)}/>
+                    <TextField disabled = {props.desactivado} type="number" className={classes.campo} label='Horas' onChange={(e) => setHours(e.target.value)}/>
                 </Grid>
                 <Grid item container xs justify="center" alignItems="center">
-                <Button style={{ marginTop: "20px" }} disabled={props.desactivado} onClick={onCrear} color="secondary" variant='outlined'>
-                    Cargar
-                </Button>
+                    <Button style={{ marginTop: "10px", marginBottom: '15px'}} disabled={props.desactivado} onClick={onCrear} color="secondary" variant='outlined'>
+                        Cargar
+                    </Button>
+                </Grid>
+                <Grid item container xs justify="center" alignItems="center">
+                    {!props.desactivado && <FormControl className={classes.formControl} style={{ width: "100%" }}>
+                        <Typography variant="h15"  align='center'>
+                            {'Horas cargadas: ' + horasCargadas}
+                        </Typography>
+                    </FormControl>}
                 </Grid>
             </Card>
         </Fragment>

@@ -12,7 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import CartelCargaHora from "recursos/empleados/CartelCargaHora"
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-// import "./estilos.css";
+import Button from "@material-ui/core/Button";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
@@ -164,13 +164,21 @@ export default () => {
                 <Paper className={classes.root}>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+dni) }}/>
+                            <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+dni)}}/>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Typography variant='h4'>
-                                Cargar horas
-                            </Typography>
+                        <Grid item container xs={12} justify="space-between" alignItems="center">
+                            <Grid item>
+                                <Typography variant='h4'>
+                                    Cargar horas
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Button color='secondary' variant='outlined' onClick={() => {history.push('/recursos/'+dni+'/horascargadasgrafico')}}>
+                                    Ver horas cargadas
+                                </Button>
+                            </Grid>
                         </Grid>
+
                         {<Grid container spacing={3} style={{marginTop:"15px"}} direction="row" justify="center" alignItems="center">
                             <ArrowBackIosIcon onClick={()=>{cambiarSemana(-1)}}/>
                             <CartelCargaHora esHoy = {parseFecha(new Date(fechaLunes)) === parseFecha(new Date())} 
