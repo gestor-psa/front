@@ -64,7 +64,7 @@ const parseFecha = (fecha) => {
 const numeroLunes = () => {
     switch (new Date().getDay()){
         case 0:
-            return new Date().getDate() + 1;
+            return new Date().getDate() - 6;
         case 1:
             return new Date().getDate() + 0;
         case 2:
@@ -145,7 +145,7 @@ export default () => {
         if (new Date(new Date(fechaLunes).setDate(new Date(fechaLunes).getDate() - 1)).getMonth() < new Date().getMonth() && n === -1){
             return;
         }
-        if (new Date(new Date(fechaViernes).setDate(new Date(fechaViernes).getDate() + 1)).getMonth() > new Date().getMonth() && n === 1){
+        if (new Date(new Date(fechaDomingo).setDate(new Date(fechaDomingo).getDate() + 1)).getMonth() > new Date().getMonth() && n === 1){
             return;
         }
         setFechaLunes(new Date(fechaLunes).setDate(new Date(fechaLunes).getDate() + 7*n));
