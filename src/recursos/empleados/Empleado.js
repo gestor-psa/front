@@ -9,6 +9,7 @@ import ModificarEmpleado from "recursos/empleados/ModificarEmpleado"
 import CargarHora from "recursos/empleados/CargarHora"
 // import HorasCargadas from "recursos/empleados/HorasCargadas"
 import HorasCargadasGraficoAlternativo from "recursos/empleados/HorasCargadasGraficoAlternativo"
+import HorasCargadasGrafico from "recursos/empleados/HorasCargadasGrafico"
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 import Button from "@material-ui/core/Button";
@@ -19,6 +20,7 @@ import Modal from "@material-ui/core/Modal";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import WarningIcon from '@material-ui/icons/Warning';
 import HorasPorMesGrafico from "recursos/empleados/HorasPorMesGrafico"
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -184,12 +186,18 @@ export default () => {
                                 </Grid>
                             </Grid>
                             <Grid item container spacing={3} xs={6} justify="center">
-                                <Grid item>
-                                    <Button color='secondary' variant='outlined' to={`${url}/horascargadasgraficoalternativo`} component={Link} >
-                                        Ver horas cargadas
-                                    </Button>
+                                <Grid item xs>
+                                    <ButtonGroup variant="contained" color="secondary" aria-label="contained primary button group">
+                                        <Button color='secondary' variant='contained' to={`${url}/horascargadasgraficoalternativo`} component={Link} >
+                                            Ver horas cargadas (Post-it)
+                                        </Button>
+                                        <Button color='secondary' variant='contained' to={`${url}/horascargadasgrafico`} component={Link}>
+                                            Ver horas cargadas (barras)
+                                        </Button>
+                                    </ButtonGroup>
+                                        
                                 </Grid>
-                                <Grid item>
+                                <Grid item xs>
                                     <Button  color='secondary' variant='outlined' to={`${url}/cargarhora`} component={Link}>
                                         Cargar horas
                                     </Button>
@@ -218,6 +226,9 @@ export default () => {
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/horascargadasgraficoAlternativo`}>
                 <HorasCargadasGraficoAlternativo/>
+            </AnimatedRoute>
+            <AnimatedRoute exact path={`${path}/horascargadasgrafico`}>
+                <HorasCargadasGrafico/>
             </AnimatedRoute>
         </AnimatedSwitch>
     )
