@@ -64,7 +64,7 @@ const parseFecha = (fecha) => {
 const numeroLunes = () => {
     switch (new Date().getDay()){
         case 0:
-            return new Date().getDate() + 1;
+            return new Date().getDate() - 6;
         case 1:
             return new Date().getDate() + 0;
         case 2:
@@ -145,7 +145,7 @@ export default () => {
         if (new Date(new Date(fechaLunes).setDate(new Date(fechaLunes).getDate() - 1)).getMonth() < new Date().getMonth() && n === -1){
             return;
         }
-        if (new Date(new Date(fechaViernes).setDate(new Date(fechaViernes).getDate() + 1)).getMonth() > new Date().getMonth() && n === 1){
+        if (new Date(new Date(fechaDomingo).setDate(new Date(fechaDomingo).getDate() + 1)).getMonth() > new Date().getMonth() && n === 1){
             return;
         }
         setFechaLunes(new Date(fechaLunes).setDate(new Date(fechaLunes).getDate() + 7*n));
@@ -173,13 +173,13 @@ export default () => {
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Button color='secondary' variant='outlined' onClick={() => {history.push('/recursos/'+dni+'/horascargadasgrafico')}}>
+                                <Button color='secondary' variant='outlined' onClick={() => {history.push('/recursos/'+dni+'/horascargadasgraficoAlternativo')}}>
                                     Ver horas cargadas
                                 </Button>
                             </Grid>
                         </Grid>
 
-                        {<Grid container spacing={3} style={{marginTop:"15px"}} direction="row" justify="center" alignItems="center">
+                        {<Grid container spacing={2} style={{marginTop:"15px"}} direction="row" justify="center" alignItems="center">
                             <ArrowBackIosIcon onClick={()=>{cambiarSemana(-1)}}/>
                             <CartelCargaHora esHoy = {parseFecha(new Date(fechaLunes)) === parseFecha(new Date())} 
                                 desactivado={ new Date(fechaLunes).getMonth() !== new Date().getMonth() || new Date(fechaLunes).getDate() > new Date().getDate()}
@@ -201,7 +201,6 @@ export default () => {
                                 desactivado={new Date(fechaViernes).getMonth() !== new Date().getMonth() || new Date(fechaViernes).getDate() > new Date().getDate()}
                                 dni={dni} proyectos={proyectos} dia="Viernes" nroDia={new Date(fechaViernes).getDate()}
                             />
-                            <ArrowForwardIosIcon onClick={()=>{cambiarSemana(1)}}/>
                             <CartelCargaHora esHoy = {parseFecha(new Date(fechaSabado)) === parseFecha(new Date())} 
                                 desactivado={new Date(fechaSabado).getMonth() !== new Date().getMonth() || new Date(fechaSabado).getDate() > new Date().getDate()}
                                 dni={dni} proyectos={proyectos} dia="Sabado" nroDia={new Date(fechaSabado).getDate()}
@@ -210,6 +209,7 @@ export default () => {
                                 desactivado={new Date(fechaDomingo).getMonth() !== new Date().getMonth() || new Date(fechaDomingo).getDate() > new Date().getDate()}
                                 dni={dni} proyectos={proyectos} dia="Domingo" nroDia={new Date(fechaDomingo).getDate()}
                             />
+                            <ArrowForwardIosIcon onClick={()=>{cambiarSemana(1)}}/>
                         </Grid>}
 
                     </Grid>

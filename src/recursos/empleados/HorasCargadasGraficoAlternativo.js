@@ -1,4 +1,3 @@
-import {Bar} from 'react-chartjs-2';
 import React, {useEffect, useState } from 'react';
 import axios from 'axios';
 import {useParams, useHistory} from "react-router";
@@ -9,13 +8,24 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-
+import CartelHorasCargadas from "recursos/empleados/CartelHorasCargadas"
 
 
 // function aleatorio(min, max) {
     // return Math.floor(Math.random() * (max - min) + min);
 //   }
-  
+
+const parseFecha = (fecha) => {
+    let month = '' + (fecha.getMonth() + 1);
+    let day = '' + fecha.getDate();
+    let year = fecha.getFullYear();
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+    return parseInt(year+month+day,10);
+}
+
 function pasarHoras(pos, desde, horasCarg){
     for (let hora in desde){
         if (desde[hora].category === 'proyecto'){
@@ -32,15 +42,6 @@ function pasarHoras(pos, desde, horasCarg){
     }
 }
 
-const colores = [
-    'rgba(84,153,199,1)',
-    'rgba(231,76,60,1)',
-    'rgba(26,188,156,1)',
-    'rgba(243,156,18,1)',
-    'rgba(52,73,94,1)',
-    'rgba(144,148,151,1)',
-    'rgba(241,196,15,1)'
-]
 const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 
 const useStyles = makeStyles(theme => ({
@@ -49,7 +50,14 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down('xs')]: {
             padding: theme.spacing(2, 2)
         }
-    }
+    },
+    card: {
+        padding: theme.spacing(4, 4),
+        [theme.breakpoints.down('xs')]: {
+            padding: theme.spacing(2, 2)
+        },
+        flexGrow: 1,
+    },
 }));
 
 export default () => {
@@ -63,22 +71,13 @@ export default () => {
     let [fechaDomingo, setFechaDomingo] = useState(new Date());
     const { id } = useParams();
     const history = useHistory();
+    let [horasCargadasPorDia, setHorasCargadasPorDia] = useState();
+    
     // const isMdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
-    let [state, setState] = useState({
-          labels: [
-              'Lunes '+ new Date(fechaLunes).getDate(),
-              'Martes '+ new Date(fechaMartes).getDate(),
-              'Miercoles '+ new Date(fechaMiercoles).getDate(),
-              'Jueves '+ new Date(fechaJueves).getDate(),
-              'Viernes '+ new Date(fechaViernes).getDate(),
-              'Sabado '+ new Date(fechaSabado).getDate(),
-              'Domingo '+ new Date(fechaDomingo).getDate()
-            ],
-          datasets: [],
-        })
 
     const actualizarGrafico = (hl,hma,hmi,hj,hv,hs,hd,fl,fma,fmi,fj,fv,fs,fd) => {
         var horasCargadas = {};
+        var auxHorasCargadasPorDia = [{},{},{},{},{},{},{}];
         pasarHoras(0, hl, horasCargadas);
         pasarHoras(1, hma, horasCargadas);
         pasarHoras(2, hmi, horasCargadas);
@@ -86,41 +85,18 @@ export default () => {
         pasarHoras(4, hv, horasCargadas);
         pasarHoras(5, hs, horasCargadas);
         pasarHoras(6, hd, horasCargadas);
-        var colorActual = 0;
-        
-        var dataset = []
 
-        for (let categoria in horasCargadas){
-            let nombre = categoria;
-            if (!isNaN(nombre)){
-                nombre = 'Tarea ' + categoria;
-            }
-            dataset.push({
-                label: nombre,
-                backgroundColor: colores[colorActual],
-                data: horasCargadas[categoria],
-                borderWidth: {top:10},
-                borderColor: 'rgba(250,250,250,1)',
-                hoverBorderColor: 'rgba(250,250,250,1)',
-                hoverBorderWidth: 11,
-
-            });
-            colorActual += 1;
-            
-        
+        for(let categoria in horasCargadas){
+            auxHorasCargadasPorDia[0][categoria] = horasCargadas[categoria][0];
+            auxHorasCargadasPorDia[1][categoria] = horasCargadas[categoria][1];
+            auxHorasCargadasPorDia[2][categoria] = horasCargadas[categoria][2];
+            auxHorasCargadasPorDia[3][categoria] = horasCargadas[categoria][3];
+            auxHorasCargadasPorDia[4][categoria] = horasCargadas[categoria][4];
+            auxHorasCargadasPorDia[5][categoria] = horasCargadas[categoria][5];
+            auxHorasCargadasPorDia[6][categoria] = horasCargadas[categoria][6];
         }
-        setState({
-            labels: [
-                'Lunes '+ new Date(fl).getDate(),
-                'Martes '+ new Date(fma).getDate(),
-                'Miercoles '+ new Date(fmi).getDate(),
-                'Jueves '+ new Date(fj).getDate(),
-                'Viernes '+ new Date(fv).getDate(),
-                'Sabado '+ new Date(fs).getDate(),
-                'Domingo '+ new Date(fd).getDate()
-              ],
-            datasets: dataset,
-          })
+        setHorasCargadasPorDia(auxHorasCargadasPorDia);
+        console.log(horasCargadasPorDia);
     };
 
     useEffect(() => {
@@ -209,7 +185,7 @@ export default () => {
             // TODO.
         });
         
-
+    // eslint-disable-next-line
     }, [id]);
 
     
@@ -301,32 +277,50 @@ export default () => {
                 <Grid item xs={12}>
                     <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
                 </Grid>
-                <Grid item container xs={12} justify={'center'}>
+                <Grid item container xs={12} justify='center'>
                     <Typography variant='h4'>
                         {'Horas cargadas - ' + meses[new Date().getMonth()] + ' '+ (new Date().getFullYear()).toString()}
                     </Typography>
                 </Grid>
-                <Grid item xs={12} style={{maxHeight:'100%',marginTop:'20px'}}>
-                    <ArrowBackIosIcon style = {{verticalAlign:"top", display: "inline"}} onClick={()=>{cambiarSemana(-1)}}/>
-                    <div style = {{width:"95%",display:"inline-block"}}>
-                    <Bar style = {{display: "inline",width:"50%"}}
-                        data={state}
-                        options={{
-                            legend:{
-                            display:false,
-                            position:'right'
-                            },
-                            scales: {
-                                xAxes: [{ stacked: true }],
-                                yAxes: [{ 
-                                    display: false,
-                                    stacked: true }]
-                            }
-                        }}
-                    />
-                    </div>
-                    <ArrowForwardIosIcon style = {{verticalAlign:"top", display: "inline"}}onClick={()=>{cambiarSemana(1)}}/>
-                </Grid>
+                {horasCargadasPorDia && <Grid xs  container style={{marginTop:'20px'}} justify="center" alignItems="center">
+                            <Grid item>
+                                <ArrowBackIosIcon style={{marginRight:'5px'}} onClick={()=>{cambiarSemana(-1)}}/>
+                            </Grid>
+                            
+                            <Grid item  container xs spacing={1} style={{marginTop:'20px'}} direction='row' justify="center" alignItems="flex-start">
+                                <CartelHorasCargadas esHoy = {parseFecha(new Date(fechaLunes)) === parseFecha(new Date())} 
+                                    desactivado= {false}
+                                    dni={id} dia="Lunes" nroDia={new Date(fechaLunes).getDate()} horasDia={Object.entries(horasCargadasPorDia[0])}
+                                />
+                                <CartelHorasCargadas esHoy = {parseFecha(new Date(fechaMartes)) === parseFecha(new Date())} 
+                                    desactivado= {false}
+                                    dni={id} dia="Martes" nroDia={new Date(fechaMartes).getDate()} horasDia={Object.entries(horasCargadasPorDia[1])}
+                                />
+                                <CartelHorasCargadas esHoy = {parseFecha(new Date(fechaMiercoles)) === parseFecha(new Date())} 
+                                    desactivado= {false}
+                                    dni={id} dia="Miercoles" nroDia={new Date(fechaMiercoles).getDate()} horasDia={Object.entries(horasCargadasPorDia[2])}
+                                />
+                                <CartelHorasCargadas esHoy = {parseFecha(new Date(fechaJueves)) === parseFecha(new Date())} 
+                                    desactivado= {false}
+                                    dni={id} dia="Jueves" nroDia={new Date(fechaJueves).getDate()} horasDia={Object.entries(horasCargadasPorDia[3])}
+                                />
+                                <CartelHorasCargadas esHoy = {parseFecha(new Date(fechaViernes)) === parseFecha(new Date())} 
+                                    desactivado= {false}
+                                    dni={id} dia="Viernes" nroDia={new Date(fechaViernes).getDate()} horasDia={Object.entries(horasCargadasPorDia[4])}
+                                />
+                                <CartelHorasCargadas esHoy = {parseFecha(new Date(fechaSabado)) === parseFecha(new Date())} 
+                                    desactivado= {false}
+                                    dni={id} dia="Sabado" nroDia={new Date(fechaSabado).getDate()} horasDia={Object.entries(horasCargadasPorDia[5])}
+                                />
+                                <CartelHorasCargadas esHoy = {parseFecha(new Date(fechaDomingo)) === parseFecha(new Date())} 
+                                    desactivado= {false}
+                                    dni={id} dia="Domingo" nroDia={new Date(fechaDomingo).getDate()} horasDia={Object.entries(horasCargadasPorDia[6])}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <ArrowForwardIosIcon style={{marginLeft:'5px'}} onClick={()=>{cambiarSemana(1)}}/>
+                            </Grid>
+                </Grid>}
             </Grid>
         </Paper>
     );

@@ -21,7 +21,7 @@ function pasarHoras(pos, desde, horasCarg){
 
 const useStyles = makeStyles(theme => ({
     root: {
-        padding: theme.spacing(4, 6),
+        padding: theme.spacing(3, 1),
         [theme.breakpoints.down('xs')]: {
             padding: theme.spacing(2, 2)
         },
@@ -69,6 +69,7 @@ export default (props) => {
     const [category, setCategory] = useState();
     const [proyecto, setProyecto] = useState();
     const [tasks, setTasks] = useState();
+    const [render, setRender] = useState(true);
 
     const onCrear = () => {
         // setEsperando(true);
@@ -100,7 +101,12 @@ export default (props) => {
                         // TODO.
                 });
                 pasarHoras(0,horasDiaActual,horasCargadas);
-
+                setRender(false);
+                setHours("");
+                setCategory("");
+                setProyecto("");
+                setTaskId("");
+                setRender(true);
             })
             .catch(error => {
                 // TODO.
@@ -146,7 +152,7 @@ export default (props) => {
     return (
         <Grid item container xs justify="center" alignItems="center" style={{maxWidth: "260px"}}>
         <Fragment>
-            <Card className={classes.root} variant="outlined" >
+            <Card className={classes.root} raised={!props.desactivado} >
                 <Grid item xs>
                 <Typography variant="h5" component="h2" align='center'style={{color:props.esHoy?"red":"black"}}>
                     {props.dia}
@@ -158,19 +164,20 @@ export default (props) => {
                 </Typography>
                 </Grid>
                 <Grid item xs>
-                <FormControl disabled = {props.desactivado} className={classes.formControl} style={{ width: "100%" }}>
+                {render && <FormControl disabled = {props.desactivado} className={classes.formControl} style={{ width: "100%" }}>
                     <InputLabel id="demo-controlled-open-select-label">Categoría</InputLabel>
                     <Select
                         labelId="demo-controlled-open-select-label"
                         id="demo-controlled-open-select"
                         onChange={handleChangeCategory}
+                        value={category}
                     >
                         <MenuItem value="proyecto">Proyectos</MenuItem>
                         <MenuItem onClick={() => { setProyecto(null); setTaskId(null); }} value="soporte">Soporte</MenuItem>
                         <MenuItem onClick={() => { setProyecto(null); setTaskId(null); }} value="estudio">Estudio</MenuItem>
                         <MenuItem onClick={() => { setProyecto(null); setTaskId(null); }} value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
                     </Select>
-                </FormControl>
+                </FormControl>}
                 </Grid>
                 <Grid item xs>
                 {category === 'proyecto' && <FormControl className={classes.formControl} style={{ width: "100%" }}>
@@ -209,7 +216,7 @@ export default (props) => {
                     </FormControl>}
                 </Grid>
                 <Grid item xs>
-                    <TextField disabled = {props.desactivado} type="number" className={classes.campo} label='Horas' onChange={(e) => setHours(e.target.value)}/>
+                    <TextField disabled = {props.desactivado} type="number" value={hours} className={classes.campo} label='Horas' onChange={(e) => setHours(e.target.value)}/>
                 </Grid>
                 <Grid item container xs justify="center" alignItems="center">
                     <Button style={{ marginTop: "10px", marginBottom: '15px'}} disabled={props.desactivado} onClick={onCrear} color="secondary" variant='outlined'>
@@ -217,11 +224,10 @@ export default (props) => {
                     </Button>
                 </Grid>
                 <Grid item container xs justify="center" alignItems="center">
-                    {!props.desactivado && <FormControl className={classes.formControl} style={{ width: "100%" }}>
+                    
                         <Typography variant="h15"  align='center'>
-                            {'Horas cargadas: ' + horasCargadas}
+                            {(!props.desactivado)? 'Horas cargadas: ' + horasCargadas :'-'}
                         </Typography>
-                    </FormControl>}
                 </Grid>
             </Card>
         </Fragment>
