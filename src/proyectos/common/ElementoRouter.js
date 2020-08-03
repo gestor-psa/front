@@ -8,7 +8,7 @@ import VistaListado from 'proyectos/VistaListado';
 import Proyecto from 'proyectos/Proyecto'
 import AgregarProyecto from 'proyectos/AgregarProyecto';
 import CrearProyecto from 'proyectos/PantallaEdicionElemento';
-import VerProyecto from 'proyectos/ver/VerProyecto';
+import VerProyecto from 'proyectos/ver/VerElemento';
 import axios from "axios";
 import {useHistory} from "react-router";
 import Grid from '@material-ui/core/Grid';

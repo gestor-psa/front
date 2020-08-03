@@ -34,6 +34,7 @@ export default withWidth()(({tickets, mostrar, width}) => {
     }
 
     React.useEffect(() => {
+        if (tickets.length > 0){
             axios.get(process.env.REACT_APP_URL_SOPORTE +"/tickets/")
                 .then(res => {
                     const result = res.data.filter(x => tickets.includes(x.id || x.codigo));
@@ -42,6 +43,7 @@ export default withWidth()(({tickets, mostrar, width}) => {
                 .catch(error => {
                     // TODO.
                 })
+        }
             
     }, [tickets, tix, setTix]);
 

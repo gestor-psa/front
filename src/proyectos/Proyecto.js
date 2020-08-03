@@ -34,8 +34,8 @@ export default (props) => {
                 <Typography gutterBottom variant="h2" align="left">
                     {props.proyecto.nombre}
                 </Typography>
-                {<Typography variant="body1" align="left">
-                    Encargado: {(responsable && (responsable.name+" "+ responsable.surname)) || "Sin Asignar"}
+                {"responsableDni" in props.proyecto && <Typography variant="body1" align="left">
+                    Responsable: {(responsable && (responsable.name+" "+ responsable.surname)) || "Sin Asignar"}
                 </Typography>}
                 <Typography variant="body1" align="left">
                     Fecha de Inicio: {props.proyecto.fechaInicio}
