@@ -21,7 +21,7 @@ function pasarHoras(pos, desde, horasCarg){
 
 const useStyles = makeStyles(theme => ({
     root: {
-        padding: theme.spacing(4, 6),
+        padding: theme.spacing(3, 1),
         [theme.breakpoints.down('xs')]: {
             padding: theme.spacing(2, 2)
         },
@@ -152,7 +152,7 @@ export default (props) => {
     return (
         <Grid item container xs justify="center" alignItems="center" style={{maxWidth: "260px"}}>
         <Fragment>
-            <Card className={classes.root} variant="outlined" >
+            <Card className={classes.root} raised={!props.desactivado} >
                 <Grid item xs>
                 <Typography variant="h5" component="h2" align='center'style={{color:props.esHoy?"red":"black"}}>
                     {props.dia}
@@ -224,11 +224,10 @@ export default (props) => {
                     </Button>
                 </Grid>
                 <Grid item container xs justify="center" alignItems="center">
-                    {!props.desactivado && <FormControl className={classes.formControl} style={{ width: "100%" }}>
+                    
                         <Typography variant="h15"  align='center'>
-                            {'Horas cargadas: ' + horasCargadas}
+                            {(!props.desactivado)? 'Horas cargadas: ' + horasCargadas :'-'}
                         </Typography>
-                    </FormControl>}
                 </Grid>
             </Card>
         </Fragment>
