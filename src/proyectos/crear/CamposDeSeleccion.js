@@ -3,9 +3,9 @@ import SeleccionDeGrupo from "proyectos/common/SeleccionDeGrupo";
 
 
 
-export default ({onDataChange, proyecto}) => {
+export default ({onDataChange, proyecto, mostrarAsignacion}) => {
    
-
+    console.log(mostrarAsignacion);
     const estados = [
         {
             etiqueta: 'En Progreso',

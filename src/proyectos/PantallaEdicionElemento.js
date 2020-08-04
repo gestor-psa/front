@@ -10,7 +10,7 @@ import axios from "axios";
 import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 
 
-export default ({titulo, onConfirm = () => null, url}) => {
+export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto}) => {
     const {register, errors, handleSubmit} = useForm();
     const [elemento, setElem] = useState({});
     const [data, setData] = useState(elemento);
@@ -54,12 +54,15 @@ export default ({titulo, onConfirm = () => null, url}) => {
                     errors={errors}
                     register={register}
                     onDataChange={onDataChange}
+                    mostrarEncargado = {isProyecto || isTarea}
                 />}
             ladoDerecho={
                 <Grid >
                     <CamposDeSeleccion
                         proyecto = {data}
                         onDataChange={onDataChange}
+                        mostrarAsignacion = {isTarea}
+
                     />
                     <CamposFecha proyecto = {elemento} onChange = {onDataChange}/>
                     {elemento.fechaInicio && elemento.fechaFin && 

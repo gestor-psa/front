@@ -32,9 +32,9 @@ export default (props) => {
         <Fragment>
             <Paper elevation={3} className={classes.paper} onClick={() => pushToOverview(props.proyecto.id || props.proyecto.codigo)} square={false} variant={"outlined"}>
                 <Typography gutterBottom variant="h2" align="left">
-                    {props.proyecto.nombre}
+                    {props.proyecto.nombre.capitalize()}
                 </Typography>
-                {"responsableDni" in props.proyecto && <Typography variant="body1" align="left">
+                {props.showEncargado && <Typography variant="body1" align="left">
                     Responsable: {(responsable && (responsable.name+" "+ responsable.surname)) || "Sin Asignar"}
                 </Typography>}
                 <Typography variant="body1" align="left">

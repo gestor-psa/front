@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({mostrar, verFases, verTareas, verIteraciones}) => {
+export default ({mostrar, isFase, isTarea, isIteracion}) => {
     const { id } = useParams();
     const classes = useStyles();
     const {url} = useRouteMatch() || {};
@@ -24,6 +24,9 @@ export default ({mostrar, verFases, verTareas, verIteraciones}) => {
     const onAbrirEliminar = () => setOpenEliminar(true);
     const onNotEliminar = () => setOpenEliminar(false);
     const history = useHistory();
+    const verFases = (!isTarea && !isFase && !isIteracion);
+    const verTareas = (!isTarea && !isFase);
+    const verIteraciones = isFase;
 
     const onModificar = () => history.push(`${url}/modificacion`)
 
@@ -47,6 +50,8 @@ export default ({mostrar, verFases, verTareas, verIteraciones}) => {
     const onTareas = () => history.push(`${url}/tareas`)
 
     const onIteraciones = () => history.push(`${url}/iteraciones`)
+
+    const onAsignacion = () =>history.push(`${url}/asignar`);
 
     return (
         <div className={classes.root}>

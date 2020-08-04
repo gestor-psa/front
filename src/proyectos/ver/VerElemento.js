@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
-import ProyectoDetails from "proyectos/ver/VistaDetallesElemento";
+import Details from "proyectos/ver/VistaDetallesElemento";
 import { useParams, useRouteMatch, useHistory } from "react-router";
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 import AccionesProyecto from "proyectos/ver/AccionesVer";
-import EditarProyecto from 'proyectos/PantallaEdicionElemento';
+import EditarElemento from 'proyectos/PantallaEdicionElemento';
 import axios from "axios";
 import BotonVolver from 'proyectos/common/BotonVolver'
 import Tickets from "proyectos/ver/Tickets"
 
-export default ({setProyecto, proyecto, url, isFase, isIteracion, isTarea}) => {
+export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea}) => {
     const { id } = useParams();
     const { path } = useRouteMatch() || {};
     const history = useHistory();
@@ -43,12 +43,20 @@ export default ({setProyecto, proyecto, url, isFase, isIteracion, isTarea}) => {
         <AnimatedSwitch>
             <AnimatedRoute exact path={path}>
                 <BotonVolver url = {url}/>
-                <ProyectoDetails esProyecto = {isProyecto} mostrar={Boolean(proyecto)} {...proyecto}/>
-                {isTarea && <Tickets tickets = {proyecto.tickets} mostrar = {Boolean(proyecto)}></Tickets>}
-                <AccionesProyecto mostrar = {true} verFases = {isProyecto} verTareas = {isProyecto || isIteracion} verIteraciones = {isFase && !isIteracion}/>
+                <Details esProyecto = {isProyecto} mostrar={Boolean(elemento)} {...elemento}/>
+                {isTarea && <Tickets tickets = {elemento.tickets} mostrar = {Boolean(elemento)}></Tickets>}
+                <AccionesProyecto mostrar = {true} verFases = {isProyecto} 
+                isTarea = {isTarea} 
+                isIteracion = {isIteracion}
+                isFase = {isFase}/>
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
-                <EditarProyecto onConfirm = {onConfirm} titulo = "Modificar detalles" url = {url + "/" + id} />
+                <EditarElemento onConfirm = {onConfirm} titulo = "Modificar detalles" 
+                    url = {url + "/" + id} 
+                    isProyecto = {isProyecto}
+                    isTarea = {isTarea} 
+                    isIteracion = {isIteracion}
+                    isFase = {isFase}/>
             </AnimatedRoute>
         </AnimatedSwitch>
     )

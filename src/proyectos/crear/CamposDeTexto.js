@@ -11,13 +11,13 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({onDataChange, register, errors, proyecto = {}}) => {
+export default ({onDataChange, register, errors, mostrarEncargado, proyecto = {}}) => {
     const classes = useStyles();
     const url = process.env.REACT_APP_URL_RECURSOS + '/employees';
     const [resp, setResp] = React.useState({});
 
     const getResp = () => {
-        if (proyecto.responsableDni) {
+        if (mostrarEncargado && proyecto.responsableDni) {
             axios.get(url)
                 .then(res => {
                     var filterdni = res.data.filter(x => x.dni === proyecto.responsableDni);
@@ -60,7 +60,7 @@ export default ({onDataChange, register, errors, proyecto = {}}) => {
                 inputRef={register({required: true})}
                 helperText={errors.descripcion && 'La descripcion es requerida'}
             />
-            <SearchSelect
+            {mostrarEncargado && <SearchSelect
                 url={url}
                 defaultValue={responsable}
                 autocompleteProps={{
@@ -68,7 +68,7 @@ export default ({onDataChange, register, errors, proyecto = {}}) => {
                     onChange: (e, v) => onDataChange({responsableDni: v.dni})
                 }}
                 textFieldProps={{label: 'Responsable'}}
-            />
+            />}
         </div>
     )
 }

@@ -7,11 +7,11 @@ import Layout from "proyectos/common/Layout";
 
 export default (
     {
-        esProyecto, //esFase, esIteracion,
+        esProyecto, faseId, iteracionId,
         mostrar, nombre, descripcion, responsableDni, estado, fechaInicio, fechaFin
     }) => {
     const [responsable, setResponsable] = React.useState(false);
-
+    console.log(faseId, iteracionId)
     React.useEffect(() => {
         if (responsableDni) {
             axios.get(process.env.REACT_APP_URL_RECURSOS + '/employees/' + responsableDni)

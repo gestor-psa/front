@@ -8,7 +8,7 @@ import VistaListado from 'proyectos/VistaListado';
 import Proyecto from 'proyectos/Proyecto'
 import AgregarProyecto from 'proyectos/AgregarProyecto';
 import CrearProyecto from 'proyectos/PantallaEdicionElemento';
-import VerProyecto from 'proyectos/ver/VerElemento';
+import VerElemento from 'proyectos/ver/VerElemento';
 import axios from "axios";
 import {useHistory} from "react-router";
 import Grid from '@material-ui/core/Grid';
@@ -17,9 +17,10 @@ import BotonVolver from 'proyectos/common/BotonVolver'
 export default ({url, titulo, elem, setElem, isFase, isTarea, isIteracion, urlReturn}) => {
   const { path } = useRouteMatch() || {};
   const history = useHistory();
+  const isProyecto = !isFase && !isTarea && !isIteracion;
 
   const mapProyecto = (proyecto) => (
-    <Proyecto proyecto={proyecto} key={proyecto.id || proyecto.codigo}/>
+    <Proyecto proyecto={proyecto} key={proyecto.id || proyecto.codigo} showEncargado = {isTarea || isProyecto}/>
   )
 
   const onConfirm = (data) => {
@@ -52,7 +53,7 @@ export default ({url, titulo, elem, setElem, isFase, isTarea, isIteracion, urlRe
             
             <AnimatedRoute path={`${path}/:id(\\d+)`}>
                 <Grid>
-                <VerProyecto proyecto = {elem} setProyecto = {setElem} url = {url}  
+                <VerElemento elemento = {elem} setProyecto = {setElem} url = {url}  
                 isFase = {isFase} isTarea = {isTarea} isIteracion = {isIteracion} />
                 </Grid>
             </AnimatedRoute>
