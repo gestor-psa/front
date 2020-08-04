@@ -164,7 +164,7 @@ export default () => {
                 <Paper className={classes.root}>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+dni)}}/>
+                            <ArrowBackIcon style={{color:"1fc71f", cursor:"pointer"}} fontSize="large" onClick={() => {history.push('/recursos/'+dni)}}/>
                         </Grid>
                         <Grid item container xs={12} justify="space-between" alignItems="center">
                             <Grid item>
@@ -180,7 +180,15 @@ export default () => {
                         </Grid>
 
                         {<Grid container spacing={2} style={{marginTop:"15px"}} direction="row" justify="center" alignItems="center">
-                            <ArrowBackIosIcon onClick={()=>{cambiarSemana(-1)}}/>
+                            <ArrowBackIosIcon 
+                                style =
+                                    {{
+                                        cursor: new Date(new Date(fechaLunes).setDate(new Date(fechaLunes).getDate() - 1)).getMonth() < new Date().getMonth()?"default":"pointer",
+                                        color: new Date(new Date(fechaLunes).setDate(new Date(fechaLunes).getDate() - 1)).getMonth() < new Date().getMonth()?"grey":"black"
+                                    }}
+                                onClick={()=>{cambiarSemana(-1)}}
+                            />
+
                             <CartelCargaHora esHoy = {parseFecha(new Date(fechaLunes)) === parseFecha(new Date())} 
                                 desactivado={ new Date(fechaLunes).getMonth() !== new Date().getMonth() || new Date(fechaLunes).getDate() > new Date().getDate()}
                                 dni={dni} proyectos={proyectos} dia="Lunes" nroDia={new Date(fechaLunes).getDate()}
@@ -209,7 +217,14 @@ export default () => {
                                 desactivado={new Date(fechaDomingo).getMonth() !== new Date().getMonth() || new Date(fechaDomingo).getDate() > new Date().getDate()}
                                 dni={dni} proyectos={proyectos} dia="Domingo" nroDia={new Date(fechaDomingo).getDate()}
                             />
-                            <ArrowForwardIosIcon onClick={()=>{cambiarSemana(1)}}/>
+                            <ArrowForwardIosIcon
+                                style = 
+                                    {{
+                                        cursor: new Date(new Date(fechaDomingo).setDate(new Date(fechaDomingo).getDate() + 1)).getMonth() > new Date().getMonth()?"default":"pointer",
+                                        color: new Date(new Date(fechaDomingo).setDate(new Date(fechaDomingo).getDate() + 1)).getMonth() > new Date().getMonth()?"grey":"black"
+                                    }} 
+                                onClick={()=>{cambiarSemana(1)}}
+                            />
                         </Grid>}
 
                     </Grid>

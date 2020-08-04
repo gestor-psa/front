@@ -296,7 +296,7 @@ export default () => {
         <Paper className={classes.root}>
             <Grid container>
                 <Grid item xs={12}>
-                    <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
+                    <ArrowBackIcon style={{color:"1fc71f", cursor:"pointer"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
                 </Grid>
                 <Grid item container xs={12} justify={'center'}>
                     <Typography variant='h4'>

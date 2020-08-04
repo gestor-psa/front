@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import {useForm} from "react-hook-form";
 import "react-datepicker/dist/react-datepicker.css";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -64,6 +65,7 @@ const crearFecha = (dia) => {
 
 export default (props) => {
     const classes = useStyles();
+    const {register, errors, handleSubmit} = useForm();
     const [hours, setHours] = useState();
     const [taskId, setTaskId] = useState();
     const [category, setCategory] = useState();
@@ -164,23 +166,43 @@ export default (props) => {
                 </Typography>
                 </Grid>
                 <Grid item xs>
-                {render && <FormControl disabled = {props.desactivado} className={classes.formControl} style={{ width: "100%" }}>
-                    <InputLabel id="demo-controlled-open-select-label">Categoría</InputLabel>
-                    <Select
-                        labelId="demo-controlled-open-select-label"
-                        id="demo-controlled-open-select"
-                        onChange={handleChangeCategory}
-                        value={category}
+                    {render && <FormControl 
+                        required 
+                        disabled = {props.desactivado}
+                        className={classes.formControl} 
+                        style={{ width: "100%" }}
                     >
-                        <MenuItem value="proyecto">Proyectos</MenuItem>
-                        <MenuItem onClick={() => { setProyecto(null); setTaskId(null); }} value="soporte">Soporte</MenuItem>
-                        <MenuItem onClick={() => { setProyecto(null); setTaskId(null); }} value="estudio">Estudio</MenuItem>
-                        <MenuItem onClick={() => { setProyecto(null); setTaskId(null); }} value="fuera de oficina">Trabajo fuera de oficina</MenuItem>
-                    </Select>
-                </FormControl>}
+                        <InputLabel id="demo-controlled-open-select-label">Categoría</InputLabel>
+                        <Select
+                            labelId="demo-controlled-open-select-label"
+                            id="demo-controlled-open-select"
+                            onChange={handleChangeCategory}
+                            value={category}
+                        >
+                            <MenuItem value="proyecto">Proyectos</MenuItem>
+                            <MenuItem 
+                                onClick={() => { setProyecto(null); setTaskId(null); }} 
+                                value="soporte"
+                            >
+                                Soporte
+                            </MenuItem>
+                            <MenuItem 
+                                onClick={() => { setProyecto(null); setTaskId(null); }} 
+                                value="estudio"
+                            >
+                                Estudio
+                            </MenuItem>
+                            <MenuItem 
+                                onClick={() => { setProyecto(null); setTaskId(null); }} 
+                                value="fuera de oficina"
+                            >
+                                Trabajo fuera de oficina
+                            </MenuItem>
+                        </Select>
+                    </FormControl>}
                 </Grid>
                 <Grid item xs>
-                {category === 'proyecto' && <FormControl className={classes.formControl} style={{ width: "100%" }}>
+                {category === 'proyecto' && <FormControl required className={classes.formControl} style={{ width: "100%" }}>
                     <InputLabel id="demo-controlled-open-select-label">Proyecto</InputLabel>
                     <Select
                         labelId="demo-controlled-open-select-label"
@@ -190,7 +212,12 @@ export default (props) => {
                         onChange={handleChangeProyecto}
                     >
                         {props.proyectos && props.proyectos.map(proyecto => (
-                            <MenuItem onClick={() => { setTaskId(null); console.log(taskId) }} value={proyecto.id}>{proyecto.nombre}</MenuItem>
+                            <MenuItem 
+                                onClick={() => {setTaskId(null);}} 
+                                value={proyecto.id}
+                            >
+                                {proyecto.nombre}
+                            </MenuItem>
 
                         ))
                         }
@@ -198,7 +225,7 @@ export default (props) => {
                 </FormControl>}
                 </Grid>
                 <Grid item xs>
-                    {category === 'proyecto' && proyecto && <FormControl className={classes.formControl} style={{ width: "100%" }}>
+                    {category === 'proyecto' && proyecto && <FormControl required className={classes.formControl} style={{ width: "100%" }}>
                         <InputLabel id="demo-controlled-open-select-label">Tarea</InputLabel>
                         <Select
                             labelId="demo-controlled-open-select-label"
@@ -216,10 +243,27 @@ export default (props) => {
                     </FormControl>}
                 </Grid>
                 <Grid item xs>
-                    <TextField disabled = {props.desactivado} type="number" value={hours} className={classes.campo} label='Horas' onChange={(e) => setHours(e.target.value)}/>
+                    <TextField 
+                        disabled = {props.desactivado} 
+                        type="number" value={hours} 
+                        className={classes.campo} 
+                        label='Horas' 
+                        onChange={(e) => setHours(e.target.value)}
+                        required
+                        name='horas'
+                        error={Boolean(errors.horas)}
+                        inputRef={register({required: true})}
+                        helperText={errors.horas && 'Las horas son requeridas'}
+                    />
                 </Grid>
                 <Grid item container xs justify="center" alignItems="center">
-                    <Button style={{ marginTop: "10px", marginBottom: '15px'}} disabled={props.desactivado} onClick={onCrear} color="secondary" variant='outlined'>
+                    <Button 
+                        style={{ marginTop: "10px", marginBottom: '15px'}}
+                        disabled={props.desactivado} 
+                        onClick={handleSubmit(onCrear)} 
+                        color="secondary" 
+                        variant='outlined'
+                    >
                         Cargar
                     </Button>
                 </Grid>

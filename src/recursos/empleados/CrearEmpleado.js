@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { useRouteMatch } from "react-router";
+import {useForm} from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
@@ -48,6 +49,7 @@ const parseFecha = (fecha) => {
 
 export default () => {
     const classes = useStyles();
+    const {register, errors, handleSubmit} = useForm();
     // const [startDate, setStartDate] = useState(new Date());
     const { path } = useRouteMatch() || {};
     const [dni, setDni] = useState();
@@ -104,53 +106,120 @@ export default () => {
                             <Grid item xs={12} md={6}>
                                 {<Fragment>
                                     
-                                    <TextField className={classes.campo}label='DNI'onChange={(e) => setDni(e.target.value)}
+                                    <TextField 
+                                        className={classes.campo}
+                                        label='DNI'
+                                        onChange={(e) => setDni(e.target.value)}
+                                        required
+                                        name='dni'
+                                        error={Boolean(errors.dni)}
+                                        inputRef={register({required: true})}
+                                        helperText={errors.dni && 'El DNI es requerido'}
                                     />
-                                    <TextField className={classes.campo}label='Nombre'onChange={(e) => setName(e.target.value)}
+                                    <TextField 
+                                        className={classes.campo}
+                                        label='Nombre'
+                                        onChange={(e) => setName(e.target.value)}
+                                        required
+                                        name='nombre'
+                                        error={Boolean(errors.nombre)}
+                                        inputRef={register({required: true})}
+                                        helperText={errors.nombre && 'El nombre es requerido'}
                                     />
-                                    <TextField className={classes.campo}label='Apellido'onChange={(e) => setSurname(e.target.value)}
+                                    <TextField 
+                                        className={classes.campo}
+                                        label='Apellido'
+                                        onChange={(e) => setSurname(e.target.value)}
+                                        required
+                                        name='apellido'
+                                        error={Boolean(errors.apellido)}
+                                        inputRef={register({required: true})}
+                                        helperText={errors.dni && 'El apellido es requerido'}
                                     />
                                     
                                     <DatePicker
                                         selected={date_birth}
                                         onChange={date => setDate_birth(date)}
-                                        customInput={<TextField className={classes.campo}label='Fecha de nacimiento'onChange={(e) => setDate_birth(e.target.value)}
-                                        />}
+                                        customInput={
+                                            <TextField 
+                                                className={classes.campo}
+                                                label='Fecha de nacimiento'
+                                                onChange={(e) => setDate_birth(e.target.value)}
+                                                // required
+                                                // name='date_birth'
+                                                error={Boolean(errors.date_birth)}
+                                                inputRef={register({required: true})}
+                                                helperText={errors.date_birth && 'La fecha de nacimiento es requerida'}
+                                            />
+                                        }
                                         dateFormat="dd/MM/yyyy"
                                         peekNextMonth
                                         showMonthDropdown
                                         showYearDropdown
                                         dropdownMode="select"
+                                        required
+                                        name='date_birth'
+                                        // error={Boolean(errors.date_birth)}
+                                        // inputRef={register({required: true})}
+                                        // helperText={errors.date_birth && 'La fecha de nacimiento es requerida'}
                                     />
-                                    <TextField className={classes.campo}label='Legajo'onChange={(e) => setOrganization_id(e.target.value)}
+                                    <TextField 
+                                        className={classes.campo}
+                                        label='Legajo'
+                                        onChange={(e) => setOrganization_id(e.target.value)}
+                                        required
+                                        name='legajo'
+                                        error={Boolean(errors.legajo)}
+                                        inputRef={register({required: true})}
+                                        helperText={errors.legajo && 'El legajo es requerido'}
                                     />
                                     <DatePicker
                                         selected={date_hire}
                                         onChange={date => setDate_hire(date)}
-                                        customInput={<TextField className={classes.campo} label='Fecha de contratación'onChange={(e) => setDate_hire(e.target.value)}
-                                        />}
+                                        customInput={
+                                            <TextField 
+                                                className={classes.campo} 
+                                                label='Fecha de contratación'
+                                                onChange={(e) => setDate_hire(e.target.value)}
+                                                // required
+                                                // name='date_hire'
+                                                error={Boolean(errors.date_hire)}
+                                                inputRef={register({required: true})}
+                                                helperText={errors.date_hire && 'La fecha de contratación es requerida'}
+                                            />
+                                        }
                                         dateFormat="dd/MM/yyyy"
                                         peekNextMonth
                                         showMonthDropdown
                                         showYearDropdown
                                         dropdownMode="select"
+                                        required
+                                        name='date_hire'
+                                        // error={Boolean(errors.date_hire)}
+                                        // inputRef={register({required: true})}
+                                        // helperText={errors.date_hire && 'La fecha de contratación es requerida'}
                                     />
-                                    <TextField className={classes.campo}label='Puesto'onChange={(e) => setPos(e.target.value)}
+                                    <TextField 
+                                        className={classes.campo}
+                                        label='Puesto'
+                                        onChange={(e) => setPos(e.target.value)}
+                                        required
+                                        name='puesto'
+                                        error={Boolean(errors.puesto)}
+                                        inputRef={register({required: true})}
+                                        helperText={errors.puesto && 'El puesto es requerido'}
                                     />
-                                    <FormControl className={classes.formControl} style={{width:"40%"}}>
+                                    <FormControl required
+                                        name='contrato'
+                                        error={Boolean(errors.contrato)}
+                                        inputRef={register({required: true})}
+                                        helperText={errors.contrato && 'El contrato es requerido'} className={classes.formControl} style={{width:"40%"}}>
                                         <InputLabel id="demo-controlled-open-select-label">Contrato</InputLabel>
                                         <Select
-                                        labelId="demo-controlled-open-select-label"
-                                        id="demo-controlled-open-select"
-                                        // open={open}
-                                        // onClose={handleClose}
-                                        // onOpen={handleOpen}
-                                        // value={age}
-                                        onChange={handleChange}
+                                            labelId="demo-controlled-open-select-label"
+                                            id="demo-controlled-open-select"
+                                            onChange={handleChange}
                                         >
-                                        {/* <MenuItem value="">
-                                            Contrato
-                                        </MenuItem> */}
                                         <MenuItem value="F">Full time</MenuItem>
                                         <MenuItem value="P">Part time</MenuItem>
                                         </Select>
@@ -159,7 +228,7 @@ export default () => {
                             </Grid>
                             <Grid item container xs={12} spacing={3} justify="flex-end" >
                                 <Grid item>
-                                    <Button onClick={() => { onCrear() }} color="secondary" variant="outlined">
+                                    <Button onClick={ handleSubmit(onCrear) } color="secondary" variant="outlined">
                                         Crear Recurso
                                     </Button>
                                 </Grid>

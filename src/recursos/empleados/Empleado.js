@@ -133,7 +133,7 @@ export default () => {
                 <Paper className={classes.root}>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/') }}/>
+                            <ArrowBackIcon style={{color:"1fc71f", cursor:"pointer"}} fontSize="large" onClick={() => {history.push('/recursos/') }}/>
                         </Grid>
                         <Grid item xs={12}>
                             {empleado &&<Typography variant='h4'>

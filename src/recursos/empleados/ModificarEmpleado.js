@@ -16,6 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from "@material-ui/core/Button";
+import {useForm} from "react-hook-form";
 
 // /empleados
 const useStyles = makeStyles(theme => ({
@@ -30,9 +31,9 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(2.5)
     }
 }));
-const parseFecha = (fecha) => {
-    return fecha.slice(6,8) + "/" + fecha.slice(4,6) + "/" + fecha.slice(0,4);
-}
+// const parseFecha = (fecha) => {
+//     return fecha.slice(6,8) + "/" + fecha.slice(4,6) + "/" + fecha.slice(0,4);
+// }
 
 const parseDate = (fecha) => {
     let month = '' + (fecha.getMonth() + 1);
@@ -53,6 +54,7 @@ const crearFecha = (numero) => {
 
 export default () => {
     const classes = useStyles();
+    const {register, errors, handleSubmit} = useForm();
     const { id } = useParams();
     const { path } = useRouteMatch() || {};
     const [empleado, setEmpleado] = useState();
@@ -101,49 +103,102 @@ export default () => {
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
                             {empleado &&<Typography variant='h4'>
-                                {empleado.name + " "+ empleado.surname}
+                                {empleado.name + " "+ empleado.surname+" - "+empleado.dni}
                             </Typography>}
                         </Grid>
                         <Grid item container spacing={3} xs={12}>
                             <Grid item xs={12} md={6}>
                                 {empleado && <Fragment>
-                                    
-                                    <TextField className={classes.campo}defaultValue={empleado.dni} label='DNI'onChange={(e) => empleado.dni = e.target.value}
+                                    <TextField 
+                                        className={classes.campo}
+                                        defaultValue={empleado.name}
+                                        label='Nombre'onChange={(e) => empleado.name = e.target.value}
+                                        required
+                                        name='nombre'
+                                        error={Boolean(errors.nombre)}
+                                        inputRef={register({required: true})}
+                                        helperText={errors.nombre && 'El nombre es requerido'}
                                     />
-                                    <TextField className={classes.campo}defaultValue={empleado.name}label='Nombre'onChange={(e) => empleado.name = e.target.value}
-                                    />
-                                    <TextField className={classes.campo}defaultValue={empleado.surname}label='Apellido'onChange={(e) => empleado.surname = e.target.value}
+                                    <TextField 
+                                        className={classes.campo}
+                                        defaultValue={empleado.surname}
+                                        label='Apellido'onChange={(e) => empleado.surname = e.target.value}
+                                        required
+                                        name='apellido'
+                                        error={Boolean(errors.apellido)}
+                                        inputRef={register({required: true})}
+                                        helperText={errors.dni && 'El apellido es requerido'}
                                     />
                                     
                                     <DatePicker
                                         selected={birth}
                                         onChange={date => {empleado.date_birth = parseDate(date); setBirth(date)}}
-                                        customInput={<TextField className={classes.campo}label='Fecha de nacimiento'onChange={(e) => empleado.date_birth = e.target.value}
-                                        />}
-                                        
+                                        customInput={
+                                            <TextField 
+                                                className={classes.campo}
+                                                label='Fecha de nacimiento'
+                                                onChange={(e) => empleado.date_birth = e.target.value}
+                                                error={Boolean(errors.date_birth)}
+                                                inputRef={register({required: true})}
+                                                helperText={errors.date_birth && 'La fecha de nacimiento es requerida'}
+                                            />
+                                        }
                                         dateFormat="dd/MM/yyyy"
                                         peekNextMonth
                                         showMonthDropdown
                                         showYearDropdown
                                         dropdownMode="select"
+                                        required
+                                        name='date_birth'
                                     />
-                                    <TextField className={classes.campo}defaultValue={empleado.organization_id}label='Legajo'onChange={(e) => empleado.organization_id = e.target.value}
+                                    <TextField 
+                                        className={classes.campo}
+                                        defaultValue={empleado.organization_id}
+                                        label='Legajo'onChange={(e) => empleado.organization_id = e.target.value}
+                                        required
+                                        name='legajo'
+                                        error={Boolean(errors.legajo)}
+                                        inputRef={register({required: true})}
+                                        helperText={errors.legajo && 'El legajo es requerido'}
                                     />
                                     <DatePicker
                                         selected={hire}
                                         onChange={date => {empleado.date_hire = parseDate(date); setHire(date)}}
-                                        customInput={<TextField className={classes.campo}value={parseFecha(empleado.date_hire.toString())} label='Fecha de contratación'onChange={(e) => {console.log("Holaa");empleado.date_hire = parseDate(e.target.value)}}
-                                        />}
+                                        customInput={
+                                            <TextField 
+                                                className={classes.campo}
+                                                label='Fecha de contratación'
+                                                onChange={(e) => {empleado.date_hire = parseDate(e.target.value)}}
+                                                error={Boolean(errors.date_hire)}
+                                                inputRef={register({required: true})}
+                                                helperText={errors.date_hire && 'La fecha de contratación es requerida'}
+                                            />
+                                        }
                                         
                                         dateFormat="dd/MM/yyyy"
                                         peekNextMonth
                                         showMonthDropdown
                                         showYearDropdown
                                         dropdownMode="select"
+                                        required
+                                        name='date_hire'
                                     />
-                                    <TextField className={classes.campo}defaultValue={empleado.pos}label='Puesto'onChange={(e) => empleado.pos = e.target.value}
+                                    <TextField 
+                                        className={classes.campo}
+                                        defaultValue={empleado.pos}
+                                        label='Puesto'
+                                        onChange={(e) => empleado.pos = e.target.value}
+                                        required
+                                        name='puesto'
+                                        error={Boolean(errors.puesto)}
+                                        inputRef={register({required: true})}
+                                        helperText={errors.puesto && 'El puesto es requerido'}
                                     />
-                                    <FormControl className={classes.formControl} style={{width:"40%"}}>
+                                    <FormControl required
+                                        name='contrato'
+                                        error={Boolean(errors.contrato)}
+                                        inputRef={register({required: true})}
+                                        helperText={errors.contrato && 'El contrato es requerido'}className={classes.formControl} style={{width:"40%"}}>
                                         <InputLabel id="demo-controlled-open-select-label">Contrato</InputLabel>
                                         <Select
                                         defaultValue={empleado.contract}
@@ -168,7 +223,7 @@ export default () => {
                         </Grid>
                         <Grid item container xs={12} spacing={3} justify="flex-end">
                             <Grid item>
-                                <Button onClick={() => { onModificar() }} color="secondary" variant='outlined'>
+                                <Button onClick={ handleSubmit(onModificar) } color="secondary" variant='outlined'>
                                     Modificar recurso
                                 </Button>
                             </Grid>
