@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import axios from 'axios';
+import Typography from "@material-ui/core/Typography";
 
 export default ({mapf, url}) => {
     const [elems, setElems] = useState();
@@ -18,10 +19,14 @@ export default ({mapf, url}) => {
                 // TODO.
             })
     }, [url]);
-
+   
     return (
         <Fragment>
-            {elems && elems.map(mapf)}
+            {(elems && elems.length > 0 && elems.map(mapf)) ||
+                <Typography variant="body">
+                    Esta lista esta vacía
+                </Typography>
+            }
         </Fragment>
     )
 }
