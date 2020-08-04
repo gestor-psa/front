@@ -15,13 +15,13 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default ({opciones, seleccionPorDefecto, onChange = () => null}) => {
+export default ({opciones, seleccionPorDefecto, onChange = () => null, titulo}) => {
     const [seleccionado, setSeleccionado] = useState(seleccionPorDefecto || opciones[0].valor);
     const classes = useStyles();
    
     return (
         <FormControl className = {classes.formControl}>
-        <InputLabel >Estado*</InputLabel>
+        <InputLabel > {titulo || "Estado*"}</InputLabel>
         <Select color="secondary" size={"small"} value = {seleccionPorDefecto || null}>
             {opciones.map(({etiqueta, valor}) => (
                     <MenuItem

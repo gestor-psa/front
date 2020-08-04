@@ -5,14 +5,15 @@ import CamposDeTexto from "proyectos/crear/CamposDeTexto";
 import CamposDeSeleccion from "proyectos/crear/CamposDeSeleccion";
 import Acciones from "proyectos/crear/Acciones";
 import CamposFecha from "proyectos/crear/CamposFecha.js"
+import CamposAsignacion from "proyectos/crear/CamposAsignacion.js"
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 
 
-export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto}) => {
+export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}) => {
     const {register, errors, handleSubmit} = useForm();
-    const [elemento, setElem] = useState({});
+    const [elemento, setElem] = useState(elem || {});
     const [data, setData] = useState(elemento);
     const [esperando, setEsperando] = useState(false);
     const onDataChange = (e) => setData({...data, ...e});
@@ -77,6 +78,13 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto}) => {
                             etiqueta='Duracion'
                             mostrar={true}
                             valor= {getDays(data.fechaInicio, data.fechaFin) + " dias"}
+                        />
+                    }
+                    {isTarea && 
+                        <CamposAsignacion
+                            elemento = {data}
+                            proyecto = {isTarea}
+                            onDataChange={onDataChange}
                         />
                     }
                 </Grid>}
