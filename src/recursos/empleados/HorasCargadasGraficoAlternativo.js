@@ -289,7 +289,7 @@ export default () => {
             <Grid container>
                 <Grid item container xs={12} justify="space-between" alignItems="center">
                     <Grid item>
-                        <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
+                        <ArrowBackIcon style={{color:"1fc71f", cursor:"pointer"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
                     </Grid>
                     <Grid item>
                         <FormControlLabel
@@ -320,7 +320,7 @@ export default () => {
                 :
                 horasCargadasPorDia && <Grid xs  container style={{marginTop:'20px'}} justify="center" alignItems="center">
                             <Grid item>
-                                <ArrowBackIosIcon style={{marginRight:'5px'}} onClick={()=>{cambiarSemana(-1)}}/>
+                                <ArrowBackIosIcon style={{marginRight:'5px', cursor:"pointer"}} onClick={()=>{cambiarSemana(-1)}}/>
                             </Grid>
                             
                             <Grid item  container xs spacing={1} style={{marginTop:'20px'}} direction='row' justify="center" alignItems="flex-start">
@@ -354,7 +354,7 @@ export default () => {
                                 />
                             </Grid>
                             <Grid item>
-                                <ArrowForwardIosIcon style={{marginLeft:'5px'}} onClick={()=>{cambiarSemana(1)}}/>
+                                <ArrowForwardIosIcon style={{marginLeft:'5px',cursor:"pointer"}} onClick={()=>{cambiarSemana(1)}}/>
                             </Grid>
                             {(state.checkedA)?
                                 <HorasCargadas/>
