@@ -20,14 +20,14 @@ export default () => {
 
           <AnimatedRoute path={path}>
               <Fragment>
-                  <ElementoRouter elem = {proyecto} setElem = {setProyecto} titulo = "Nuevo Proyecto"
+                  <ElementoRouter elem = {proyecto} setElem = {setProyecto} prefix = "Nuevo" elemType = "Proyecto"
                    url = {"/proyectos"} isProyecto = {true}>
                   </ElementoRouter>
               </Fragment>
           </AnimatedRoute>
 
           <AnimatedRoute  path={ `${path}/:id(\\d+)/fases`}>
-                <ElementoRouter elem = {fase} setElem = {setFase} titulo = "Nueva Fase" 
+                <ElementoRouter elem = {fase} setElem = {setFase} elemType = "Fase" 
                 url = {"/proyectos/"+GetId(proyecto)+"/fases"} isFase = {proyecto}
                 urlReturn = {"/proyectos/"+GetId(proyecto)}
                 >
@@ -35,7 +35,7 @@ export default () => {
           </AnimatedRoute>
 
           <AnimatedRoute  path={ `${path}/:id(\\d+)/tareas`}>
-                <ElementoRouter elem = {fase} setElem = {setFase} titulo = "Nueva Tarea" 
+                <ElementoRouter elem = {fase} setElem = {setFase} elemType = "Tarea"
                 url = {"/proyectos/"+GetId(proyecto)+"/tareas"} isTarea = {proyecto}
                 urlReturn = {"/proyectos/"+GetId(proyecto)}
                 >
@@ -43,7 +43,7 @@ export default () => {
           </AnimatedRoute>
 
           <AnimatedRoute  path={ `${path}/:id(\\d+)/fases/:id(\\d+)/iteraciones`}>
-                <ElementoRouter elem = {ite} setElem = {setIte} titulo = "Nueva Tarea" 
+                <ElementoRouter elem = {ite} setElem = {setIte} elemType = "Iteracion" suffix = "es"
                 url = {"/proyectos/"+GetId(proyecto)+"/fases/"+GetId(fase)+"/iteraciones"} 
                 isIteracion = {proyecto} isFase = {fase}
                 urlReturn = {"/proyectos/"+GetId(proyecto)+"/fases/"+GetId(fase)}
