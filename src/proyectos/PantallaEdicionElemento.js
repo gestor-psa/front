@@ -32,18 +32,19 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto}) => {
         }
     }, [url]);
 
-    const onConfirmar = () => {
-       setEsperando(true);
-        console.log(data);
-        onConfirm(data);
-    }
-
     const getDays = (fi, ff) => {
+        if (!fi || !ff) return 0;
         const date1 = new Date(fi);
         const date2 = new Date(ff);
-        const diffTime = Math.abs(date2 - date1);
+        const diffTime = (date2 - date1);
         return Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
     }
+
+    const onConfirmar = () => {
+        setEsperando(true);
+        console.log(data);
+        onConfirm(data);
+     }
 
     return (
         <Layout
@@ -64,12 +65,18 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto}) => {
                         mostrarAsignacion = {isTarea}
 
                     />
-                    <CamposFecha proyecto = {elemento} onChange = {onDataChange}/>
-                    {elemento.fechaInicio && elemento.fechaFin && 
+                    <CamposFecha proyecto = {elemento} onChange = {(e) => {
+                        const newData = {...data, ...e};
+                        if (getDays(newData.fechaInicio, newData.fechaFin) >= 0) {
+                            onDataChange(e);
+                            return true;
+                        }
+                    }}/>
+                    {data.fechaInicio && data.fechaFin && 
                         <EsqueletoTexto
                             etiqueta='Duracion'
                             mostrar={true}
-                            valor= {getDays(elemento.fechaInicio, elemento.fechaFin) + " dias"}
+                            valor= {getDays(data.fechaInicio, data.fechaFin) + " dias"}
                         />
                     }
                 </Grid>}

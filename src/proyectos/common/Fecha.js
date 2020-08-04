@@ -16,7 +16,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DatePickers({tag ,name, defvalue, onChange}) {
   const classes = useStyles();
-  console.log(new Date(defvalue));
+
+  const [val, setValue] = React.useState();
+
   return (
     <form className={classes.container} noValidate>
       <TextField
@@ -24,9 +26,13 @@ export default function DatePickers({tag ,name, defvalue, onChange}) {
         label= {name}
         type="date"
         defaultValue= {new Date(defvalue)}
-        value = {defvalue}
+        value = {val || defvalue}
         className={classes.textField}
-        onChange = {(e) => {onChange({[tag]: e.target.value})}}
+        onChange = {(e) => {
+            if (onChange({[tag]: e.target.value})){
+              setValue(e.target.value)
+            }
+          }}
         InputLabelProps={{
           shrink: true,
         }}
