@@ -12,8 +12,16 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import { useRouteMatch } from "react-router";
 import Grid from "@material-ui/core/Grid";
+import Skeleton from '@material-ui/lab/Skeleton';
 
-
+// function sleep(milliseconds) {
+//     var start = new Date().getTime();
+//     for (var i = 0; i < 1e7; i++) {
+//      if ((new Date().getTime() - start) > milliseconds) {
+//       break;
+//      }
+//     }
+//    }
 
 const useStyles = makeStyles({
     root: {
@@ -23,6 +31,18 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: "flex-end",
         marginTop: "50px"
+    },
+    skeleton: {
+        top: '20',
+        left: 0,
+        bottom: '20',
+        width: '100%',
+        '& td': {
+            width: '100%'
+        },
+        '& tr': {
+            display: 'flex'
+        }
     }
 });
 
@@ -48,15 +68,31 @@ export default () => {
         <Fragment>
             <Grid container spacing={3} direction="row" justify="space-between">
                 <Grid item>
-                    <Button style={{marginTop:'20px'}} color='secondary' variant='contained' disabled>
+                    {/* <Button style={{marginTop:'20px'}} color='secondary' variant='contained' disabled>
                         Buscar
-                    </Button>
+                    </Button> */}
                 </Grid>
                 <Grid item>
                     <Button style={{marginTop:'20px'}} color='secondary' variant='contained' to={`${url}/creacion`} component={Link}>
                         Nuevo recurso
                     </Button>
                 </Grid>
+                {
+                (!empleados)?
+                <TableContainer component={Paper} className={classes.skeleton}>
+                    <Table className={classes.table}>
+                        <TableBody>
+                            {Array(7).fill(null).map((n, keyN) => (
+                                <TableRow key={keyN}>
+                                    {Array(5).fill(null).map((m, keyM) => (
+                                        <TableCell key={keyM}><Skeleton/></TableCell>
+                                    ))}
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                :
                 <Grid item xs={12}>
                     <TableContainer component={Paper}>
                         <Table className={classes.table}>
@@ -89,6 +125,8 @@ export default () => {
                         </Table>
                     </TableContainer>
                 </Grid> 
+                }
+                
             </Grid>
             
         </Fragment>
