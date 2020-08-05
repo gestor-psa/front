@@ -43,10 +43,10 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
       <AnimatedSwitch>
 
             <AnimatedRoute exact path={path}>
+                {(urlReturn && <BotonVolver url = {urlReturn}/>)} 
                 <Layout
                     titulo = {elemType+suffix}
-                    ladoIzquierdo = {(urlReturn && <BotonVolver url = {urlReturn}/>) || ap} 
-                    ladoDerecho={urlReturn && ap}
+                    ladoIzquierdo = {ap} 
                     fin ={ <VistaListado mapf = {mapProyecto} url = {url} />}
                 />
             </AnimatedRoute>
