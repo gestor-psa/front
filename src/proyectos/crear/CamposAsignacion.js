@@ -1,38 +1,58 @@
 import React from "react";
-import {makeStyles} from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import SearchSelect from "proyectos/common/SearchSelect";
 import axios from "axios";
 
 
 export default ({onDataChange, elemento, proyecto}) => {
-    const [faseId, setFaseId] = React.useState(elemento.faseId);
     const url = process.env.REACT_APP_URL_PROYECTOS + "/proyectos/" + (proyecto.id||proyecto.codigo);
+    const [fase, setFase] = React.useState();
+    const [ite, setIte] = React.useState();
 
-    console.log(faseId, url+"/fases/"+faseId+"/iteraciones");
+    const getFase = () => {
+        if (elemento.faseId) {
+            axios.get(url+"/fases/"+elemento.faseId)
+                .then(res => {
+                    setFase(res.data);
+                })
+            return fase;
+        }
+    };
+    const fase_ini = getFase();
+
+    const getIte = () => {
+        if (elemento.iteracionId && elemento.faseId) {
+            axios.get(url+"/fases/"+(fase.id)+"/iteraciones/"+elemento.iteracionId)
+                .then(res => {
+                    setIte(res.data);
+                })
+            return ite;
+        }
+    };
+    const ite_ine = getIte();
+
 
     return (
         <div>
             {<SearchSelect
                 url={url+"/fases"}
-                defaultValue={elemento.faseId}
+                defaultValue={fase_ini}
                 autocompleteProps={{
                     getOptionLabel:elem => (elem.nombre && elem.nombre.capitalize()),
                     onChange: (e, v) => {
-                        onDataChange({faseId: v.id || v.codigo || false})
-                        setFaseId(v.id || v.codigo || false);
-                        if (!faseId) onDataChange({iteId: false});
+                        onDataChange({faseId: (v && (v.id || v.codigo)) || false})
+                        setFase(v);
+                        if (!fase) onDataChange({iteracionId: false});
                     }
                 }}
                 textFieldProps={{label: 'Fase Asignada'}}
             />}
-            {faseId && <SearchSelect
-                url={url+"/fases/"+faseId+"/iteraciones"}
-                defaultValue={elemento.iteId}
+            {fase && <SearchSelect
+                url={url+"/fases/"+fase.id+"/iteraciones"}
+                defaultValue={ite_ine}
                 autocompleteProps={{
                     getOptionLabel: elem => (elem.nombre && elem.nombre.capitalize()),
                     onChange: (e, v) => {
-                        onDataChange({iteId: v.id || v.codigo || false})
+                        onDataChange({iteracionId: (v && (v.id || v.codigo)) || false})
                     }
                 }}
                 textFieldProps={{label: 'Iteracion Asignada'}}

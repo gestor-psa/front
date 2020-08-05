@@ -51,7 +51,7 @@ export default ({mostrar, isFase, isTarea, isIteracion}) => {
 
     const onIteraciones = () => history.push(`${url}/iteraciones`)
 
-    const onAsignacion = () =>history.push(`${url}/asignar`);
+    //const onAsignacion = () =>history.push(`${url}/asignar`);
 
     return (
         <div className={classes.root}>
