@@ -215,9 +215,6 @@ export default () => {
     
 
     const cambiarSemana = (n) => {
-        if (new Date(new Date(fechaLunes).setDate(new Date(fechaLunes).getDate() - 1)).getMonth() < new Date().getMonth() && n === -1){
-            return;
-        }
         if (new Date(new Date(fechaDomingo).setDate(new Date(fechaDomingo).getDate() + 1)).getMonth() > new Date().getMonth() && n === 1){
             return;
         }
@@ -299,14 +296,14 @@ export default () => {
         <Paper className={classes.root}>
             <Grid container>
                 <Grid item xs={12}>
-                    <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
+                    <ArrowBackIcon style={{color:"1fc71f", cursor:"pointer"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
                 </Grid>
                 <Grid item container xs={12} justify={'center'}>
                     <Typography variant='h4'>
-                        {'Horas cargadas - ' + meses[new Date().getMonth()] + ' '+ (new Date().getFullYear()).toString()}
+                        {'Horas cargadas - ' + meses[new Date(fechaLunes).getMonth()] + ' '+ (new Date().getFullYear()).toString()}
                     </Typography>
                 </Grid>
-                <Grid item xs={12} style={{maxHeight:'100%',marginTop:'20px'}}>
+                <Grid item container xs={12} style={{maxHeight:'100%',marginTop:'20px'}} justify={'center'} alignItems={'center'}>
                     <ArrowBackIosIcon style = {{verticalAlign:"top", display: "inline"}} onClick={()=>{cambiarSemana(-1)}}/>
                     <div style = {{width:"95%",display:"inline-block"}}>
                     <Bar style = {{display: "inline",width:"50%"}}

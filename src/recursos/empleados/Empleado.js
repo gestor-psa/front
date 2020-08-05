@@ -9,6 +9,7 @@ import ModificarEmpleado from "recursos/empleados/ModificarEmpleado"
 import CargarHora from "recursos/empleados/CargarHora"
 // import HorasCargadas from "recursos/empleados/HorasCargadas"
 import HorasCargadasGraficoAlternativo from "recursos/empleados/HorasCargadasGraficoAlternativo"
+import HorasCargadasGrafico from "recursos/empleados/HorasCargadasGrafico"
 import AnimatedSwitch from "components/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 import Button from "@material-ui/core/Button";
@@ -19,6 +20,23 @@ import Modal from "@material-ui/core/Modal";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import WarningIcon from '@material-ui/icons/Warning';
 import HorasPorMesGrafico from "recursos/empleados/HorasPorMesGrafico"
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableRow from '@material-ui/core/TableRow';
+import Skeleton from '@material-ui/lab/Skeleton';
+
+
+// function sleep(milliseconds) {
+//     var start = new Date().getTime();
+//     for (var i = 0; i < 1e7; i++) {
+//      if ((new Date().getTime() - start) > milliseconds) {
+//       break;
+//      }
+//     }
+// }
 
 function rand() {
     return Math.round(Math.random() * 20) - 10;
@@ -41,6 +59,28 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(4, 6),
         [theme.breakpoints.down('xs')]: {
             padding: theme.spacing(2, 2)
+        }
+    },
+    skeleton: {
+        left: 0,
+        bottom: 0,
+        width: '60%',
+        '& td': {
+            width: '100%'
+        },
+        '& tr': {
+            display: 'flex'
+        }
+    },
+    skeletonDerecha: {
+        left: 0,
+        bottom: 0,
+        width: '80%',
+        '& td': {
+            width: '100%'
+        },
+        '& tr': {
+            display: 'flex'
         }
     },
     paper: {
@@ -131,7 +171,7 @@ export default () => {
                 <Paper className={classes.root}>
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/') }}/>
+                            <ArrowBackIcon style={{color:"1fc71f", cursor:"pointer"}} fontSize="large" onClick={() => {history.push('/recursos/') }}/>
                         </Grid>
                         <Grid item xs={12}>
                             {empleado &&<Typography variant='h4'>
@@ -139,8 +179,34 @@ export default () => {
                             </Typography>}
                         </Grid>
                         <Grid item container spacing={6} xs={12} alignItems="center" justify="baseline">
-                            <Grid item xs={12} md={6}>
-                                {empleado && <Fragment>
+                            <Grid item xs>
+                                {(!empleado)?
+                                <TableContainer className={classes.skeleton}>
+                                    <Table className={classes.table} style={{marginBottom:'40px'}}>
+                                        <TableBody>
+                                            {Array(1).fill(null).map((n, keyN) => (
+                                                <TableRow key={keyN}>
+                                                    {Array(1).fill(null).map((m, keyM) => (
+                                                        <TableCell key={keyM}><Skeleton/></TableCell>
+                                                    ))}
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                    <Table className={classes.table}>
+                                        <TableBody>
+                                            {Array(4).fill(null).map((n, keyN) => (
+                                                <TableRow key={keyN}>
+                                                    {Array(1).fill(null).map((m, keyM) => (
+                                                        <TableCell key={keyM}><Skeleton/></TableCell>
+                                                    ))}
+                                                </TableRow>
+                                            ))}
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>
+                                :
+                                <Fragment>
                                     <Typography>
                                         DNI: {empleado.dni}
                                     </Typography>
@@ -164,9 +230,16 @@ export default () => {
                                     </Typography>
                                 </Fragment>}
                             </Grid>
-                            <Grid item container xs={6} alignItems="center" justify="center">
+                            {(!empleado)?
+                            <Grid item xs={6} md={6}>
+                                <Skeleton style={{height:'350px'}}/>
+                            </Grid>
+                            :
+                            <Grid item container xs alignItems="center" justify="center">
                                 <HorasPorMesGrafico/>
                             </Grid>
+                            }
+                            
                         </Grid>
                         <Grid item container spacing={3} direction="row" xs={12} justify="space-between">
                             <Grid item container spacing={3} xs={6} justify="flex-start">
@@ -184,12 +257,18 @@ export default () => {
                                 </Grid>
                             </Grid>
                             <Grid item container spacing={3} xs={6} justify="center">
-                                <Grid item>
-                                    <Button color='secondary' variant='outlined' to={`${url}/horascargadasgraficoalternativo`} component={Link} >
-                                        Ver horas cargadas
-                                    </Button>
+                                <Grid item xs>
+                                    <ButtonGroup variant="contained" color="secondary" aria-label="contained primary button group">
+                                        <Button color='secondary' variant='contained' to={`${url}/horascargadasgraficoalternativo`} component={Link} >
+                                            Ver horas cargadas (Post-it)
+                                        </Button>
+                                        <Button color='secondary' variant='contained' to={`${url}/horascargadasgrafico`} component={Link}>
+                                            Ver horas cargadas (barras)
+                                        </Button>
+                                    </ButtonGroup>
+                                        
                                 </Grid>
-                                <Grid item>
+                                <Grid item xs>
                                     <Button  color='secondary' variant='outlined' to={`${url}/cargarhora`} component={Link}>
                                         Cargar horas
                                     </Button>
@@ -218,6 +297,9 @@ export default () => {
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/horascargadasgraficoAlternativo`}>
                 <HorasCargadasGraficoAlternativo/>
+            </AnimatedRoute>
+            <AnimatedRoute exact path={`${path}/horascargadasgrafico`}>
+                <HorasCargadasGrafico/>
             </AnimatedRoute>
         </AnimatedSwitch>
     )

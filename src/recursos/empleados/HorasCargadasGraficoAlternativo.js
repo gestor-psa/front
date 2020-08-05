@@ -9,7 +9,15 @@ import Typography from "@material-ui/core/Typography";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import CartelHorasCargadas from "recursos/empleados/CartelHorasCargadas"
-
+import HorasCargadas from "recursos/empleados/HorasCargadas"
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableRow from '@material-ui/core/TableRow';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 // function aleatorio(min, max) {
     // return Math.floor(Math.random() * (max - min) + min);
@@ -58,6 +66,7 @@ const useStyles = makeStyles(theme => ({
         },
         flexGrow: 1,
     },
+    
 }));
 
 export default () => {
@@ -72,6 +81,9 @@ export default () => {
     const { id } = useParams();
     const history = useHistory();
     let [horasCargadasPorDia, setHorasCargadasPorDia] = useState();
+    const [state, setState] = React.useState({
+        checkedA: false,
+      })
     
     // const isMdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
 
@@ -191,9 +203,7 @@ export default () => {
     
 
     const cambiarSemana = (n) => {
-        if (new Date(new Date(fechaLunes).setDate(new Date(fechaLunes).getDate() - 1)).getMonth() < new Date().getMonth() && n === -1){
-            return;
-        }
+
         if (new Date(new Date(fechaDomingo).setDate(new Date(fechaDomingo).getDate() + 1)).getMonth() > new Date().getMonth() && n === 1){
             return;
         }
@@ -269,22 +279,48 @@ export default () => {
         });
 
     }
-
+    
+    const handleChange = (event) => {
+        setState({ ...state, [event.target.name]: event.target.checked });
+    };
 
     return (
         <Paper className={classes.root}>
             <Grid container>
-                <Grid item xs={12}>
-                    <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
+                <Grid item container xs={12} justify="space-between" alignItems="center">
+                    <Grid item>
+                        <ArrowBackIcon style={{color:"1fc71f", cursor:"pointer"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
+                    </Grid>
+                    <Grid item>
+                        <FormControlLabel
+                            control={<Switch style={{color:"1fc71f"}} checked={state.checkedA} onChange={handleChange} color="primary" name="checkedA" />}
+                            label="Planilla"
+                        />
+                    </Grid> 
                 </Grid>
                 <Grid item container xs={12} justify='center'>
                     <Typography variant='h4'>
-                        {'Horas cargadas - ' + meses[new Date().getMonth()] + ' '+ (new Date().getFullYear()).toString()}
+                        {'Horas cargadas - ' + meses[new Date(fechaLunes).getMonth()] + ' '+ (new Date().getFullYear()).toString()}
                     </Typography>
                 </Grid>
-                {horasCargadasPorDia && <Grid xs  container style={{marginTop:'20px'}} justify="center" alignItems="center">
+                {(!horasCargadasPorDia)?
+                <TableContainer className={classes.skeleton}>
+                    <Table className={classes.table}>
+                        <TableBody>
+                            {Array(3).fill(null).map((n, keyN) => (
+                                <TableRow key={keyN}>
+                                    {Array(7).fill(null).map((m, keyM) => (
+                                        <TableCell key={keyM}><Skeleton style={{height:'100px'}}/></TableCell>
+                                    ))}
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                :
+                horasCargadasPorDia && <Grid xs  container style={{marginTop:'20px'}} justify="center" alignItems="center">
                             <Grid item>
-                                <ArrowBackIosIcon style={{marginRight:'5px'}} onClick={()=>{cambiarSemana(-1)}}/>
+                                <ArrowBackIosIcon style={{marginRight:'5px', cursor:"pointer"}} onClick={()=>{cambiarSemana(-1)}}/>
                             </Grid>
                             
                             <Grid item  container xs spacing={1} style={{marginTop:'20px'}} direction='row' justify="center" alignItems="flex-start">
@@ -318,9 +354,14 @@ export default () => {
                                 />
                             </Grid>
                             <Grid item>
-                                <ArrowForwardIosIcon style={{marginLeft:'5px'}} onClick={()=>{cambiarSemana(1)}}/>
+                                <ArrowForwardIosIcon style={{marginLeft:'5px',cursor:"pointer"}} onClick={()=>{cambiarSemana(1)}}/>
                             </Grid>
+                            {(state.checkedA)?
+                                <HorasCargadas/>
+                            : null
+                            }
                 </Grid>}
+
             </Grid>
         </Paper>
     );
