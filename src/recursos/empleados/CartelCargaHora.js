@@ -75,7 +75,7 @@ export default (props) => {
 
     const onCrear = () => {
         // setEsperando(true);
-        let hora = {"employeeDni":parseInt(props.dni,10),"hours":parseInt(hours,10),"taskId":parseInt(taskId,10),"projectId":parseInt(proyecto,10),"category":category,"date":crearFecha(props.nroDia)}
+        let hora = {"employeeDni":parseInt(props.dni,10),"hours":parseFloat(hours),"taskId":parseInt(taskId,10),"projectId":parseInt(proyecto,10),"category":category,"date":crearFecha(props.nroDia)}
         console.log(hora);
         if (hora.category==='proyecto' && !hora.taskId){
             console.log("No hay una tarea asignada")
@@ -88,6 +88,9 @@ export default (props) => {
         if (!hora.taskId && !hora.projectId){
             hora.taskId = 1;
             hora.projectId = 1;
+        }
+        if (hora.hours <= 0 || hora.hours+horasCargadas > 24){
+            return;
         }
         console.log(hora);
 
@@ -245,8 +248,10 @@ export default (props) => {
                 <Grid item xs>
                     <TextField 
                         disabled = {props.desactivado} 
-                        type="number" value={hours} 
-                        className={classes.campo} 
+                        type="number" 
+                        value={hours}
+                        inputProps={{"step":"0.5","min":"0","max":24-horasCargadas}} 
+                        className={classes.campo}
                         label='Horas' 
                         onChange={(e) => setHours(e.target.value)}
                         required

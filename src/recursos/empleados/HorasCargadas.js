@@ -9,8 +9,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import axios from 'axios';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+// import ToggleButton from '@material-ui/lab/ToggleButton';
+// import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import {useParams} from "react-router";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -35,30 +35,66 @@ const parseFecha = (fecha) => {
 
 export default () => {
     const [horas, setHoras] = useState();
+    const [horasFiltradas, setHorasFiltradas] = useState();
     const { id } = useParams();
     const classes = useStyles({ horas });
-    // const isMdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
-    const [categoria, setCategoria] = React.useState('');
+
 
     const handleChange = (event) => {
-      setCategoria(event.target.value);
-    
-        // categoria && id && axios.get(process.env.REACT_APP_URL_RECURSOS + '/hours/' + id +'/' + categoria)
-        // .then(res => {
-        //     console.log(res)
-        //     setHoras(res.data);
-        // })
-        // .catch(error => {
-        //     // TODO.
-        // })
+        let categoria = event.target.value;
+
+        switch(categoria){
+            case "todo":
+                setHorasFiltradas(horas);
+                break;
+            case "soporte":
+                setHorasFiltradas(horas.filter(a=>a.category === 'soporte'));
+                break;
+            case "estudio":
+                setHorasFiltradas(horas.filter(a=>a.category === 'estudio'));
+                break;
+            case "proyecto":
+                setHorasFiltradas(horas.filter(a=>a.category === 'proyecto'));
+                break;
+            case "fuera de oficina":
+                setHorasFiltradas(horas.filter(a=>a.category === 'fuera de oficina'));
+                break;
+            default:
+                break;
+        }
       
     };
 
     useEffect(() => {
         id && axios.get(process.env.REACT_APP_URL_RECURSOS + '/hours/' + id)
             .then(res => {
+                let promises = [];
+                let horass = [];
+
+                for (let i = 0; i < res.data.length; i++) {
+                    if(res.data[i].category==='proyecto'){
+                        promises.push(axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/' + res.data[i].projectId + '/tareas/' + res.data[i].taskId));
+                        promises.push(axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/' + res.data[i].projectId));
+                        horass.push(res.data[i]);
+                        horass.push(res.data[i]);
+                    }
+                }
+                axios.all(promises)
+                    .then(axios.spread((...args) => {
+                        for (let i = 0; i < args.length; i+=2) {
+                            horass[i].taskName = args[i].data.nombre;
+                            horass[i].projectName = args[i+1].data.nombre;
+                        }
+                        setHoras(res.data.reverse());
+                        setHorasFiltradas(res.data.reverse());
+                    }))
+                    .then(/* use the data */);
+               
+                
+                
+                
                 console.log(res)
-                setHoras(res.data);
+
             })
             .catch(error => {
                 // TODO.
@@ -73,16 +109,16 @@ export default () => {
                         <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
                     </Grid> */}
                     <Grid item>
-                        <FormControl className={classes.formControl}>
+                        {horasFiltradas&&<FormControl className={classes.formControl}>
                             <InputLabel>Categoría</InputLabel>
                             <Select
                             labelId="demo-simple-select-autowidth-label"
                             id="demo-simple-select-autowidth"
-                            value={categoria}
+                            // value={categoria}
                             onChange={handleChange}
                             style = {{minWidth:'120px'}}
                             >
-                            <MenuItem value = {null}>
+                            <MenuItem value = {"todo"}>
                                 <em>Todas</em>
                             </MenuItem>
                             <MenuItem value={'proyecto'}>Proyecto</MenuItem>
@@ -90,24 +126,9 @@ export default () => {
                             <MenuItem value={'fuera de oficina'}>Fuera de oficina</MenuItem>
                             <MenuItem value={'estudio'}>Estudio</MenuItem>
                             </Select>
-                        </FormControl>
+                        </FormControl>}
                     </Grid>
-                    <Grid item>
-                        <ToggleButtonGroup style={{marginBottom:"20px"}} variant='contained' disabled>
-                            <ToggleButton >
-                                Día
-                            </ToggleButton>
-                            <ToggleButton >
-                                Semana
-                            </ToggleButton>
-                            <ToggleButton >
-                                Mes
-                            </ToggleButton>
-                            <ToggleButton >
-                                Año
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                    </Grid>  
+                    
                 </Grid>
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
@@ -116,19 +137,21 @@ export default () => {
                             <TableCell>Fecha</TableCell>
                             {/* <TableCell>Legajo</TableCell> */}
                             <TableCell>Categoría</TableCell>
-                            <TableCell>ID de Proyecto</TableCell>
-                            <TableCell>ID de tarea</TableCell>
+                            <TableCell>Nombre de proyecto</TableCell>
+                            <TableCell>Tarea #</TableCell>
+                            <TableCell>Nombre de tarea</TableCell>
                             <TableCell>Horas</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {horas && horas.map(hora => (
+                        {horasFiltradas && horasFiltradas.map(hora => (
                             <TableRow>
                                 <TableCell>{parseFecha(hora.date.toString())}</TableCell>
                                 {/* <TableCell>{empleado.organization_id}</TableCell> */}
                                 <TableCell>{hora.category[0].toUpperCase() + hora.category.slice(1)}</TableCell>
+                                <TableCell>{hora.category === 'proyecto' ? hora.projectName : '---'}</TableCell>
                                 <TableCell>{hora.category === 'proyecto' ? hora.taskId : '---'}</TableCell>
-                                <TableCell>{hora.category === 'proyecto' ? hora.projectId : '---'}</TableCell>
+                                <TableCell>{hora.category === 'proyecto' ? hora.taskName : '---'}</TableCell>
                                 <TableCell>{hora.hours}</TableCell>
                             </TableRow>
                         ))}
