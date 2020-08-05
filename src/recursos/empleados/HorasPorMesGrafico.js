@@ -168,7 +168,7 @@ export default (props) => {
         });
 
 // eslint-disable-next-line
-    }, [id, state]);
+    }, [id]);
 
 
 
