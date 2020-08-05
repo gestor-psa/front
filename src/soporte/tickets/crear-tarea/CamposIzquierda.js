@@ -32,7 +32,7 @@ export default ({onDataChange, register, errors}) => {
                 url={process.env.REACT_APP_URL_PROYECTOS + '/proyectos'}
                 autocompleteProps={{
                     getOptionLabel: proyecto => proyecto.nombre || '',
-                    getOptionSelected: (e1, e2) => e1.nombre === e2.nombre,
+                    getOptionSelected: (e1, e2) => e1.id === e2.id,
                     onChange: (e, v) => onDataChange({proyectoId: v && v.id})
                 }}
                 textFieldProps={{
@@ -42,7 +42,7 @@ export default ({onDataChange, register, errors}) => {
                     name: 'proyecto',
                     error: Boolean(errors.proyecto),
                     inputRef: register({required: true}),
-                    helperText: errors.descripcion && 'El proyecto es requerido'
+                    helperText: errors.proyecto && 'El proyecto es requerido'
                 }}
             />
         </div>

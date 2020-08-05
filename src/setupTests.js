@@ -7,13 +7,13 @@ import mediaQuery from "css-mediaquery";
 import {server} from 'mocks/server'
 
 
-global.console = {
-    log: jest.fn(),
-    error: console.error,
-    warn: jest.fn(), // let's ignore the warnigs :)
-    info: console.info,
-    debug: console.debug,
-};
+// global.console = {
+//     log: jest.fn(),
+//     error: console.error,
+//     warn: jest.fn(), // let's ignore the warnigs :)
+//     info: console.info,
+//     debug: console.debug,
+// };
 
 jest.setTimeout(120000);
 

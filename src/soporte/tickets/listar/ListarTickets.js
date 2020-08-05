@@ -51,7 +51,6 @@ export default () => {
                             {isMdUp && (
                                 <Fragment>
                                     <TableCell>Descripción</TableCell>
-                                    <TableCell>Responsable</TableCell>
                                 </Fragment>
                             )}
                             <TableCell>Tipo</TableCell>
@@ -72,7 +71,6 @@ export default () => {
                                     {isMdUp && (
                                         <Fragment>
                                             <TableCell>{truncate(ticket.descripcion, 45)}</TableCell>
-                                            <TableCell>{ticket.responsable}</TableCell>
                                         </Fragment>
                                     )}
                                     <TableCell>{ticket.tipo.capitalize()}</TableCell>

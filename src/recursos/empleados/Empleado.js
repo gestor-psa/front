@@ -20,7 +20,6 @@ import Modal from "@material-ui/core/Modal";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import WarningIcon from '@material-ui/icons/Warning';
 import HorasPorMesGrafico from "recursos/empleados/HorasPorMesGrafico"
-import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -236,7 +235,7 @@ export default () => {
                             </Grid>
                             :
                             <Grid item container xs alignItems="center" justify="center">
-                                <HorasPorMesGrafico/>
+                                <HorasPorMesGrafico  contrato={empleado.contract}/>
                             </Grid>
                             }
                             
@@ -257,18 +256,12 @@ export default () => {
                                 </Grid>
                             </Grid>
                             <Grid item container spacing={3} xs={6} justify="center">
-                                <Grid item xs>
-                                    <ButtonGroup variant="contained" color="secondary" aria-label="contained primary button group">
-                                        <Button color='secondary' variant='contained' to={`${url}/horascargadasgraficoalternativo`} component={Link} >
-                                            Ver horas cargadas (Post-it)
-                                        </Button>
-                                        <Button color='secondary' variant='contained' to={`${url}/horascargadasgrafico`} component={Link}>
-                                            Ver horas cargadas (barras)
-                                        </Button>
-                                    </ButtonGroup>
-                                        
+                                <Grid item >
+                                    <Button color='secondary' variant='outlined' to={`${url}/horascargadasgraficoalternativo`} component={Link} >
+                                        Ver horas cargadas
+                                    </Button>
                                 </Grid>
-                                <Grid item xs>
+                                <Grid item >
                                     <Button  color='secondary' variant='outlined' to={`${url}/cargarhora`} component={Link}>
                                         Cargar horas
                                     </Button>

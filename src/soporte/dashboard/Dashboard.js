@@ -3,7 +3,7 @@ import {Link as RouterLink} from "react-router-dom";
 import React from "react";
 import {useRouteMatch} from "react-router";
 import {makeStyles} from "@material-ui/core/styles";
-import TicketsPendientes from "soporte/dashboard/TicketsPendientes";
+// import TicketsPendientes from "soporte/dashboard/TicketsPendientes";
 import TicketsAbiertosYCerrados from "soporte/dashboard/TicketsAbiertosYCerrados";
 import MuiLink from "@material-ui/core/Link";
 
@@ -44,7 +44,7 @@ export default () => {
             </div>
             <TicketsAbiertosYCerrados/>
             <div className={classes.ticketsAcumulados}>
-                <TicketsPendientes/>
+                {/*<TicketsPendientes/>*/}
             </div>
             <div className={classes.linkCliente}>
                 <MuiLink

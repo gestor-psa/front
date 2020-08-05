@@ -19,10 +19,29 @@ export default ({ticket, onTicketChange}) => {
                 axios.get(process.env.REACT_APP_URL_SOPORTE + '/tickets/' + id),
                 axios.get(process.env.REACT_APP_URL_PROYECTOS + '/tareas',
                     {params: {ticketId: id}})
-            ]).then(([ticketRes, tareasRes]) => {
-                console.log(ticketRes.data, tareasRes.data)
-                onTicketChange({...ticketRes.data, tareas: tareasRes.data})
-            })
+            ])
+                .then(([ticketRes, tareasRes]) => {
+                    return Promise.all([
+                        ticketRes,
+                        tareasRes,
+                        ticketRes.data.responsableDni &&
+                        axios.get(process.env.REACT_APP_URL_RECURSOS + '/employees/' + ticketRes.data.responsableDni)
+                    ])
+                })
+                .then(([ticketRes, tareasRes, employeeRes]) => {
+                    console.log(ticketRes.data, tareasRes.data, employeeRes && employeeRes.data)
+                    onTicketChange({
+                        ...ticketRes.data,
+                        clienteId: ticketRes.data.cliente.id,
+                        responsable: employeeRes && employeeRes.data,
+                        responsableDni: employeeRes && employeeRes.data.dni,
+                        tareas: tareasRes.data
+                    })
+                })
+                .catch(error => {
+                    // TODO.
+                    console.log(error);
+                });
         }
     }, [ticket, onTicketChange, id]);
 
