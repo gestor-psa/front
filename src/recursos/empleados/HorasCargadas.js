@@ -16,6 +16,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 
 const useStyles = makeStyles({
@@ -104,6 +105,23 @@ export default () => {
 
     return (
         <Fragment>
+                {
+                (!horasFiltradas)?
+                <TableContainer component={Paper} className={classes.skeleton} style={{marginTop:'60px'}}>
+                    <Table className={classes.table}>
+                        <TableBody>
+                            {Array(7).fill(null).map((n, keyN) => (
+                                <TableRow key={keyN}>
+                                    {Array(5).fill(null).map((m, keyM) => (
+                                        <TableCell key={keyM}><Skeleton/></TableCell>
+                                    ))}
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                :
+                <Fragment>
                 <Grid container spacing={3} direction="row" justify="space-between" style={{marginTop:'20px'}}>
                     {/* <Grid item xs={12}>
                         <ArrowBackIcon style={{color:"1fc71f"}} fontSize="large" onClick={() => {history.push('/recursos/'+id) }}/>
@@ -127,8 +145,7 @@ export default () => {
                             <MenuItem value={'estudio'}>Estudio</MenuItem>
                             </Select>
                         </FormControl>}
-                    </Grid>
-                    
+                    </Grid>  
                 </Grid>
             <TableContainer component={Paper}>
                 <Table className={classes.table}>
@@ -158,6 +175,8 @@ export default () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            </Fragment>
+            }
         </Fragment>
     );
 }

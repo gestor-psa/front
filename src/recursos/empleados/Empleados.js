@@ -56,7 +56,7 @@ export default () => {
         axios.get(process.env.REACT_APP_URL_RECURSOS + '/employees')
             .then(res => {
                 console.log(res)
-                setEmpleados(res.data);
+                setEmpleados(res.data.reverse());
             })
             .catch(error => {
                 // TODO.
