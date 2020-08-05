@@ -28,7 +28,7 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea}) => {
     const onConfirm = (data) => {
         axios.put(process.env.REACT_APP_URL_PROYECTOS + url + "/" + id, data)
             .then((result) => {
-                history.push(`/proyectos/`+ id)
+                history.push(url + "/" + id)
                 setProyecto(data);
                 console.log(result);
             })
