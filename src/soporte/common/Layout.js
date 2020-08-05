@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import {useMediaQuery} from "@material-ui/core";
+import Volver from "soporte/common/Volver";
 
 
 const useStyles = makeStyles(theme => ({
@@ -12,17 +13,24 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.down('xs')]: {
             padding: theme.spacing(2, 2)
         }
+    },
+    tituloWrapper: {
+        display: 'flex'
+    },
+    volver: {
+        marginRight: theme.spacing(2)
     }
 }));
 
-export default ({titulo, ladoIzquierdo, ladoDerecho, fin}) => {
+export default ({titulo, ladoIzquierdo, ladoDerecho, fin, backUrl}) => {
     const classes = useStyles();
     const isMd = useMediaQuery(theme => theme.breakpoints.up('md'));
 
     return (
         <Paper className={classes.root}>
             <Grid container spacing={3}>
-                <Grid item xs={12}>
+                <Grid item xs={12} className={classes.tituloWrapper}>
+                    {backUrl && <Volver backUrl={backUrl} className={classes.volver}/>}
                     <Typography variant='h4'>{titulo}</Typography>
                 </Grid>
                 <Grid item container spacing={isMd ? 6 : 2} xs={12}>

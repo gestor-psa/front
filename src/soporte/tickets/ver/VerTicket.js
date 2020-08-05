@@ -7,9 +7,11 @@ import Tareas from "soporte/tickets/ver/tareas/Tareas";
 
 
 export default ({ticket}) => {
+
     return (
         <Layout
             titulo='Ver ticket'
+            backUrl={'/soporte/tickets'}
             ladoIzquierdo={<CamposTicket mostrar={Boolean(ticket)} {...ticket}/>}
             ladoDerecho={<Comentarios mostrar={Boolean(ticket)}/>}
             fin={<>
