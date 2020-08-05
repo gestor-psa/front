@@ -21,7 +21,7 @@ export default ({onDataChange, elemento, proyecto}) => {
 
     const getIte = () => {
         if (elemento.iteracionId && elemento.faseId) {
-            axios.get(url+"/fases/"+(fase.id)+"/iteraciones/"+elemento.iteracionId)
+            axios.get(url+"/fases/"+(fase.id || fase.codigo)+"/iteraciones/"+elemento.iteracionId)
                 .then(res => {
                     setIte(res.data);
                 })
