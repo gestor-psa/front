@@ -1,6 +1,6 @@
 import React from 'react';
-import ColoredButton from "soporte/common/ColoredButton";
 import { useHistory } from "react-router";
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 export default ({url}) => {
   const history = useHistory();
@@ -14,6 +14,6 @@ export default ({url}) => {
   };
 
   return (
-    <ColoredButton onClick={volver} variant='outlined'color='warning'> Volver</ColoredButton>
+    <ArrowBackIcon style={{color:"1fc71f", cursor:"pointer"}} fontSize="large" onClick={volver}/>
   );
 }
