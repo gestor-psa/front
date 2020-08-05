@@ -7,7 +7,7 @@ import parse from 'autosuggest-highlight/parse';
 import match from 'autosuggest-highlight/match';
 
 
-export default ({opciones = null, defaultValue={}, url = '', autocompleteProps = {}, textFieldProps = {}}) => {
+export default ({opciones = null, defaultValue = null, url = '', autocompleteProps = {}, textFieldProps = {}}) => {
     const [open, setOpen] = React.useState(false);
     const [options, setOptions] = React.useState(opciones);
     const loading = open && !options;
@@ -25,7 +25,7 @@ export default ({opciones = null, defaultValue={}, url = '', autocompleteProps =
         <Autocomplete
             {...autocompleteProps}
             defaultValue={defaultValue}
-            key={getOptionLabel(defaultValue)}
+            key={defaultValue ? getOptionLabel(defaultValue) : ''}
             open={open}
             openOnFocus
             onOpen={() => setOpen(true)}

@@ -48,24 +48,17 @@ export default ({onDataChange, register, errors, ticket = {}}) => {
                 helperText={errors.descripcion && 'La descripción es requerida'}
             />
             <SearchSelect
-                // url={process.env.REACT_APP_URL_RECURSOS + '/empleados'}
-                defaultValue={{nombre: ticket.responsable}}
-                opciones={[
-                    {
-                        "nombre": "Juan Perez",
-                        "id": 45357946
-                    }, {
-                        "nombre": "Sebastián Blázquez",
-                        "id": 39917487
-                    }, {
-                        "nombre": "Carolina Martínez",
-                        "id": 87542369
-                    }
-                ]}
+                url={process.env.REACT_APP_URL_RECURSOS + '/employees'}
+                defaultValue={ticket.responsable || null}
                 autocompleteProps={{
-                    getOptionLabel: empleado => empleado.nombre || '',
-                    getOptionSelected: (e1, e2) => e1.nombre === e2.nombre,
-                    onChange: (e, v) => onDataChange({responsable: v && v.nombre})
+                    getOptionLabel: e => `${e.name} ${e.surname}` || '',
+                    getOptionSelected: (e1, e2) => e1.dni === e2.dni,
+                    onChange: (e, responsable) => {
+                        onDataChange({
+                            responsable: responsable,
+                            responsableDni: responsable && responsable.dni
+                        })
+                    }
                 }}
                 textFieldProps={{label: 'Responsable'}}
             />

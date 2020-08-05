@@ -2,6 +2,7 @@ import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import SeleccionDeGrupo from "soporte/common/SeleccionDeGrupo";
 import Typography from "@material-ui/core/Typography";
+import SearchSelect from "soporte/common/SearchSelect";
 
 
 const useStyles = makeStyles(theme => ({
@@ -11,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({onDataChange, ticket = {}, conEstado = false}) => {
+export default ({register, errors, onDataChange, ticket = {}, conEstado = false}) => {
     const classes = useStyles();
 
     const tipos = [
@@ -53,6 +54,29 @@ export default ({onDataChange, ticket = {}, conEstado = false}) => {
 
     return (
         <div>
+            <SearchSelect
+                url={process.env.REACT_APP_URL_SOPORTE + '/clientes'}
+                defaultValue={ticket.cliente || null}
+                autocompleteProps={{
+                    getOptionLabel: c => c.nombre || '',
+                    getOptionSelected: (c1, c2) => c1.id === c2.id,
+                    onChange: (c, cliente) => {
+                        onDataChange({
+                            cliente: cliente,
+                            clienteId: cliente && cliente.id
+                        })
+                    }
+                }}
+                textFieldProps={{
+                    label: 'Cliente',
+                    // Validacion.
+                    required: true,
+                    name: 'cliente',
+                    error: Boolean(errors.cliente),
+                    inputRef: register({required: true}),
+                    helperText: errors.cliente && 'El cliente es requerido'
+                }}
+            />
             <Typography className={classes.etiquetaSeleccionDeGrupo}>
                 Tipo *
             </Typography>

@@ -62,7 +62,7 @@ export default [
                     "descripcion": "Se desea optimizar los tiempos de espera al confirmar la compra, de forma tal que tarde aproximadamente la mitad de lo que tarda hoy en día.",
                     "tipo": "mejora",
                     "severidad": "media",
-                    "responsable": "Agustín Ramirez",
+                    "responsableDni": 39917487,
                     "estado": "iniciado",
                     "fechaDeCreacion": "2020-06-04T18:19:29.472Z",
                     "fechaDeActualizacion": null,
@@ -80,7 +80,7 @@ export default [
                     "descripcion": "Se desea optimizar los tiempos de espera al confirmar la compra, de forma tal que tarde aproximadamente la mitad de lo que tarda hoy en día.",
                     "tipo": "mejora",
                     "severidad": "media",
-                    "responsable": "Agustín Ramirez",
+                    "responsableDni": 39917487,
                     "estado": "iniciado",
                     "fechaDeCreacion": "2020-06-04T18:19:29.472Z",
                     "fechaDeActualizacion": null,
@@ -98,7 +98,7 @@ export default [
                     "descripcion": "Se desea optimizar los tiempos de espera al confirmar la compra, de forma tal que tarde aproximadamente la mitad de lo que tarda hoy en día.",
                     "tipo": "mejora",
                     "severidad": "media",
-                    "responsable": "Agustín Ramirez",
+                    "responsableDni": 39917487,
                     "estado": "iniciado",
                     "fechaDeCreacion": "2020-06-04T18:19:29.472Z",
                     "fechaDeActualizacion": null,
@@ -113,25 +113,32 @@ export default [
                 ctx.status(200)
             )
         }),
-    // rest.get(process.env.REACT_APP_URL_RECURSOS + '/empleados',
-    //     (req, res, ctx) => {
-    //         return res(
-    //             ctx.delay(1000),
-    //             ctx.status(200),
-    //             ctx.json([
-    //                 {
-    //                     "nombre": "Juan Perez",
-    //                     "id": 45357946
-    //                 }, {
-    //                     "nombre": "Sebastián Blázquez",
-    //                     "id": 39917487
-    //                 }, {
-    //                     "nombre": "Carolina Martínez",
-    //                     "id": 87542369
-    //                 }
-    //             ]),
-    //         )
-    //     }),
+    rest.get(process.env.REACT_APP_URL_RECURSOS + '/employees',
+        (req, res, ctx) => {
+            return res(
+                ctx.delay(1000),
+                ctx.status(200),
+                ctx.json([
+                    {
+                        "name": "Sebastián",
+                        "surname": "Blázquez",
+                        "id": 39917487
+                    }
+                ]),
+            )
+        }),
+    rest.get(process.env.REACT_APP_URL_RECURSOS + '/employees/39917487',
+        (req, res, ctx) => {
+            return res(
+                ctx.delay(1000),
+                ctx.status(200),
+                ctx.json({
+                    "name": "Sebastián",
+                    "surname": "Blázquez",
+                    "id": 39917487
+                }),
+            )
+        }),
     rest.get(process.env.REACT_APP_URL_SOPORTE + '/clientes',
         (req, res, ctx) => {
             return res(
@@ -283,20 +290,23 @@ export default [
         (req, res, ctx) => {
             const min = 0
             const max = 5
+
+            const result = {};
+            Array.from(Array(30)).map((v, n) => ({
+                dia: moment().subtract(n, 'days').format("YYYY-MM-DD"),
+                abiertos: Math.round(Math.random() * (max - min) + min),
+                cerrados: Math.round(Math.random() * (max - min) + min)
+            })).forEach(({dia, abiertos, cerrados}) => {
+                result[dia] = [abiertos, cerrados]
+            })
+
             return res(
                 // ctx.delay(1000),
                 ctx.status(200),
-                ctx.json(
-                    [...Array(30).keys()]
-                        .map(n => ({
-                            dia: moment().subtract(n, 'days').format("YYYY-MM-DD"),
-                            cantidadAbiertos: Math.round(Math.random() * (max - min) + min),
-                            cantidadCerrados: Math.round(Math.random() * (max - min) + min)
-                        }))
-                ),
+                ctx.json(result),
             )
         }),
-    rest.get(process.env.REACT_APP_URL_SOPORTE + '/reportes/ticketsAcumuladosPorDia',
+    rest.get(process.env.REACT_APP_URL_SOPORTE + '/reportes/ticketsPendientes',
         (req, res, ctx) => {
             const min = -2
             const max = 2

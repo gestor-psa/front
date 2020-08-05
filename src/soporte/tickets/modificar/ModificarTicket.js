@@ -22,6 +22,7 @@ export default ({ticket, onTicketChange}) => {
 
     const onConfirmar = () => {
         setEsperando(true);
+        console.log(data)
         axios.put(process.env.REACT_APP_URL_SOPORTE + '/tickets/' + id, data)
             .then((result) => {
                 onTicketChange({...ticket, ...result.data});
@@ -46,9 +47,11 @@ export default ({ticket, onTicketChange}) => {
                 />}
             ladoDerecho={
                 <CamposDeSeleccion
-                    conEstado={true}
                     ticket={ticket}
+                    errors={errors}
+                    register={register}
                     onDataChange={onDataChange}
+                    conEstado={true}
                 />}
             fin={
                 <Acciones

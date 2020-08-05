@@ -8,7 +8,7 @@ export default (
     {
         mostrar, id, nombre, descripcion, responsable, tipo,
         severidad, estado, fechaDeCreacion, fechaDeActualizacion,
-        fechaDeCierre
+        fechaDeCierre, cliente
     }) => {
 
     return (
@@ -32,7 +32,12 @@ export default (
             <EsqueletoTexto
                 etiqueta='Responsable'
                 mostrar={mostrar}
-                valor={responsable}
+                valor={responsable && `${responsable.name} ${responsable.surname}`}
+            />
+            <EsqueletoTexto
+                etiqueta='Cliente'
+                mostrar={mostrar}
+                valor={cliente && cliente.nombre}
             />
             <EsqueletoTexto
                 etiqueta='Tipo'
