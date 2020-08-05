@@ -1,5 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
-import axios from 'axios';
+import React, { useEffect, Fragment } from 'react';
 import Typography from "@material-ui/core/Typography";
 
 export default ({mapf, elems, updateElems}) => {

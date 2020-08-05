@@ -32,7 +32,7 @@ export default (
             setIte(def);
         }
 
-    }, [responsableDni, faseId, iteracionId]);
+    }, [responsableDni, faseId, iteracionId, def, isTarea]);
 
     const getDays = (fi, ff) => {
         const date1 = new Date(fi);
