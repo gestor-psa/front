@@ -74,7 +74,7 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
             
             <AnimatedRoute path={`${path}/:id(\\d+)`}>
                 <Grid>
-                <VerElemento elemento = {elem} setProyecto = {setElem} url = {url} updateElems = {updateElems} 
+                <VerElemento type = {elemType} elemento = {elem} setProyecto = {setElem} url = {url} updateElems = {updateElems} 
                 isFase = {isFase} isTarea = {isTarea} isIteracion = {isIteracion} />
                 </Grid>
             </AnimatedRoute>

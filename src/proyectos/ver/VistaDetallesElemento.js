@@ -6,7 +6,7 @@ import Layout from "proyectos/common/Layout";
 
 export default (
     {
-        esProyecto, faseId, iteracionId, isTarea,
+        esProyecto, faseId, iteracionId, isTarea, type,
         mostrar, nombre, descripcion, responsableDni, estado, fechaInicio, fechaFin
     }) => {
     const [responsable, setResponsable] = React.useState(false);
@@ -22,17 +22,17 @@ export default (
             setResponsable(false)
         }
 
-        if (faseId && iteracionId){
+        if (isTarea && faseId && iteracionId){
             axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/' + isTarea.id + "/fases/" + faseId)
-            .then(res =>{ setFase(res.data);})
+            .then(res =>{ setFase(res.data);});
             axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/' + isTarea.id + "/fases/" + faseId + "/iteraciones/"+iteracionId)
-            .then(res =>{ setIte(res.data);})
+            .then(res =>{ setIte(res.data);});
         }else {
-            setFase(def);
-            setIte(def);
+            setFase({nombre : "Sin asignar"});
+            setIte({nombre : "Sin asignar"});
         }
 
-    }, [responsableDni, faseId, iteracionId, def, isTarea]);
+    }, [responsableDni, faseId, iteracionId, isTarea]);
 
     const getDays = (fi, ff) => {
         const date1 = new Date(fi);
@@ -45,7 +45,7 @@ export default (
 
     return (
         <Layout
-               titulo = {nombre && nombre.capitalize()}
+               titulo = {nombre && (type + " - " + nombre.capitalize())}
                 ladoIzquierdo = { 
                 <Fragment>  
                     {descripcion && <EsqueletoMultilinea

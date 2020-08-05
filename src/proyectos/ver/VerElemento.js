@@ -9,7 +9,7 @@ import axios from "axios";
 import BotonVolver from 'proyectos/common/BotonVolver'
 import Tickets from "proyectos/ver/Tickets"
 
-export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updateElems}) => {
+export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updateElems, type}) => {
     const { id } = useParams();
     const { path } = useRouteMatch() || {};
     const history = useHistory();
@@ -43,7 +43,7 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updat
         <AnimatedSwitch>
             <AnimatedRoute exact path={path}>
                 <BotonVolver url = {url}/>
-                <Details isTarea = {isTarea} esProyecto = {isProyecto} mostrar={Boolean(elemento)} {...elemento}/>
+                <Details type = {type} isTarea = {isTarea} esProyecto = {isProyecto} mostrar={Boolean(elemento)} {...elemento}/>
                 {isTarea && <Tickets tickets = {elemento.tickets} mostrar = {Boolean(elemento)}></Tickets>}
                 <AccionesProyecto mostrar = {true} verFases = {isProyecto}
                 updateElems = {updateElems}  

@@ -33,7 +33,7 @@ export default ({mostrar, isFase, isTarea, isIteracion, updateElems}) => {
     const onEliminar = () => {
         axios.delete(process.env.REACT_APP_URL_PROYECTOS + url)
             .then((result) => {
-                updateElems();
+               // updateElems();
                 history.push(url.substring(0, url.length - 1 - (id.toString()).length ));
             })
             .catch(error => {
