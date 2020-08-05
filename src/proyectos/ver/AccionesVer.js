@@ -25,8 +25,8 @@ export default ({mostrar, isFase, isTarea, isIteracion, updateElems}) => {
     const onNotEliminar = () => setOpenEliminar(false);
     const history = useHistory();
     const verFases = (!isTarea && !isFase && !isIteracion);
-    const verTareas = (!isTarea && !isFase);
-    const verIteraciones = isFase;
+    const verTareas = ((!isTarea && !isFase) || isIteracion);
+    const verIteraciones = isFase && !isIteracion;
 
     const onModificar = () => history.push(`${url}/modificacion`)
 

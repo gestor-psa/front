@@ -31,10 +31,10 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
         axios.get(process.env.REACT_APP_URL_PROYECTOS + url)
             .then(res => {
                 console.log(res);
-                res.data.sort((a, b) =>{ 
+                /*res.data.sort((a, b) =>{ 
                     var aid = a.id || a.codigo
                     var bid = b.id || b.codigo
-                    return (aid < bid && a) || b })
+                    return (aid > bid && a) || b })*/
                 setElems(res.data);
             })
             .catch(error => {
