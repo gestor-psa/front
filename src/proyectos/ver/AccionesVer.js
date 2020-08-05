@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({mostrar, isFase, isTarea, isIteracion}) => {
+export default ({mostrar, isFase, isTarea, isIteracion, updateElems}) => {
     const { id } = useParams();
     const classes = useStyles();
     const {url} = useRouteMatch() || {};
@@ -31,18 +31,16 @@ export default ({mostrar, isFase, isTarea, isIteracion}) => {
     const onModificar = () => history.push(`${url}/modificacion`)
 
     const onEliminar = () => {
-        //TODO hacer que la baja sea logica
-        axios.delete(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/' + id)
+        axios.delete(process.env.REACT_APP_URL_PROYECTOS + url)
             .then((result) => {
-               // history.push('/proyectos')
-                //setMensaje('proyecto dado de baja');
-                //setMostrar(true);
+                updateElems();
+                history.push(url.substring(0, url.length - 1 - (id.toString()).length ));
             })
             .catch(error => {
                 // TODO.
                 console.log(error.response);
             });
-       history.push(`/proyectos`);
+       
     }
 
     const onFases = () => history.push(`${url}/fases`)
@@ -56,7 +54,7 @@ export default ({mostrar, isFase, isTarea, isIteracion}) => {
     return (
         <div className={classes.root}>
             <ConfirmarTooltip
-                mensaje='¿Dar de baja proyecto?'
+                mensaje='¿Dar de baja?'
                 open={openEliminar}
                 onCancelar={onNotEliminar}
                 onConfirmar={onEliminar}

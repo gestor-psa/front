@@ -69,7 +69,7 @@ export default withWidth()(({tickets, mostrar, width}) => {
                                 </Grid>
                             ) :
                             <Grid item xs={10}>
-                                <Typography>Esta tarea no contiene tickets asociados.</Typography>
+                                <Typography>Esta tarea no posee tickets asociados.</Typography>
                             </Grid>
                     )}
                 </Grid>

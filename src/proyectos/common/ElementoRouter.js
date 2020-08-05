@@ -18,12 +18,29 @@ import Layout from "proyectos/common/Layout"
 export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, isFase, isTarea, isIteracion, urlReturn}) => {
   const { path } = useRouteMatch() || {};
   const history = useHistory();
-  const isProyecto = !isFase && !isTarea && !isIteracion;
+  const isProyecto = (!isFase && !isTarea && !isIteracion);
   const titulo = prefix+" "+elemType
+
+  const [elementos, setElems] = React.useState({});
 
   const mapProyecto = (proyecto) => (
     <Proyecto proyecto={proyecto} key={proyecto.id || proyecto.codigo} showEncargado = {isTarea || isProyecto}/>
   )
+
+  const updateElems = () => {
+        axios.get(process.env.REACT_APP_URL_PROYECTOS + url)
+            .then(res => {
+                console.log(res);
+                res.data.sort((a, b) =>{ 
+                    var aid = a.id || a.codigo
+                    var bid = b.id || b.codigo
+                    return (aid < bid && a) || b })
+                setElems(res.data);
+            })
+            .catch(error => {
+                // TODO.
+            })
+    }
 
   const onConfirm = (data) => {
     axios.post(process.env.REACT_APP_URL_PROYECTOS + url, data)
@@ -47,17 +64,17 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
                 <Layout
                     titulo = {elemType+suffix}
                     ladoIzquierdo = {ap} 
-                    fin ={ <VistaListado mapf = {mapProyecto} url = {url} />}
+                    fin ={ <VistaListado elems = {elementos} updateElems = {updateElems}  mapf = {mapProyecto} />}
                 />
             </AnimatedRoute>
 
             <AnimatedRoute path={`${path}/crear`}>
-                <CrearProyecto titulo = {titulo} onConfirm = {onConfirm} />
+                <CrearProyecto titulo = {titulo} onConfirm = {onConfirm} isTarea = {isTarea} isProyecto = {isProyecto} />
             </AnimatedRoute>
             
             <AnimatedRoute path={`${path}/:id(\\d+)`}>
                 <Grid>
-                <VerElemento elemento = {elem} setProyecto = {setElem} url = {url}  
+                <VerElemento elemento = {elem} setProyecto = {setElem} url = {url} updateElems = {updateElems} 
                 isFase = {isFase} isTarea = {isTarea} isIteracion = {isIteracion} />
                 </Grid>
             </AnimatedRoute>

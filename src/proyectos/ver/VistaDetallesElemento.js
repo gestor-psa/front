@@ -1,23 +1,38 @@
 import React, {Fragment} from "react";
 import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 import EsqueletoMultilinea from "soporte/common/EsqueletoMultilinea";
-import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import Layout from "proyectos/common/Layout";
 
 export default (
     {
-        esProyecto, faseId, iteracionId,
+        esProyecto, faseId, iteracionId, isTarea,
         mostrar, nombre, descripcion, responsableDni, estado, fechaInicio, fechaFin
     }) => {
     const [responsable, setResponsable] = React.useState(false);
-    console.log(faseId, iteracionId)
+    const def = {nombre : "Sin asignar"};
+    const [fase, setFase] = React.useState(def);
+    const [ite, setIte] = React.useState(def);
+    
     React.useEffect(() => {
         if (responsableDni) {
             axios.get(process.env.REACT_APP_URL_RECURSOS + '/employees/' + responsableDni)
                 .then(res =>{ setResponsable(res.data);})
+        } else {
+            setResponsable(false)
         }
-    }, [responsableDni]);
+
+        if (faseId && iteracionId){
+            axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/' + isTarea.id + "/fases/" + faseId)
+            .then(res =>{ setFase(res.data);})
+            axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/' + isTarea.id + "/fases/" + faseId + "/iteraciones/"+iteracionId)
+            .then(res =>{ setIte(res.data);})
+        }else {
+            setFase(def);
+            setIte(def);
+        }
+
+    }, [responsableDni, faseId, iteracionId]);
 
     const getDays = (fi, ff) => {
         const date1 = new Date(fi);
@@ -30,7 +45,7 @@ export default (
 
     return (
         <Layout
-               titulo = {<Typography variant='h4'>{nombre && nombre.capitalize()}</Typography>}
+               titulo = {nombre && nombre.capitalize()}
                 ladoIzquierdo = { 
                 <Fragment>  
                     {descripcion && <EsqueletoMultilinea
@@ -49,6 +64,16 @@ export default (
                         mostrar={mostrar}
                         valor={estado && estado.capitalize()}
                     />}
+                     {isTarea && <EsqueletoTexto
+                        etiqueta='Fase'
+                        mostrar={mostrar}
+                        valor={fase.nombre.capitalize()}
+                    />}
+                    {isTarea && <EsqueletoTexto
+                        etiqueta='Iteración'
+                        mostrar={mostrar}
+                        valor={ite.nombre.capitalize()}
+                    />}
                 </Fragment> 
                 }
                 ladoDerecho = {
@@ -64,7 +89,7 @@ export default (
                         valor={fechaFin}
                     />}
                     {duracion && <EsqueletoTexto
-                        etiqueta='Duracion'
+                        etiqueta='Duración'
                         mostrar={mostrar}
                         valor= {getDays(fechaInicio, fechaFin) + " dias"}
                     />}

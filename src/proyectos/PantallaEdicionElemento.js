@@ -46,7 +46,7 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
         console.log(data);
         onConfirm(data);
      }
-
+    
     return (
         <Layout
             titulo={titulo}
