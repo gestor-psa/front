@@ -10,11 +10,13 @@ import axios from 'axios';
 import {useHistory, useRouteMatch} from "react-router";
 import EsqueletoTabla from "soporte/common/EsqueletoTabla";
 import Loading from "soporte/common/Loading";
-import {useMediaQuery} from "@material-ui/core";
+import {useMediaQuery, useTheme} from "@material-ui/core";
+import TablePagination from "@material-ui/core/TablePagination";
 
 
 export default () => {
     const [tickets, setTickets] = useState();
+    const [pagina, setPagina] = useState(0);
     const {url} = useRouteMatch() || {};
     const history = useHistory();
     const isMdUp = useMediaQuery(theme => theme.breakpoints.up('md'));
@@ -41,8 +43,15 @@ export default () => {
         history.push(`${url}/${id}`);
     }
 
+    const theme = useTheme();
+    const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const ticketsNoCerrados = tickets && tickets.filter(ticket => ticket.estado !== 'cerrado')
+    const filasPorPagina = smDown ? 5 : 12
+    const filasVacias = ticketsNoCerrados && filasPorPagina - Math.min(filasPorPagina, ticketsNoCerrados.length - pagina * filasPorPagina);
+
     return (
-        <Loading mostrar={tickets} esqueleto={<EsqueletoTabla rows={6} columns={isMdUp ? 6 : 3}/>}>
+        <Loading mostrar={ticketsNoCerrados} esqueleto={<EsqueletoTabla rows={6} columns={isMdUp ? 6 : 3}/>}>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>
@@ -59,8 +68,8 @@ export default () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {tickets && tickets
-                            .filter(ticket => ticket.estado !== 'cerrado')
+                        {ticketsNoCerrados && ticketsNoCerrados
+                            .slice(pagina * filasPorPagina, pagina * filasPorPagina + filasPorPagina)
                             .map(ticket => (
                                 <TableRow
                                     hover
@@ -78,6 +87,18 @@ export default () => {
                                     {isMdUp && <TableCell>{ticket.estado.capitalize()}</TableCell>}
                                 </TableRow>
                             ))}
+                        {filasVacias > 0 && (
+                            <TableRow style={{ height: 53 * filasVacias }}>
+                                <TableCell colSpan={5} />
+                            </TableRow>
+                        )}
+                        {ticketsNoCerrados && <TableRow><TablePagination
+                            rowsPerPageOptions={[filasPorPagina]}
+                            count={ticketsNoCerrados.length}
+                            rowsPerPage={filasPorPagina}
+                            page={pagina}
+                            onChangePage={(e,  pagina) => setPagina(pagina)}
+                        /></TableRow>}
                     </TableBody>
                 </Table>
             </TableContainer>
