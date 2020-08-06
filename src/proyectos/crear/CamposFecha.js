@@ -9,7 +9,7 @@ export default ({proyecto = {}, onChange = () => null, errors, register}) => {
     return (
         <Grid >
             <Fecha errors = {errors} register = {register} tag = "fechaInicio" name = "Fecha de Inicio" onChange = {onChange} defvalue = {proyecto.fechaInicio} />         
-            <Fecha tag = "fechaFin" name = "Fecha de Fin" onChange = {onChange} defvalue = {proyecto.fechaFin} />
+            <Fecha errors = {errors} register = {register} tag = "fechaFin" name = "Fecha de Fin" onChange = {onChange} defvalue = {proyecto.fechaFin} />
         </Grid>
     )
 }
