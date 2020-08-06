@@ -1,7 +1,8 @@
 import {rest} from "msw";
 import moment from "moment";
 
-export default [
+export default []
+export const mocks = [
     rest.get(process.env.REACT_APP_URL_SOPORTE + '/tickets',
         (req, res, ctx) => {
             return res(

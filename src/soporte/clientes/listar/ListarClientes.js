@@ -13,6 +13,7 @@ import Loading from "soporte/common/Loading";
 import {makeStyles} from "@material-ui/core/styles";
 import {Hidden, useMediaQuery} from "@material-ui/core";
 import Fecha from "soporte/common/Fecha";
+import TablePagination from "@material-ui/core/TablePagination";
 
 
 const useStyles = makeStyles(theme => ({
@@ -25,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
     const [clientes, setClientes] = useState();
+    const [pagina, setPagina] = useState(0);
     const {url} = useRouteMatch() || {};
     const history = useHistory();
     const classes = useStyles();
@@ -42,9 +44,13 @@ export default () => {
     const handleRowClick = (id) => history.push(`${url}/${id}`);
     const isSmDown = useMediaQuery(theme => theme.breakpoints.down('sm'));
 
+    const clientesActivos = clientes && clientes.filter(ticket => ticket.estado === 'activo')
+    const filasPorPagina = isSmDown ? 5 : 12
+    const filasVacias = clientesActivos && filasPorPagina - Math.min(filasPorPagina, clientesActivos.length - pagina * filasPorPagina);
+
     return (
         <div className={classes.root}>
-            <Loading mostrar={clientes} esqueleto={<EsqueletoTabla rows={6} columns={isSmDown ? 3 : 5}/>}>
+            <Loading mostrar={clientes} esqueleto={<EsqueletoTabla rows={filasPorPagina + 2} columns={isSmDown ? 3 : 5}/>}>
                 <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
@@ -60,6 +66,7 @@ export default () => {
                         </TableHead>
                         <TableBody>
                             {clientes && clientes
+                                .slice(pagina * filasPorPagina, pagina * filasPorPagina + filasPorPagina)
                                 .map(cliente => (
                                     <TableRow
                                         hover
@@ -79,6 +86,18 @@ export default () => {
                                         </TableCell>
                                     </TableRow>
                                 ))}
+                            {filasVacias > 0 && (
+                                <TableRow style={{ height: 53 * filasVacias }}>
+                                    <TableCell colSpan={5} />
+                                </TableRow>
+                            )}
+                            {clientesActivos && <TableRow><TablePagination
+                                rowsPerPageOptions={[filasPorPagina]}
+                                count={clientesActivos.length}
+                                rowsPerPage={filasPorPagina}
+                                page={pagina}
+                                onChangePage={(e,  pagina) => setPagina(pagina)}
+                            /></TableRow>}
                         </TableBody>
                     </Table>
                 </TableContainer>

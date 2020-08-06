@@ -10,6 +10,7 @@ export default ({cliente}) => {
     return (
         <Layout
             titulo='Ver cliente'
+            backUrl={'/soporte/clientes'}
             ladoIzquierdo={<DatosPersonales mostrar={Boolean(cliente)} {...cliente}/>}
             ladoDerecho={<DatosInternos mostrar={Boolean(cliente)} {...cliente}/>}
             fin={<Acciones mostrar={Boolean(cliente)}/>}
