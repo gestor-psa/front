@@ -3,7 +3,7 @@ import SeleccionDeGrupo from "proyectos/common/SeleccionDeGrupo";
 
 
 
-export default ({onDataChange, proyecto, mostrarAsignacion, isPrioridad, titulo}) => {
+export default ({onDataChange, proyecto, mostrarAsignacion, isPrioridad, titulo, errors, register}) => {
    
     console.log(mostrarAsignacion);
     const estados = [
@@ -46,6 +46,8 @@ export default ({onDataChange, proyecto, mostrarAsignacion, isPrioridad, titulo}
     return (
         <div>
             <SeleccionDeGrupo
+                errors = {errors}
+                register = {register}
                 titulo = {titulo}
                 opciones={(!isPrioridad && estados) || prioridades}
                 key={(!isPrioridad && proyecto.estado) || proyecto.prioridad}

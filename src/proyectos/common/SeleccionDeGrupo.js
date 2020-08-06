@@ -15,17 +15,23 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default ({opciones, seleccionPorDefecto, onChange = () => null, titulo}) => {
+export default ({opciones, seleccionPorDefecto, onChange = () => null, titulo, errors, register}) => {
     const [seleccionado, setSeleccionado] = useState(seleccionPorDefecto || opciones[0].valor);
     const classes = useStyles();
    
     return (
         <FormControl className = {classes.formControl}>
         <InputLabel > {titulo || "Estado*"}</InputLabel>
-        <Select color="secondary" size={"small"} value = {seleccionPorDefecto || null}>
+        <Select color="secondary" size={"small"} value = {seleccionPorDefecto || null}
+           required
+           error={errors && Boolean(errors.nombre)}
+           inputRef={register && register({required: true})}
+           helperText={errors && errors.nombre && 'Requerido'}
+        >
             {opciones.map(({etiqueta, valor}) => (
                     <MenuItem
                         value={valor}
+                        error={Boolean(errors.nombre)}
                         variant={seleccionado === valor ? 'contained' : 'outlined'}
                         onClick={() => {
                             setSeleccionado(valor)

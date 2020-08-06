@@ -14,14 +14,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DatePickers({tag ,name, defvalue, onChange}) {
+export default function DatePickers({tag ,name, defvalue, onChange, errors, register}) {
   const classes = useStyles();
-
+  
   const [val, setValue] = React.useState();
 
   return (
     <form className={classes.container} noValidate>
       <TextField
+        required = {errors}
+        error={errors && Boolean(errors.nombre)}
+        inputRef={register && register({required: true})}
+        helperText={errors && errors.nombre && 'Requerido'}
         id="date"
         label= {name}
         type="date"

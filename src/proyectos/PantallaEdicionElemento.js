@@ -46,7 +46,7 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
         console.log(data);
         onConfirm(data);
      }
-    
+     console.log(errors, register)
     return (
         <Layout
             titulo={titulo}
@@ -73,8 +73,6 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
                         proyecto = {data}
                         isPrioridad = {isTarea}
                         onDataChange={onDataChange}
-                        errors={errors}
-                        register={register}
                         mostrarAsignacion = {isTarea}
 
                     />}
@@ -83,8 +81,9 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
                     register={register}
                     onChange = {(e) => {
                         const newData = {...data, ...e};
-                        if (getDays(newData.fechaInicio, newData.fechaFin) >= 0) {
-                            onDataChange(e);
+                        const days = getDays(newData.fechaInicio, newData.fechaFin)
+                        if (days >= 0) {
+                            onDataChange({...e,...{duracion: days}});
                             return true;
                         }
                     }}/>
