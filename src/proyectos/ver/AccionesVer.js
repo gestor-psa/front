@@ -107,7 +107,7 @@ export default ({mostrar, isFase, isTarea, isIteracion, updateElems, elem}) => {
             >
                 Modificar
             </Button>
-            {isTarea && elem.responsableDni && elem.responsableDni != 0 && 
+            {isTarea && elem.responsableDni && elem.responsableDni !== 0 && 
             <Button
                 disabled={!mostrar}
                 color="secondary"
