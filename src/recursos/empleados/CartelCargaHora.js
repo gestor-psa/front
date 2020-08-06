@@ -89,7 +89,9 @@ export default (props) => {
             hora.taskId = 1;
             hora.projectId = 1;
         }
-        if (hora.hours <= 0 || hora.hours+horasCargadas > 24){
+        if (hora.hours <= 0 || hora.hours+horasCargadas[0] > 24){
+            console.log(hora.hours);
+            console.log(horasCargadas);
             return;
         }
         console.log(hora);
