@@ -14,6 +14,7 @@ export default ({opciones = null, defaultValue, url = '', autocompleteProps = {}
 
     React.useEffect(() => {
         if (!opciones && loading) {
+            console.log(1);
             axios.get(url)
                 .then(res => {
                     console.log(res.data);

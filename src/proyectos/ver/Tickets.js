@@ -41,7 +41,7 @@ export default withWidth()(({tickets, mostrar, width}) => {
                     setTix(result);
                 })
                 .catch(error => {
-                    // TODO.
+                    console.log(error.response);
                 })
         }
             

@@ -28,7 +28,7 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
                 setData(res.data);
             })
             .catch(error => {
-                // TODO.
+                console.log(error.response);
             })
         }
     }, [url]);
@@ -68,6 +68,16 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
                         mostrarAsignacion = {isTarea}
 
                     />
+                    {isTarea && <CamposDeSeleccion
+                        titulo = {"Prioridad*"}
+                        proyecto = {data}
+                        isPrioridad = {isTarea}
+                        onDataChange={onDataChange}
+                        errors={errors}
+                        register={register}
+                        mostrarAsignacion = {isTarea}
+
+                    />}
                     <CamposFecha proyecto = {elemento} 
                     errors={errors}
                     register={register}
