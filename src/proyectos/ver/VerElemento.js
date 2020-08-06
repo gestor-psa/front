@@ -21,7 +21,7 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updat
     useEffect(() => {
         axios.get(process.env.REACT_APP_URL_PROYECTOS + url + "/" + id)
             .then(res => {
-                console.log(res.data)
+                console.log(res.data);
                 setProyecto(res.data);
             })
             .catch(error => {
@@ -32,14 +32,15 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updat
     const onConfirm = (data) => {
         axios.put(process.env.REACT_APP_URL_PROYECTOS + url + "/" + id, data)
             .then((result) => {
+                updateElems();
                 history.push(url + "/" + id)
                 setProyecto(data);
-                console.log(result);
             })
             .catch(error => {
                 // TODO.
             console.log(error.response);
         });
+        updateElems();
       };
 
     return (
@@ -60,6 +61,7 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updat
                 <EditarElemento onConfirm = {onConfirm} titulo = "Modificar detalles" 
                     initv = {{fase : fase, iteracion : iteracion, responsable : responsable}}
                     url = {url + "/" + id} 
+                    //updateElems = {updateElems}  
                     isProyecto = {isProyecto}
                     isTarea = {isTarea} 
                     isIteracion = {isIteracion}

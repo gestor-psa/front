@@ -15,7 +15,7 @@ import Grid from '@material-ui/core/Grid';
 import BotonVolver from 'proyectos/common/BotonVolver'
 import Layout from "proyectos/common/Layout"
 
-export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, isFase, isTarea, isIteracion, urlReturn, id}) => {
+export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, isFase, isTarea, isIteracion, urlReturn}) => {
   const { path } = useRouteMatch() || {};
   const history = useHistory();
   const isProyecto = (!isFase && !isTarea && !isIteracion);
@@ -31,7 +31,7 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
   const mapTareas = (proyecto) => <Proyecto url = {"/proyectos/"+isIteracion.id+"/tareas"} 
   proyecto={proyecto} key={proyecto.id || proyecto.codigo} showEncargado = {isTarea || isProyecto}/>
 
-  const updateElems = (useUrl, f) => {
+  const updateElems = (useUrl, f,) => {
         axios.get(process.env.REACT_APP_URL_PROYECTOS + (useUrl || url))
             .then(res => {
                 setElems(res.data.filter( (e) => {return (!f || f(e)) && (!e.estado || e.estado !== "cancelado")} ));
@@ -44,6 +44,7 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
   const onConfirm = (data) => {
     axios.post(process.env.REACT_APP_URL_PROYECTOS + url, data)
         .then((result) => {
+          updateElems();
             history.push(url + "/" + result.data.id)
             console.log(result);
         })

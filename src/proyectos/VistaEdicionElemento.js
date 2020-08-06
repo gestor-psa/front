@@ -53,7 +53,8 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem,
                     errors={errors}
                     register={register}
                     onDataChange={onDataChange}
-                    mostrarEncargado = {(isProyecto || isTarea) && initv}
+                    mostrarEncargado = {isProyecto || isTarea}
+                    encargado = {initv && initv.responsable}
                 />}
             ladoDerecho={
                 <Grid >
@@ -69,6 +70,8 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem,
                         titulo = {"Prioridad*"}
                         proyecto = {data}
                         isPrioridad = {isTarea}
+                        errors={errors}
+                        register={register}
                         onDataChange={onDataChange}
                         mostrarAsignacion = {isTarea}
 

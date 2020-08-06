@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({onDataChange, register, errors, mostrarEncargado, proyecto = {}}) => {
+export default ({onDataChange, register, errors, mostrarEncargado, encargado, proyecto = {}}) => {
     const classes = useStyles();
     const url = process.env.REACT_APP_URL_RECURSOS + '/employees';
 
@@ -47,7 +47,7 @@ export default ({onDataChange, register, errors, mostrarEncargado, proyecto = {}
             />
             {mostrarEncargado && <SearchSelect
                 url={url}
-                defaultValue={mostrarEncargado.encargado}
+                defaultValue={encargado}
                 autocompleteProps={{
                     getOptionLabel: empleado => (empleado.name+' ' + empleado.surname),
                     onChange: (e, v) => onDataChange({responsableDni: v.dni})

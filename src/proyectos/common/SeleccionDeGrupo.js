@@ -23,7 +23,7 @@ export default ({opciones, seleccionPorDefecto, onChange = () => null, titulo, e
         <FormControl className = {classes.formControl}>
         <InputLabel > {titulo || "Estado*"}</InputLabel>
         <Select color="secondary" size={"small"} value = {seleccionPorDefecto || null}
-           required
+           required = {errors}
            error={errors && Boolean(errors.nombre)}
            inputRef={register && register({required: true})}
            helperText={errors && errors.nombre && 'Requerido'}
