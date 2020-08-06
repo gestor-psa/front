@@ -136,7 +136,7 @@ export default () => {
                                         customInput={
                                             <TextField 
                                                 className={classes.campo}
-                                                label='Fecha de nacimiento'
+                                                label='Fecha nacimiento'
                                                 onChange={(e) => empleado.date_birth = e.target.value}
                                                 error={Boolean(errors.date_birth)}
                                                 inputRef={register({required: true})}
@@ -167,7 +167,7 @@ export default () => {
                                         customInput={
                                             <TextField 
                                                 className={classes.campo}
-                                                label='Fecha de contratación'
+                                                label='Fecha contratación'
                                                 onChange={(e) => {empleado.date_hire = parseDate(e.target.value)}}
                                                 error={Boolean(errors.date_hire)}
                                                 inputRef={register({required: true})}
