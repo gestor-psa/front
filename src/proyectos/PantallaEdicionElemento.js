@@ -18,7 +18,7 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
     const [esperando, setEsperando] = useState(false);
     const onDataChange = (e) => setData({...data, ...e});
     
-    console.log(url)
+    
 
     useEffect(() => {
         if (url) {
@@ -63,10 +63,15 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
                     <CamposDeSeleccion
                         proyecto = {data}
                         onDataChange={onDataChange}
+                        errors={errors}
+                        register={register}
                         mostrarAsignacion = {isTarea}
 
                     />
-                    <CamposFecha proyecto = {elemento} onChange = {(e) => {
+                    <CamposFecha proyecto = {elemento} 
+                    errors={errors}
+                    register={register}
+                    onChange = {(e) => {
                         const newData = {...data, ...e};
                         if (getDays(newData.fechaInicio, newData.fechaFin) >= 0) {
                             onDataChange(e);

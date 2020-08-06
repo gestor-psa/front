@@ -21,7 +21,7 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
   const isProyecto = (!isFase && !isTarea && !isIteracion);
   const titulo = prefix+" "+elemType
 
-  const [elementos, setElems] = React.useState({});
+  const [elementos, setElems] = React.useState();
 
   const mapProyecto = (proyecto) => (
     <Proyecto proyecto={proyecto} key={proyecto.id || proyecto.codigo} showEncargado = {isTarea || isProyecto}/>
