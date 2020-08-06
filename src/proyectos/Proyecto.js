@@ -20,7 +20,7 @@ export default (props) => {
     const responsableDni = props.proyecto.responsableDni
     const [responsable, setResponsable] = useState();
 
-    const pushToOverview = (id) => {history.push(`${history.location.pathname}/`+id);};
+    const pushToOverview = (id) => {history.push(`${props.url || history.location.pathname}/`+id);};
     React.useEffect(() => {
         if (responsableDni) {
             axios.get(process.env.REACT_APP_URL_RECURSOS + '/employees/' + responsableDni)
@@ -30,7 +30,10 @@ export default (props) => {
 
     return (
         <Fragment>
-            <Paper elevation={3} className={classes.paper} onClick={() => pushToOverview(props.proyecto.id || props.proyecto.codigo)} square={false} variant={"outlined"}>
+            <Paper elevation={3} className={classes.paper} onClick={() => {
+                (props.setElem && props.setElem(props.proyecto))
+                pushToOverview(props.proyecto.id || props.proyecto.codigo)
+            }} square={false} variant={"outlined"}>
                 <Typography gutterBottom variant="h2" align="left">
                     {props.proyecto.nombre.capitalize()}
                 </Typography>

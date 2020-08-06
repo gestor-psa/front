@@ -21,6 +21,7 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updat
     useEffect(() => {
         axios.get(process.env.REACT_APP_URL_PROYECTOS + url + "/" + id)
             .then(res => {
+                console.log(res.data)
                 setProyecto(res.data);
             })
             .catch(error => {
