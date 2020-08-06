@@ -4,8 +4,8 @@ import SearchSelect from "proyectos/common/SearchSelect";
 
 export default ({onDataChange, proyecto, initv}) => {
     const url = process.env.REACT_APP_URL_PROYECTOS + "/proyectos/" + (proyecto.id||proyecto.codigo);
-    const [fase, setFase] = React.useState(initv.fase);
-    const [ite, setIte] = React.useState(initv.iteracion);
+    const [fase, setFase] = React.useState(initv && initv.fase);
+    const [ite, setIte] = React.useState(initv && initv.iteracion);
 
     return (
         <div>
