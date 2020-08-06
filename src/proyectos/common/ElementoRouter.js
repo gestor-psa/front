@@ -7,7 +7,7 @@ import AnimatedRoute from "components/common/AnimatedRoute";
 import VistaListado from 'proyectos/VistaListado';
 import Proyecto from 'proyectos/Proyecto'
 import AgregarProyecto from 'proyectos/AgregarProyecto';
-import CrearProyecto from 'proyectos/PantallaEdicionElemento';
+import CrearProyecto from 'proyectos/VistaEdicionElemento';
 import VerElemento from 'proyectos/ver/VerElemento';
 import axios from "axios";
 import {useHistory} from "react-router";
@@ -23,18 +23,15 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
 
   const [elementos, setElems] = React.useState();
 
-  const mapProyecto = (proyecto) => (
-    <Proyecto proyecto={proyecto} key={proyecto.id || proyecto.codigo} showEncargado = {isTarea || isProyecto}/>
-  )
+  const filterTareaInIteracion = (x)=> {return !isIteracion || (x.iteracionId && x.iteracionId === elem.id)}
 
-  const updateElems = () => {
-        axios.get(process.env.REACT_APP_URL_PROYECTOS + url)
+  const mapProyecto = (proyecto) => <Proyecto proyecto={proyecto} key={proyecto.id || proyecto.codigo} showEncargado = {isTarea || isProyecto}/>
+  
+
+  const updateElems = (useUrl, f) => {
+        axios.get(process.env.REACT_APP_URL_PROYECTOS + (useUrl || url))
             .then(res => {
-                /*res.data.sort((a, b) =>{ 
-                    var aid = a.id || a.codigo
-                    var bid = b.id || b.codigo
-                    return (aid > bid && a) || b })*/
-                setElems(res.data);
+                setElems(res.data.filter( (elem) => {return (!f || f(elem)) && (!elem.estado || elem.estado !== "cancelado")} ));
             })
             .catch(error => {
               console.log(error.response);
@@ -78,6 +75,17 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
                 </Grid>
             </AnimatedRoute>
 
+            {isIteracion && !isTarea && <AnimatedRoute path={`${path}/:id(\\d+)/tareas-asociadas`}>
+                {<BotonVolver url = {url+"/"+elem.id}/>} 
+                <Layout
+                    titulo = {"Tareas en Iteración"}
+                    ladoIzquierdo = {<AgregarProyecto titulo = {"Crear Tarea"} url = {"/proyectos/"+isIteracion.id+"/tareas/crear"}/>} 
+                    fin ={ <VistaListado elems = {elementos} 
+                          updateElems = {() => updateElems("/proyectos/"+isIteracion.id+"/tareas", filterTareaInIteracion) }  
+                          mapf = {mapProyecto} />
+                    }
+                />
+            </AnimatedRoute>}
         </AnimatedSwitch>
      </ContentWrapper>
   )

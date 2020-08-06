@@ -43,7 +43,7 @@ export default () => {
           </AnimatedRoute>
 
           <AnimatedRoute  path={ `${path}/:id(\\d+)/fases/:id(\\d+)/iteraciones`}>
-                <ElementoRouter elem = {ite} setElem = {setIte} elemType = "Iteracion" suffix = "es"
+                <ElementoRouter elem = {ite} setElem = {setIte} elemType = "Iteración" suffix = "es"
                 url = {"/proyectos/"+GetId(proyecto)+"/fases/"+GetId(fase)+"/iteraciones"} 
                 isIteracion = {proyecto} isFase = {fase}
                 urlReturn = {"/proyectos/"+GetId(proyecto)+"/fases/"+GetId(fase)}

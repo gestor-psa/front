@@ -25,7 +25,7 @@ export default ({mostrar, isFase, isTarea, isIteracion, updateElems, elem}) => {
     const onNotEliminar = () => setOpenEliminar(false);
     const history = useHistory();
     const verFases = (!isTarea && !isFase && !isIteracion);
-    const verTareas = ((!isTarea && !isFase) || isIteracion);
+    const verTareas = (!isTarea && !isFase && !isIteracion);
     const verIteraciones = isFase && !isIteracion;
 
     const onModificar = () => history.push(`${url}/modificacion`)
@@ -51,7 +51,7 @@ export default ({mostrar, isFase, isTarea, isIteracion, updateElems, elem}) => {
 
     const onIteraciones = () => history.push(`${url}/iteraciones`)
 
-    //const onAsignacion = () =>history.push(`${url}/asignar`);
+    const onAsoc = () =>history.push(`${url}/tareas-asociadas`);
 
     return (
         <div className={classes.root}>
@@ -91,6 +91,15 @@ export default ({mostrar, isFase, isTarea, isIteracion, updateElems, elem}) => {
             </ColoredButton>}
             {verTareas && <ColoredButton
                 onClick={onTareas}
+                disabled={!mostrar}
+                variant='outlined'
+                color='warning'
+                className={classes.acciones}
+            >
+                Ver Tareas
+            </ColoredButton>}
+            {isIteracion && !isTarea && <ColoredButton
+                onClick={onAsoc}
                 disabled={!mostrar}
                 variant='outlined'
                 color='warning'

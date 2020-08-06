@@ -4,7 +4,7 @@ import { useParams, useRouteMatch, useHistory } from "react-router";
 import AnimatedSwitch from "proyectos/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 import AccionesProyecto from "proyectos/ver/AccionesVer";
-import EditarElemento from 'proyectos/PantallaEdicionElemento';
+import EditarElemento from 'proyectos/VistaEdicionElemento';
 import axios from "axios";
 import BotonVolver from 'proyectos/common/BotonVolver'
 import Tickets from "proyectos/ver/Tickets"
