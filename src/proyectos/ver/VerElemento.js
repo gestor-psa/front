@@ -44,12 +44,12 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updat
             <AnimatedRoute exact path={path}>
                 <BotonVolver url = {url}/>
                 <Details type = {type} isTarea = {isTarea} esProyecto = {isProyecto} mostrar={Boolean(elemento)} {...elemento}/>
-                {isTarea && <Tickets tickets = {elemento.tickets} mostrar = {Boolean(elemento)}></Tickets>}
                 <AccionesProyecto mostrar = {true} verFases = {isProyecto} elem = {elemento}
                 updateElems = {updateElems}  
                 isTarea = {isTarea} 
                 isIteracion = {isIteracion}
                 isFase = {isFase}/>
+                {isTarea && <Tickets tickets = {elemento.tickets} mostrar = {Boolean(elemento)}></Tickets>}
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
                 <EditarElemento onConfirm = {onConfirm} titulo = "Modificar detalles" 

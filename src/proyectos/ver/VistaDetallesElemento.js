@@ -54,7 +54,7 @@ export default (
                         mostrar={mostrar}
                         valor={descripcion && descripcion.capitalize()}
                     />}
-                    {esProyecto && <EsqueletoTexto
+                    {(esProyecto || isTarea) && <EsqueletoTexto
                         etiqueta='Responsable'
                         mostrar={mostrar}
                         valor={(responsable && responsable.name && (responsable.name+" "+responsable.surname)) || "Sin asignar"}
