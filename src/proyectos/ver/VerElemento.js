@@ -45,7 +45,7 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updat
                 <BotonVolver url = {url}/>
                 <Details type = {type} isTarea = {isTarea} esProyecto = {isProyecto} mostrar={Boolean(elemento)} {...elemento}/>
                 {isTarea && <Tickets tickets = {elemento.tickets} mostrar = {Boolean(elemento)}></Tickets>}
-                <AccionesProyecto mostrar = {true} verFases = {isProyecto}
+                <AccionesProyecto mostrar = {true} verFases = {isProyecto} elem = {elemento}
                 updateElems = {updateElems}  
                 isTarea = {isTarea} 
                 isIteracion = {isIteracion}

@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({mostrar, isFase, isTarea, isIteracion, updateElems}) => {
+export default ({mostrar, isFase, isTarea, isIteracion, updateElems, elem}) => {
     const { id } = useParams();
     const classes = useStyles();
     const {url} = useRouteMatch() || {};
@@ -30,10 +30,12 @@ export default ({mostrar, isFase, isTarea, isIteracion, updateElems}) => {
 
     const onModificar = () => history.push(`${url}/modificacion`)
 
+    const onCargarHora = () => history.push("/recursos/"+elem.responsableDni+"/cargarhora")
+
     const onEliminar = () => {
         axios.delete(process.env.REACT_APP_URL_PROYECTOS + url)
             .then((result) => {
-               // updateElems();
+                updateElems();
                 history.push(url.substring(0, url.length - 1 - (id.toString()).length ));
             })
             .catch(error => {
@@ -105,6 +107,16 @@ export default ({mostrar, isFase, isTarea, isIteracion, updateElems}) => {
             >
                 Modificar
             </Button>
+            {isTarea && elem.responsableDni && elem.responsableDni != 0 && 
+            <Button
+                disabled={!mostrar}
+                color="secondary"
+                variant="contained"
+                className={classes.acciones}
+                onClick={onCargarHora}
+            >
+                Cargar Horas
+            </Button>}
         </div>
     )
 }
