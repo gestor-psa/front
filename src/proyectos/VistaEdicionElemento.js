@@ -53,7 +53,7 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem,
                     errors={errors}
                     register={register}
                     onDataChange={onDataChange}
-                    mostrarEncargado = {isProyecto || isTarea || initv}
+                    mostrarEncargado = {(isProyecto || isTarea) && initv}
                 />}
             ladoDerecho={
                 <Grid >
