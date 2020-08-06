@@ -21,7 +21,12 @@ export default ({onTicketChange}) => {
         axios.post(process.env.REACT_APP_URL_SOPORTE + '/tickets', data)
             .then((result) => {
                 console.log(result);
-                onTicketChange({...result.data, responsable: data.responsable, tareas: []})
+                onTicketChange({
+                    ...result.data,
+                    clienteId: result.data.cliente.id,
+                    responsable: data.responsable,
+                    tareas: []
+                })
                 history.push(`/soporte/tickets/${result.data.id}`)
             })
             .catch(error => {

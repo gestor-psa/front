@@ -2,6 +2,7 @@ import React, {Fragment} from "react";
 import Fecha from "soporte/common/Fecha";
 import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 import EsqueletoMultilinea from "soporte/common/EsqueletoMultilinea";
+import EsqueletoTextoLink from "soporte/common/EsqueletoTextoLink";
 
 
 export default (
@@ -29,15 +30,17 @@ export default (
                 mostrar={mostrar}
                 valor={descripcion}
             />
-            <EsqueletoTexto
+            <EsqueletoTextoLink
                 etiqueta='Responsable'
                 mostrar={mostrar}
                 valor={responsable && `${responsable.name} ${responsable.surname}`}
+                to={responsable && `/recursos/${responsable.dni}`}
             />
-            <EsqueletoTexto
+            <EsqueletoTextoLink
                 etiqueta='Cliente'
                 mostrar={mostrar}
                 valor={cliente && cliente.nombre}
+                to={cliente && `/soporte/clientes/${cliente.id}`}
             />
             <EsqueletoTexto
                 etiqueta='Tipo'

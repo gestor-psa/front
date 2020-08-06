@@ -10,7 +10,7 @@ import axios from "axios";
 
 export default ({ticket, onTicketChange}) => {
     const {register, errors, handleSubmit} = useForm();
-    const [data, setData] = useState({estado: 'no iniciada'});
+    const [data, setData] = useState({estado: 'en progreso'});
     const [esperando, setEsperando] = useState(false);
     const onDataChange = (e) => setData({...data, ...e});
     const history = useHistory();

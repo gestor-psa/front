@@ -51,9 +51,9 @@ const useStyles = makeStyles(theme => ({
 export default ({mostrar}) => {
     const classes = useStyles();
     const comentarios = [
+        "El cliente se comunicó para informar de un problema encontrado en el sistema.",
         "El problema fue resuelto correctamente.",
-        "El cliente se comunicó nuevamente para informar que el problema aún no fue resuelto.",
-        "Se abrió una tarea en el proyecto PSA ERP."
+        "El cliente se comunicó nuevamente para informar que el problema aún no fue resuelto, con lo cual se espera que el equipo de desarrollo lo solucione en los próximos días."
     ];
 
     return (
