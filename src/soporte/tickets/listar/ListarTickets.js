@@ -51,7 +51,7 @@ export default () => {
     const filasVacias = ticketsNoCerrados && filasPorPagina - Math.min(filasPorPagina, ticketsNoCerrados.length - pagina * filasPorPagina);
 
     return (
-        <Loading mostrar={ticketsNoCerrados} esqueleto={<EsqueletoTabla rows={6} columns={isMdUp ? 6 : 3}/>}>
+        <Loading mostrar={ticketsNoCerrados} esqueleto={<EsqueletoTabla rows={filasPorPagina + 2} columns={isMdUp ? 6 : 3}/>}>
             <TableContainer component={Paper}>
                 <Table>
                     <TableHead>

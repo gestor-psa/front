@@ -69,7 +69,10 @@ export default ({onDataChange, control, errors, defaultValue = '', className = '
             render={({onChange, value}) => {
 
                 const onCuitChange = e => {
-                    const cuit = e.target.value.slice(0, 11)
+                    const cuit = e.target.value
+                        .slice(0, 11)
+                        .replace(/[^0-9]/g, '');
+                    console.log('cuit', cuit)
                     onDataChange({cuit})
                     onChange(cuit)
                 }
@@ -81,7 +84,6 @@ export default ({onDataChange, control, errors, defaultValue = '', className = '
                         label='CUIT'
                         className={`${classes.cuit} ${className}`}
                         required
-                        type="number"
                         error={Boolean(errors.cuit)}
                         helperText={errors.cuit && cuitErrors[errors.cuit.type]}
                     />)
