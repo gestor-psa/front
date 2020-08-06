@@ -21,7 +21,7 @@ export default ({onDataChange, elemento, proyecto}) => {
 
     const getIte = () => {
         if (elemento.iteracionId && elemento.faseId) {
-            axios.get(url+"/fases/"+(fase.id || fase.codigo)+"/iteraciones/"+elemento.iteracionId)
+            axios.get(url+"/fases/"+(elemento.faseId)+"/iteraciones/"+elemento.iteracionId)
                 .then(res => {
                     setIte(res.data);
                 })
@@ -39,9 +39,9 @@ export default ({onDataChange, elemento, proyecto}) => {
                 autocompleteProps={{
                     getOptionLabel:elem => (elem.nombre && elem.nombre.capitalize()),
                     onChange: (e, v) => {
-                        onDataChange({faseId: (v && (v.id || v.codigo)) || false})
+                        onDataChange({faseId: (v && (v.id || v.codigo)) || false, iteracionId: false})
                         setFase(v);
-                        if (!fase) onDataChange({iteracionId: false});
+                        setIte(false);
                     }
                 }}
                 textFieldProps={{label: 'Fase Asignada'}}
@@ -52,7 +52,8 @@ export default ({onDataChange, elemento, proyecto}) => {
                 autocompleteProps={{
                     getOptionLabel: elem => (elem.nombre && elem.nombre.capitalize()),
                     onChange: (e, v) => {
-                        onDataChange({iteracionId: (v && (v.id || v.codigo)) || false})
+                        onDataChange({iteracionId: (v && (v.id || v.codigo)) || false});
+                        setIte(v);
                     }
                 }}
                 textFieldProps={{label: 'Iteracion Asignada'}}

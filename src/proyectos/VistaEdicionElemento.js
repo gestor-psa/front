@@ -16,7 +16,10 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
     const [elemento, setElem] = useState(elem || {});
     const [data, setData] = useState(elemento);
     const [esperando, setEsperando] = useState(false);
-    const onDataChange = (e) => setData({...data, ...e});
+    const onDataChange = (e) => {console.log({...data, ...e}); 
+    console.log(data, e); 
+    setData({...data, ...e}); 
+    console.log(data, e);};
     
     
 
@@ -46,7 +49,6 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
         console.log(data);
         onConfirm(data);
      }
-     console.log(errors, register)
     return (
         <Layout
             titulo={titulo}
