@@ -8,7 +8,7 @@ export default (
     {
         esProyecto, faseId, iteracionId, isTarea, type,
         mostrar, nombre, descripcion, initValuesSetter,
-        responsableDni, estado, fechaInicio, fechaFin
+        responsableDni, estado, fechaInicio, fechaFin, prioridad
     }) => {
     const [responsable, setResponsable] = React.useState(false);
     const [fase, setFase] = React.useState(false);
@@ -101,6 +101,11 @@ export default (
                         etiqueta='Duración'
                         mostrar={mostrar}
                         valor= {getDays(fechaInicio, fechaFin) + " dias"}
+                    />}
+                     {isTarea && <EsqueletoTexto
+                        etiqueta='Prioridad'
+                        mostrar={mostrar}
+                        valor= {(prioridad && prioridad.capitalize()) || "Baja"}
                     />}
                 </Fragment>
                 }
