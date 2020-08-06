@@ -57,6 +57,9 @@ export default () => {
                     <div className={classes.separator}/>
                     <Hidden smDown>
                         <DesktopTabs/>
+                        <Button onClick={() => {history.push('/recursos/'+45487954) }}>
+                            <AccountCircleIcon  style={{ fontSize: 40, color:'white'}}/>
+                        </Button>
                     </Hidden>
                     <Hidden mdUp>
                         <div className={classes.title}>
@@ -70,9 +73,6 @@ export default () => {
                         </IconButton>
                     </Hidden>
                     <div/>
-                    <Button onClick={() => {history.push('/recursos/'+45487954) }}>
-                        <AccountCircleIcon  style={{ fontSize: 40, color:'white'}}/>
-                    </Button>
                 </Container>
             </AppBar>
             <Drawer
