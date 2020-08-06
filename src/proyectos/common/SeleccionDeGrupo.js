@@ -31,7 +31,6 @@ export default ({opciones, seleccionPorDefecto, onChange = () => null, titulo, e
             {opciones.map(({etiqueta, valor}) => (
                     <MenuItem
                         value={valor}
-                        error={Boolean(errors.nombre)}
                         variant={seleccionado === valor ? 'contained' : 'outlined'}
                         onClick={() => {
                             setSeleccionado(valor)
