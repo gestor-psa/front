@@ -16,7 +16,7 @@ export default ({opciones = null, defaultValue, url = '', autocompleteProps = {}
         if (!opciones && loading) {
             axios.get(url)
                 .then(res => {
-                    setOptions(res.data);
+                    setOptions(res.data.filter(x => !x.estado || x.estado !== "cancelado"));
                 })
         }
     }, [url, loading, opciones]);

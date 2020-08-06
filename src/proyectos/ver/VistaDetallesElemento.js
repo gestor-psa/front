@@ -7,32 +7,41 @@ import Layout from "proyectos/common/Layout";
 export default (
     {
         esProyecto, faseId, iteracionId, isTarea, type,
-        mostrar, nombre, descripcion, responsableDni, estado, fechaInicio, fechaFin
+        mostrar, nombre, descripcion, initValuesSetter,
+        responsableDni, estado, fechaInicio, fechaFin
     }) => {
     const [responsable, setResponsable] = React.useState(false);
-    const def = {nombre : "Sin asignar"};
-    const [fase, setFase] = React.useState(def);
-    const [ite, setIte] = React.useState(def);
+    const [fase, setFase] = React.useState(false);
+    const [ite, setIte] = React.useState(false);
     
     React.useEffect(() => {
         if (responsableDni) {
             axios.get(process.env.REACT_APP_URL_RECURSOS + '/employees/' + responsableDni)
-                .then(res =>{ setResponsable(res.data);})
+                .then(res =>{ 
+                    setResponsable(res.data);
+                    //{initValuesSetter && initValuesSetter.responsable(res.data)}
+                })
         } else {
             setResponsable(false)
         }
 
         if (isTarea && faseId && iteracionId){
             axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/' + isTarea.id + "/fases/" + faseId)
-            .then(res =>{ setFase(res.data);});
+            .then(res =>{ 
+                setFase(res.data);
+                //{initValuesSetter && initValuesSetter.fase(res.data)}
+            });
             axios.get(process.env.REACT_APP_URL_PROYECTOS + '/proyectos/' + isTarea.id + "/fases/" + faseId + "/iteraciones/"+iteracionId)
-            .then(res =>{ setIte(res.data);});
+            .then(res =>{ 
+                setIte(res.data);
+               //{initValuesSetter && initValuesSetter.iteracion(res.data)}
+            });
         }else {
             setFase({nombre : "Sin asignar"});
             setIte({nombre : "Sin asignar"});
         }
-
-    }, [responsableDni, faseId, iteracionId, isTarea]);
+        
+    }, [responsableDni, faseId, iteracionId, isTarea, initValuesSetter]);
 
     const getDays = (fi, ff) => {
         const date1 = new Date(fi);
@@ -67,12 +76,12 @@ export default (
                      {isTarea && <EsqueletoTexto
                         etiqueta='Fase'
                         mostrar={mostrar}
-                        valor={fase.nombre.capitalize()}
+                        valor={(fase && fase.nombre.capitalize()) || "Sin asignar"}
                     />}
                     {isTarea && <EsqueletoTexto
                         etiqueta='Iteración'
                         mostrar={mostrar}
-                        valor={ite.nombre.capitalize()}
+                        valor={(ite && ite.nombre.capitalize()) || "Sin asignar"}
                     />}
                 </Fragment> 
                 }
@@ -81,12 +90,12 @@ export default (
                 <EsqueletoTexto
                     etiqueta='Fecha de inicio'
                     mostrar={mostrar}
-                    valor={fechaInicio}
+                    valor={fechaInicio || "Sin Fecha"}
                     />}
                     { <EsqueletoTexto
                         etiqueta='Fecha de finalización'
                         mostrar={mostrar}
-                        valor={fechaFin}
+                        valor={fechaFin || "Sin fecha"}
                     />}
                     {duracion && <EsqueletoTexto
                         etiqueta='Duración'

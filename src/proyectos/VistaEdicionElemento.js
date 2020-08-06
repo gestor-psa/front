@@ -11,20 +11,15 @@ import axios from "axios";
 import EsqueletoTexto from "soporte/common/EsqueletoTexto";
 
 
-export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}) => {
+export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem, initv}) => {
     const {register, errors, handleSubmit} = useForm();
     const [elemento, setElem] = useState(elem || {});
     const [data, setData] = useState(elemento);
     const [esperando, setEsperando] = useState(false);
-    const onDataChange = (e) => {console.log({...data, ...e}); 
-    console.log(data, e); 
-    setData({...data, ...e}); 
-    console.log(data, e);};
-    
-    
+    const onDataChange = (e) => {setData({...data, ...e}); };
 
     useEffect(() => {
-        if (url) {
+        if (url && !url.match("undefined")) {
         axios.get(process.env.REACT_APP_URL_PROYECTOS + url)
             .then(res => {
                 setElem(res.data);
@@ -58,7 +53,7 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
                     errors={errors}
                     register={register}
                     onDataChange={onDataChange}
-                    mostrarEncargado = {isProyecto || isTarea}
+                    mostrarEncargado = {isProyecto || isTarea || initv}
                 />}
             ladoDerecho={
                 <Grid >
@@ -101,6 +96,7 @@ export default ({titulo, onConfirm = () => null, url, isTarea, isProyecto, elem}
                             elemento = {data}
                             proyecto = {isTarea}
                             onDataChange={onDataChange}
+                            initv = {initv}
                         />
                     }
                 </Grid>}

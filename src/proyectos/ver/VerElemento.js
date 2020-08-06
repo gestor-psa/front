@@ -14,6 +14,9 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updat
     const { path } = useRouteMatch() || {};
     const history = useHistory();
     const isProyecto = !(isFase || isIteracion || isTarea);
+    const [responsable, setResponsable] = React.useState();
+    const [iteracion, setIteracion] = React.useState();
+    const [fase, setFase] = React.useState();
 
     useEffect(() => {
         axios.get(process.env.REACT_APP_URL_PROYECTOS + url + "/" + id)
@@ -43,7 +46,8 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updat
         <AnimatedSwitch>
             <AnimatedRoute exact path={path}>
                 <BotonVolver url = {url}/>
-                <Details type = {type} isTarea = {isTarea} esProyecto = {isProyecto} mostrar={Boolean(elemento)} {...elemento}/>
+                <Details type = {type} isTarea = {isTarea} initValuesSetter = {{fase : setFase, iteracion : setIteracion, responsable : setResponsable}} 
+                esProyecto = {isProyecto} mostrar={Boolean(elemento)} {...elemento}/>
                 <AccionesProyecto mostrar = {true} verFases = {isProyecto} elem = {elemento}
                 updateElems = {updateElems}  
                 isTarea = {isTarea} 
@@ -53,6 +57,7 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updat
             </AnimatedRoute>
             <AnimatedRoute exact path={`${path}/modificacion`}>
                 <EditarElemento onConfirm = {onConfirm} titulo = "Modificar detalles" 
+                    initv = {{fase : fase, iteracion : iteracion, responsable : responsable}}
                     url = {url + "/" + id} 
                     isProyecto = {isProyecto}
                     isTarea = {isTarea} 

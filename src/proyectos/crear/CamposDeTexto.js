@@ -2,7 +2,6 @@ import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import SearchSelect from "proyectos/common/SearchSelect";
-import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
     campo: {
@@ -14,20 +13,6 @@ const useStyles = makeStyles(theme => ({
 export default ({onDataChange, register, errors, mostrarEncargado, proyecto = {}}) => {
     const classes = useStyles();
     const url = process.env.REACT_APP_URL_RECURSOS + '/employees';
-    const [resp, setResp] = React.useState({});
-
-    const getResp = () => {
-        if (mostrarEncargado && proyecto.responsableDni) {
-            axios.get(url)
-                .then(res => {
-                    var filterdni = res.data.filter(x => x.dni === proyecto.responsableDni);
-                    filterdni.length > 0 && setResp(filterdni[0]);
-                })
-            return resp;
-        }
-        return {name: "Sin", surname: "Asignar"};
-    };
-    const responsable = getResp();
 
     return (
         <div>
@@ -62,7 +47,7 @@ export default ({onDataChange, register, errors, mostrarEncargado, proyecto = {}
             />
             {mostrarEncargado && <SearchSelect
                 url={url}
-                defaultValue={responsable}
+                defaultValue={mostrarEncargado.encargado}
                 autocompleteProps={{
                     getOptionLabel: empleado => (empleado.name+' ' + empleado.surname),
                     onChange: (e, v) => onDataChange({responsableDni: v.dni})
