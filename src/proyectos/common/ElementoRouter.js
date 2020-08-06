@@ -1,7 +1,7 @@
 import React, {  } from 'react';
 import ContentWrapper from "components/common/ContentWrapper";
 import { useRouteMatch } from "react-router";
-import AnimatedSwitch from "components/common/AnimatedSwitch";
+import AnimatedSwitch from "proyectos/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 
 import VistaListado from 'proyectos/VistaListado';

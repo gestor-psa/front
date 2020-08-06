@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Details from "proyectos/ver/VistaDetallesElemento";
 import { useParams, useRouteMatch, useHistory } from "react-router";
-import AnimatedSwitch from "components/common/AnimatedSwitch";
+import AnimatedSwitch from "proyectos/common/AnimatedSwitch";
 import AnimatedRoute from "components/common/AnimatedRoute";
 import AccionesProyecto from "proyectos/ver/AccionesVer";
 import EditarElemento from 'proyectos/PantallaEdicionElemento';
