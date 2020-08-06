@@ -143,7 +143,7 @@ export default () => {
                                         customInput={
                                             <TextField 
                                                 className={classes.campo}
-                                                label='Fecha de nacimiento'
+                                                label='Fecha nacimiento'
                                                 onChange={(e) => setDate_birth(e.target.value)}
                                                 // required
                                                 // name='date_birth'
@@ -179,7 +179,7 @@ export default () => {
                                         customInput={
                                             <TextField 
                                                 className={classes.campo} 
-                                                label='Fecha de contratación'
+                                                label='Fecha contratación'
                                                 onChange={(e) => setDate_hire(e.target.value)}
                                                 // required
                                                 // name='date_hire'

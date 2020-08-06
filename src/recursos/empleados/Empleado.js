@@ -207,25 +207,25 @@ export default () => {
                                 :
                                 <Fragment>
                                     <Typography>
-                                        DNI: {empleado.dni}
+                                        <b>DNI:</b> {empleado.dni}
                                     </Typography>
                                     <Typography>
-                                        Fecha de nacimiento: {parseFecha(empleado.date_birth.toString())}
+                                        <b>Fecha de nacimiento:</b> {parseFecha(empleado.date_birth.toString())}
                                     </Typography>
                                     <Typography>
-                                        Legajo: {empleado.organization_id}
+                                        <b>Legajo:</b> {empleado.organization_id}
                                     </Typography>
                                     <Typography>
-                                        Fecha de contratación: {parseFecha(empleado.date_hire.toString())}
+                                        <b>Fecha de contratación:</b> {parseFecha(empleado.date_hire.toString())}
                                     </Typography>
                                     <Typography>
-                                        Antigüedad : {Math.floor(((new Date().getFullYear() - Math.floor(empleado.date_hire/10000))*12 + ((new Date().getMonth() +1) - Math.floor((empleado.date_hire%10000)/100)))/12)} años {Math.floor(((new Date().getFullYear() - Math.floor(empleado.date_hire/10000))*12 + ((new Date().getMonth() +1) - Math.floor((empleado.date_hire%10000)/100)))%12)} meses
+                                        <b>Antigüedad:</b> {Math.floor(((new Date().getFullYear() - Math.floor(empleado.date_hire/10000))*12 + ((new Date().getMonth() +1) - Math.floor((empleado.date_hire%10000)/100)))/12)} años {Math.floor(((new Date().getFullYear() - Math.floor(empleado.date_hire/10000))*12 + ((new Date().getMonth() +1) - Math.floor((empleado.date_hire%10000)/100)))%12)} meses
                                     </Typography>
                                     <Typography>
-                                        Contrato: {empleado.contract ==='F'? "Full time":"Part time"}
+                                        <b>Contrato:</b> {empleado.contract ==='F'? "Full time":"Part time"}
                                     </Typography>
                                     <Typography>
-                                        Puesto: {empleado.pos}
+                                        <b>Puesto:</b> {empleado.pos}
                                     </Typography>
                                 </Fragment>}
                             </Grid>

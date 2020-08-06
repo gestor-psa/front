@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -17,9 +17,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Skeleton from '@material-ui/lab/Skeleton';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import Modal from "@material-ui/core/Modal";
+import WarningIcon from '@material-ui/icons/Warning';
+import Button from "@material-ui/core/Button";
 
 
-const useStyles = makeStyles({
+
+const useStyles = makeStyles(theme => ({
     root: {
         position: 'relative'
     },
@@ -27,8 +32,30 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: "flex-end",
         marginTop: "50px"
-    }
-});
+    },
+    paper: {
+        position: 'absolute',
+        width: 400,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+      }
+}));
+
+function rand() {
+    return Math.round(Math.random() * 20) - 10;
+}
+function getModalStyle() {
+    const top = 50 + rand();
+    const left = 50 + rand();
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
 
 const parseFecha = (fecha) => {
     return fecha.slice(6,8) + "/" + fecha.slice(4,6) + "/" + fecha.slice(0,4);
@@ -38,8 +65,61 @@ export default () => {
     const [horas, setHoras] = useState();
     const [horasFiltradas, setHorasFiltradas] = useState();
     const { id } = useParams();
-    const classes = useStyles({ horas });
+    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const [idHoraAEliminar, setIdHoraAEliminar] = React.useState();
+    const [modalStyle] = React.useState(getModalStyle);
 
+    const handleOpen = (id) => {
+        setOpen(true);
+        setIdHoraAEliminar(id);
+        console.log(id);
+        console.log(idHoraAEliminar);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const body = (
+        <div style={modalStyle} className={classes.paper}>
+        <Grid container spacing={1} alignItems="center" justify="center" >
+            <Grid item container xs={12} justify="center">
+                <h2 id="simple-modal-title">Usted está por eliminar una hora cargada</h2>
+            </Grid>
+            <Grid item>
+                <WarningIcon style={{ color: 'red', fontSize: 50}}/>
+            </Grid>
+            <Grid item>
+                <h3 id="simple-modal-description">Esta acción no puede ser deshecha</h3>
+            </Grid>
+            <Grid item container xs={12} justify="center">
+                <h3 id="simple-modal-description">¿Desea eliminarla?</h3>
+            </Grid>
+        </Grid>
+          <Modal />
+          <Button  style={{marginLeft:"20px", color:"red"}} onClick={ () => {onEliminar()}} color='inherit' variant='outlined'>
+                    Eliminar
+            </Button>
+            <Button  style={{marginLeft:"80px"}}onClick={handleClose} color='secondary' variant='outlined'>
+                    Cancelar
+            </Button>
+        </div>
+    );
+
+    
+    const onEliminar = () => {
+        console.log(idHoraAEliminar);
+        axios.delete(process.env.REACT_APP_URL_RECURSOS + '/hours/' + idHoraAEliminar)
+            .then(res => {
+                handleClose();
+                setIdHoraAEliminar(null);
+                window.location.reload();
+                }).catch(error => {
+                // TODO.
+        });    
+        console.log(idHoraAEliminar);
+    } 
 
     const handleChange = (event) => {
         let categoria = event.target.value;
@@ -87,15 +167,10 @@ export default () => {
                             horass[i].projectName = args[i+1].data.nombre;
                         }
                         setHoras(res.data.reverse());
-                        setHorasFiltradas(res.data.reverse());
+                        setHorasFiltradas(res.data);
                     }))
                     .then(/* use the data */);
-               
-                
-                
-                
                 console.log(res)
-
             })
             .catch(error => {
                 // TODO.
@@ -158,6 +233,7 @@ export default () => {
                             <TableCell>Tarea #</TableCell>
                             <TableCell>Nombre de tarea</TableCell>
                             <TableCell>Horas</TableCell>
+                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -170,11 +246,24 @@ export default () => {
                                 <TableCell>{hora.category === 'proyecto' ? hora.taskId : '---'}</TableCell>
                                 <TableCell>{hora.category === 'proyecto' ? hora.taskName : '---'}</TableCell>
                                 <TableCell>{hora.hours}</TableCell>
+                                <TableCell>
+                                    <DeleteForeverIcon style={{color:'red', cursor:"pointer"}} onClick={()=>handleOpen(hora.id)}/>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
+            <div className={classes.nuevoEmpleado}>
+                <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+                >
+                {idHoraAEliminar && body}
+                </Modal>
+            </div>
             </Fragment>
             }
         </Fragment>
