@@ -1,27 +1,27 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import Paper from "@material-ui/core/Paper";
 import moment from "moment";
 import 'moment/locale/es';
-import {useTheme} from "@material-ui/core";
+import {useMediaQuery, useTheme, withWidth} from "@material-ui/core";
 import Loading from "soporte/common/Loading";
 import Skeleton from "@material-ui/lab/Skeleton";
 import {Line} from 'react-chartjs-2';
 
-
-export default () => {
+export default withWidth()(({width}) => {
     const [tickets, setTickets] = useState();
     const theme = useTheme()
+    const isXs = useMediaQuery(theme => theme.breakpoints.down('xs'));
     const height = 330
 
-    const formatData = (data) =>
-        data.map(([fecha, [cantidadAbiertos, cantidadCerrados]]) => ({
-            dia: moment(fecha, "YYYY-MM-DD"),
-            abiertos: cantidadAbiertos,
-            cerrados: cantidadCerrados
-        }))
-
     useEffect(() => {
+        const slices = {xs: 20, sm: 15, md: 0, lg: 0}
+        const formatData = (data) =>
+            data.map(([fecha, [cantidadAbiertos, cantidadCerrados]]) => ({
+                dia: moment(fecha, "YYYY-MM-DD"),
+                abiertos: cantidadAbiertos,
+                cerrados: cantidadCerrados
+            })).slice(slices[width])
+
         let timer
         axios.get(process.env.REACT_APP_URL_SOPORTE + '/reportes/ticketsAbiertosYCerradosPorDia')
             .then(res => {
@@ -29,18 +29,26 @@ export default () => {
                 timer = setTimeout(() => setTickets(tickets => [...tickets]), 500)
             })
         return () => clearTimeout(timer)
-    }, []);
+    }, [width]);
 
     return (
         <Loading mostrar={tickets} esqueleto={<Skeleton variant="rect" height={height}/>}>
-            {tickets && <Paper>
+            {tickets &&
                 <Line
                     height={height}
                     options={{
+                        layout: {
+                            padding: {
+                                left: 0,
+                                right: 8,
+                                top: 0,
+                                bottom: 0
+                            }
+                        },
                         title: {
                             display: true,
                             text: 'Tickets abiertos y cerrados',
-                            fontSize: 24,
+                            fontSize: isXs ? 18 : 24,
                             fontColor: theme.palette.grey[800],
                             padding: 20
                         },
@@ -116,8 +124,7 @@ export default () => {
                             }
                         ]
                     }}
-                />
-            </Paper>}
+                />}
         </Loading>
     )
-}
+})

@@ -6,6 +6,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import TicketsPendientes from "soporte/dashboard/TicketsPendientes";
 import TicketsAbiertosYCerrados from "soporte/dashboard/TicketsAbiertosYCerrados";
 import MuiLink from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import ArrowForwardIosRoundedIcon from '@material-ui/icons/ArrowForwardIosRounded';
 
 
 const useStyles = makeStyles(theme => ({
@@ -15,14 +17,23 @@ const useStyles = makeStyles(theme => ({
             padding: theme.spacing(2),
         }
     },
-    linkTicket: {
+    linksWrapper: {
         marginBottom: theme.spacing(2)
     },
-    linkCliente: {
-        marginTop: theme.spacing(4)
+    link: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    reporte: {
+        padding: theme.spacing(2)
     },
     ticketsPendientes: {
         marginTop: theme.spacing(2)
+    },
+    icon: {
+        fontSize: '1.85rem',
+        marginLeft: theme.spacing(0.5)
     }
 }));
 
@@ -31,31 +42,45 @@ export default () => {
     const {url} = useRouteMatch() || {};
 
     return (
-        <Paper className={classes.paper}>
-            <div className={classes.linkTicket}>
-                <MuiLink
-                    variant='h4'
-                    color='secondary'
-                    component={RouterLink}
-                    to={`${url}/tickets`}
-                >
-                    Tickets
-                </MuiLink>
-            </div>
-            <TicketsAbiertosYCerrados/>
+        <div className={classes.paper}>
+            <Grid container className={classes.linksWrapper}>
+                <Grid item xs={12} sm={6} className={classes.link}>
+                    <MuiLink
+                        variant='h4'
+                        color='secondary'
+                        component={RouterLink}
+                        to={`${url}/tickets`}
+                    >
+                        Tickets
+                    </MuiLink>
+                    <ArrowForwardIosRoundedIcon
+                        className={classes.icon}
+                        color="secondary"
+                    />
+                </Grid>
+                <Grid item xs={12} sm={6} className={classes.link}>
+                    <MuiLink
+                        variant='h4'
+                        color='secondary'
+                        component={RouterLink}
+                        to={`${url}/clientes`}
+                    >
+                        Clientes
+                    </MuiLink>
+                    <ArrowForwardIosRoundedIcon
+                        className={classes.icon}
+                        color="secondary"
+                    />
+                </Grid>
+            </Grid>
+            <Paper className={classes.reporte}>
+                <TicketsAbiertosYCerrados/>
+            </Paper>
             <div className={classes.ticketsPendientes}>
-                <TicketsPendientes/>
+                <Paper className={classes.reporte}>
+                    <TicketsPendientes/>
+                </Paper>
             </div>
-            <div className={classes.linkCliente}>
-                <MuiLink
-                    variant='h4'
-                    color='secondary'
-                    component={RouterLink}
-                    to={`${url}/clientes`}
-                >
-                    Clientes
-                </MuiLink>
-            </div>
-        </Paper>
+        </div>
     )
 }
