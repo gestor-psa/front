@@ -247,7 +247,10 @@ export default () => {
                                 <TableCell>{hora.category === 'proyecto' ? hora.taskName : '---'}</TableCell>
                                 <TableCell>{hora.hours}</TableCell>
                                 <TableCell>
-                                    <DeleteForeverIcon style={{color:'red', cursor:"pointer"}} onClick={()=>handleOpen(hora.id)}/>
+                                <DeleteForeverIcon 
+                                style={{color:(Math.round((hora.date % 10000) / 100) === (new Date().getMonth()+1))?'red':'grey',
+                                cursor:(Math.round((hora.date % 10000) / 100) === (new Date().getMonth()+1))?'pointer':'default'}} 
+                                onClick={(Math.round((hora.date % 10000) / 100) === (new Date().getMonth()+1))?()=>handleOpen(hora.id) : null}/>
                                 </TableCell>
                             </TableRow>
                         ))}
