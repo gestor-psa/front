@@ -43,10 +43,6 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
             })
     }
 
-  const updateTareas = () =>{
-    
-  }
-
   const update = () => {
     if (isIteracion && isIteracion.id && !isTarea){
       updateElems("/proyectos/"+isIteracion.id+"/tareas", filterTareaInIteracion, setTareas)
