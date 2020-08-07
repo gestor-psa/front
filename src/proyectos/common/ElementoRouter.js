@@ -22,6 +22,7 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
   const titulo = prefix+" "+elemType
 
   const [elementos, setElems] = React.useState();
+  const [tareas, setTareas] = React.useState();
 
   const filterTareaInIteracion = (x)=> {
     return !isIteracion || (x.iteracionId && x.iteracionId === elem.id)
@@ -31,15 +32,27 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
   const mapTareas = (proyecto) => <Proyecto url = {"/proyectos/"+isIteracion.id+"/tareas"} 
   proyecto={proyecto} key={proyecto.id || proyecto.codigo} showEncargado = {isTarea || isProyecto}/>
 
-  const updateElems = (useUrl, f,) => {
+  const updateElems = (useUrl, f, set) => {
+        set = set || setElems
         axios.get(process.env.REACT_APP_URL_PROYECTOS + (useUrl || url))
             .then(res => {
-                setElems(res.data.filter( (e) => {return (!f || f(e)) && (!e.estado || e.estado !== "cancelado")} ));
+                set(res.data.filter( (e) => {return (!f || f(e)) && (!e.estado || e.estado !== "cancelado")} ));
             })
             .catch(error => {
               console.log(error.response);
             })
     }
+
+  const updateTareas = () =>{
+    
+  }
+
+  const update = () => {
+    if (isIteracion && isIteracion.id && !isTarea){
+      updateElems("/proyectos/"+isIteracion.id+"/tareas", filterTareaInIteracion, setTareas)
+    }
+    updateElems();
+  }
 
   const onConfirm = (data) => {
     axios.post(process.env.REACT_APP_URL_PROYECTOS + url, data)
@@ -64,7 +77,7 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
                 <Layout
                     titulo = {elemType+suffix}
                     ladoIzquierdo = {ap} 
-                    fin ={ <VistaListado elems = {elementos} updateElems = {updateElems}  mapf = {mapProyecto} />}
+                    fin ={ <VistaListado elems = {elementos} updateElems = {update}  mapf = {mapProyecto} />}
                 />
             </AnimatedRoute>
 
@@ -74,7 +87,7 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
             
             <AnimatedRoute path={`${path}/:id(\\d+)`}>
                 <Grid>
-                <VerElemento type = {elemType} elemento = {elem} setProyecto = {setElem} url = {url} updateElems = {updateElems} 
+                <VerElemento type = {elemType} elemento = {elem} setProyecto = {setElem} url = {url} updateElems = {update} 
                 isFase = {isFase} isTarea = {isTarea} isIteracion = {isIteracion} />
                 </Grid>
             </AnimatedRoute>
@@ -84,8 +97,8 @@ export default ({url, elemType, prefix = "Nueva", suffix = "s", elem, setElem, i
                   <Layout
                       titulo = {"Tareas en Iteración"}
                       ladoIzquierdo = {<AgregarProyecto titulo = {"Crear Tarea"} url = {"/proyectos/"+isIteracion.id+"/tareas/crear"}/>} 
-                      fin ={ <VistaListado elems = {elementos} 
-                            updateElems = {() => updateElems("/proyectos/"+isIteracion.id+"/tareas", filterTareaInIteracion) }  
+                      fin ={ <VistaListado elems = {tareas} 
+                            updateElems = {() =>  updateElems("/proyectos/"+isIteracion.id+"/tareas", filterTareaInIteracion, setTareas) }  
                             mapf = {mapTareas} />
                       }
                 />

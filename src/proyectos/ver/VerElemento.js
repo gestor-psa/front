@@ -51,7 +51,7 @@ export default ({setProyecto, elemento, url, isFase, isIteracion, isTarea, updat
                 <Details type = {type} isTarea = {isTarea} initValuesSetter = {{fase : setFase, iteracion : setIteracion, responsable : setResponsable}} 
                 esProyecto = {isProyecto} mostrar={Boolean(elemento)} {...elemento}/>
                 <AccionesProyecto mostrar = {true} verFases = {isProyecto} elem = {elemento}
-                updateElems = {updateElems}  
+                updateElems = {updateElems} 
                 isTarea = {isTarea} 
                 isIteracion = {isIteracion}
                 isFase = {isFase}/>

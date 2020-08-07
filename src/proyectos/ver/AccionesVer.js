@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default ({mostrar, isFase, isTarea, isIteracion, updateElems, elem}) => {
+export default ({mostrar, isFase, isTarea, isIteracion, updateElems, elem, updateTareas}) => {
     const { id } = useParams();
     const classes = useStyles();
     const {url} = useRouteMatch() || {};
@@ -51,7 +51,9 @@ export default ({mostrar, isFase, isTarea, isIteracion, updateElems, elem}) => {
 
     const onIteraciones = () => history.push(`${url}/iteraciones`)
 
-    const onAsoc = () =>history.push(`${url}/tareas-asociadas`);
+    const onAsoc = () => {
+        history.push(`${url}/tareas-asociadas`)
+    };
 
     return (
         <div className={classes.root}>
